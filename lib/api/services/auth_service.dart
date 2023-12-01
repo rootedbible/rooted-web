@@ -6,7 +6,7 @@ import '../api.dart';
 import '../responses/user_response.dart';
 
 class AuthService {
-  final Dio dio = RootedApi().dio;
+  final Dio dio = Api().dio;
 
   final String route = 'auth';
 
@@ -21,7 +21,7 @@ class AuthService {
         'username': username,
         'password': password,
       });
-      final options = Options(headers: {'app-key': await RootedApi().getAuthCode()});
+      final options = Options(headers: {'app-key': await Api().getAuthCode()});
 
       final response = await dio.post(url, data: formData, options: options);
       return UserResponse.fromJson(response.data);
@@ -55,7 +55,7 @@ class AuthService {
   Future<Response> sendReset(String input) async {
     try {
       final url = '$baseUrl/$route/forgot-password';
-      final options = Options(headers: {'app-key': await RootedApi().getAuthCode()});
+      final options = Options(headers: {'app-key': await Api().getAuthCode()});
       Map<String, dynamic> data = {};
       if (EmailValidator.validate(input)) {
         data['email'] = input;
@@ -77,7 +77,7 @@ class AuthService {
     try {
       final url = '$baseUrl/$route/reset-password';
       final Map<String, dynamic> data = {'pin': pin, 'new_password': password};
-      final options = Options(headers: {'app-key': await RootedApi().getAuthCode()});
+      final options = Options(headers: {'app-key': await Api().getAuthCode()});
 
       final response = await dio.put(
         url,

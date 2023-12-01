@@ -5,13 +5,13 @@ import 'package:rooted_web/api/services/auth_service.dart';
 
 import '../const.dart';
 
-class RootedApi {
-  static final RootedApi _instance = RootedApi._internal();
+class Api {
+  static final Api _instance = Api._internal();
   static const String url = baseUrl;
   static const FlutterSecureStorage storage = FlutterSecureStorage();
   Dio dio;
 
-  RootedApi._internal()
+  Api._internal()
       : dio = Dio(
           BaseOptions(
             connectTimeout: const Duration(minutes: 1),
@@ -19,7 +19,7 @@ class RootedApi {
           ),
         );
 
-  factory RootedApi() {
+  factory Api() {
     return _instance;
   }
 

@@ -9,7 +9,7 @@ import '../../models/user_model.dart';
 import '../responses/users_response.dart';
 
 class UsersService {
-  final Dio dio = RootedApi().dio;
+  final Dio dio = Api().dio;
   final String route = 'users';
 
   Future<User> getMe() async {
@@ -50,7 +50,8 @@ class UsersService {
   }
 
   Future<Response> registerUser(Map<String, dynamic> userData) async {
-    final Options options = Options(headers: {'app-key': await RootedApi().getAuthCode()});
+    final Options options =
+        Options(headers: {'app-key': await Api().getAuthCode()});
     final url = '$baseUrl/$route/register';
     final response = await dio.post(url, data: userData, options: options);
     return response;
@@ -161,6 +162,4 @@ class UsersService {
       rethrow;
     }
   }
-
-
 }
