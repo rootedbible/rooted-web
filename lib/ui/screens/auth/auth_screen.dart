@@ -6,6 +6,7 @@ import 'package:rooted_web/ui/widgets/snackbar.dart';
 
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../const.dart';
+import '../home_view.dart';
 import 'forgot_password_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -40,6 +41,12 @@ class _AuthScreenState extends State<AuthScreen> {
           snackbar(
             context,
             'Account Created! Log in with your new credentials...',
+          );
+        } else if (state is Authenticated) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeView()),
           );
         }
       },
