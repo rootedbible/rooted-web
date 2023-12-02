@@ -12,18 +12,30 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  # State Management
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
   meta: ^1.10.0
+
+  # UI
+  cupertino_icons: ^1.0.2
+
+  # IO
+  email_validator: ^2.1.17
+
+  # Network
+  dio: ^5.4.0
+  http_parser: ^4.0.2
   universal_html: ^2.2.4
+
+  # Stripe
   flutter_stripe: ^9.6.0
   flutter_stripe_web: ^4.6.0
-  dio: ^5.4.0
-  flutter_secure_storage: ^9.0.0
-  email_validator: ^2.1.17
-  http_parser: ^4.0.2
+
+  # Other
   flutter_dotenv: ^5.1.0
+  flutter_secure_storage: ^9.0.0
+
 
 dev_dependencies:
   flutter_test:

@@ -3,11 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rooted_web/api/services/auth_service.dart';
 
-import '../const.dart';
-
 class Api {
   static final Api _instance = Api._internal();
-  static const String url = baseUrl;
   static const FlutterSecureStorage storage = FlutterSecureStorage();
   Dio dio;
 
