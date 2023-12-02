@@ -28,14 +28,15 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  final List<Widget> screens = [const OrganizationsScreen()];
-
   @override
   Widget build(BuildContext context) {
     isMobile = MediaQuery.of(context).size.width <= mobileWidth;
+    final List<Widget> screens = [
+      OrganizationsScreen(
+        isMobile: isMobile,
+      ),
+    ];
     return Scaffold(
-      drawer: isMobile ? buildBar() : null,
-      appBar: isMobile ? buildAppBar() : null,
       body: Row(
         children: [
           if (!isMobile) buildBar(),

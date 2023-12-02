@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rooted_web/bloc/organizations/organizations_bloc.dart';
 import 'package:rooted_web/ui/home/home_view.dart';
 
 import 'bloc/auth/auth_bloc.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (BuildContext context) => AuthBloc()..add(CheckIfSignedIn()),
+        ),
+        BlocProvider<OrganizationsBloc>(
+          create: (BuildContext context) => OrganizationsBloc(),
         ),
       ],
       child: MaterialApp(

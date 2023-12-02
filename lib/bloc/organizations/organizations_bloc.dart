@@ -9,7 +9,6 @@ part 'organizations_event.dart';
 part 'organizations_state.dart';
 
 class OrganizationsBloc extends Bloc<OrganizationsEvent, OrganizationsState> {
-
   List<User> requestUsers = [];
   List<User> invitedUsers = [];
 
