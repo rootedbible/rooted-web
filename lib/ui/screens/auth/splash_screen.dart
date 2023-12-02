@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rooted_web/ui/screens/auth/auth_screen.dart';
 
 import '../../../bloc/auth/auth_bloc.dart';
-import '../home_view.dart';
+import '../../home/home_view.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

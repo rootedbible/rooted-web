@@ -6,7 +6,7 @@ import 'package:rooted_web/ui/widgets/snackbar.dart';
 
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../const.dart';
-import '../home_view.dart';
+import '../../home/home_view.dart';
 import 'forgot_password_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -292,7 +292,6 @@ class _AuthScreenState extends State<AuthScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      // TODO: Remove
                       decoration: const InputDecoration(
                         labelText: 'Phone Number',
                         hintText: '1234567890',

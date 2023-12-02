@@ -3,3 +3,7 @@ const String baseUrl = isProd ? '' : '';
 const String stripeKey = isProd ? '' : '';
 const String loginAuth = 'login';
 const String registerAuth = 'register';
+const double mobileWidth = 600;
+const double defaultPadding = 8.0;
+const double doublePadding = defaultPadding * 2;
+const double dialogWidth = mobileWidth / 2;
