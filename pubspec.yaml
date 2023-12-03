@@ -42,7 +42,18 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.1
+  build_runner: ^2.3.0 # Code Generator
+  flutter_launcher_icons: ^0.13.1 # Change App Icons
+  flutter_lints: ^3.0.1 # Error Catching
+  retrofit_generator: ^8.0.0 # Generating API Calls
+
+flutter_launcher_icons:
+  image_path: "assets/images/main_logo.png"
+  web:
+    generate: true
+    image_path: "assets/images/main_logo.png"
+    background_color: "#EFEFEA"
+    theme_color: "#475E5E"
 
 flutter:
 
