@@ -39,13 +39,13 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.groups),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Subscriptions and Groups"),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Subscriptions and Groups'),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -54,8 +54,8 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CreateOrganizationScreen(null))),
-                          child: Icon(Icons.add)),
+                                      const CreateOrganizationScreen(null),),),
+                          child: const Icon(Icons.add),),
                     ),
                   ],
                 ),

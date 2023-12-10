@@ -23,9 +23,7 @@ class Api {
 
   Future<void> login(String token) async {
     try {
-      print('A');
       await storage.write(key: 'token', value: token);
-      print('Token written');
       dio.options.headers = {'Authorization': 'Bearer $token'};
     } catch (e) {
       debugPrint('Error on Singleton Login: $e');

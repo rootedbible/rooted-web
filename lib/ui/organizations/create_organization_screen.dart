@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 
 
 import '../../api/services/organizations_service.dart';
+import '../../api/services/subscriptions_service.dart';
 import '../../models/organization_model.dart';
 import '../../models/plan_model.dart';
 import '../widgets/error_dialog.dart';
@@ -693,7 +694,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
 
   Future<void> getPlans() async {
     try {
-      List<Plan> plans = (await OrganizationsService().getPlans()).plans;
+      List<Plan> plans = (await SubscriptionsService().getPlans()).plans;
       setState(() {
         this.plans = plans;
       });

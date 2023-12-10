@@ -36,12 +36,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<CheckIfSignedIn>((event, emit) async {
       try {
-        print(1);
         emit(Authenticating());
         String? token = await api.storage.read(key: 'token');
-        print(token);
         if (token != null) {
-          print('Attempt');
           await api.login(token);
           user = await UsersService().getMe();
           emit(Authenticated());
@@ -49,7 +46,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(UnAuthenticated());
         }
       } catch (e) {
-        print('Test');
         emit(UnAuthenticated());
       }
     });
@@ -77,7 +73,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         add(SignInRequested(
             context: event.context,
             password: event.password,
-            username: event.username));
+            username: event.username,),);
       } catch (e) {
         debugPrint(e.toString());
         errorDialog(e.toString(), event.context);

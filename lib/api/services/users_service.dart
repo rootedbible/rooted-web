@@ -14,7 +14,6 @@ class UsersService {
 
   Future<User> getMe() async {
     try {
-      print('Getting me');
       final url = '$baseUrl/$route/me';
       final response = await dio.get(url);
       return User.fromJson(response.data);
