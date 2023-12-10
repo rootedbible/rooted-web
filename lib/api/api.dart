@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rooted_web/api/services/auth_service.dart';
 
 class Api {
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
   static final Api _instance = Api._internal();
-  static const FlutterSecureStorage storage = FlutterSecureStorage();
   Dio dio;
 
   Api._internal()
@@ -21,8 +22,14 @@ class Api {
   }
 
   Future<void> login(String token) async {
-    await storage.write(key: 'token', value: token);
-    dio.options.headers = {'Authorization': 'Bearer $token'};
+    try {
+      print('A');
+      await storage.write(key: 'token', value: token);
+      print('Token written');
+      dio.options.headers = {'Authorization': 'Bearer $token'};
+    } catch (e) {
+      debugPrint('Error on Singleton Login: $e');
+    }
   }
 
   Future<void> logout() async {

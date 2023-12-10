@@ -37,6 +37,8 @@ class _HomeViewState extends State<HomeView> {
       ),
     ];
     return Scaffold(
+      drawer: isMobile ? buildBar() : null,
+      appBar: isMobile ? buildAppBar() : null,
       body: Row(
         children: [
           if (!isMobile) buildBar(),
@@ -66,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           Text('@${user.username}'),
           Text(('${user.firstName} ${user.lastName}').trim()),
-          navTile(index: 0, title: 'Organizations', iconData: Icons.groups),
+          navTile(index: 0, title: 'Subscriptions', iconData: Icons.groups),
           const Spacer(),
           logoutTile(),
         ],

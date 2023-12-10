@@ -13,9 +13,15 @@ class UsersService {
   final String route = 'users';
 
   Future<User> getMe() async {
-    final url = '$baseUrl/$route/me';
-    final response = await dio.get(url);
-    return User.fromJson(response.data);
+    try {
+      print('Getting me');
+      final url = '$baseUrl/$route/me';
+      final response = await dio.get(url);
+      return User.fromJson(response.data);
+    } catch (e) {
+      debugPrint('Error on get me: $e');
+      rethrow;
+    }
   }
 
   Future<Response> updateMe({
@@ -127,7 +133,10 @@ class UsersService {
     }
   }
 
-  Future<UsersResponse> searchUsers(String query) async {
+  Future<UsersResponse> searchUsers({
+    required String query,
+    required int page,
+  }) async {
     try {
       final url = '$baseUrl/$route/search';
       final response = await dio.get(url, queryParameters: {'query': query});

@@ -23,8 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(Authenticating());
           final UserResponse userResponse = await AuthService()
               .login(username: event.username, password: event.password);
-
           user = userResponse.user;
+          await api.login(userResponse.accessToken);
           emit(Authenticated());
         }
       } catch (e) {
@@ -36,9 +36,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<CheckIfSignedIn>((event, emit) async {
       try {
+        print(1);
         emit(Authenticating());
-        String? token = await Api.storage.read(key: 'token');
+        String? token = await api.storage.read(key: 'token');
+        print(token);
         if (token != null) {
+          print('Attempt');
           await api.login(token);
           user = await UsersService().getMe();
           emit(Authenticated());
@@ -46,6 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(UnAuthenticated());
         }
       } catch (e) {
+        print('Test');
         emit(UnAuthenticated());
       }
     });
@@ -70,7 +74,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           'last_name': event.lastName,
           if (event.phone.trim().isNotEmpty) 'phone': event.phone,
         });
-        emit(Registered());
+        add(SignInRequested(
+            context: event.context,
+            password: event.password,
+            username: event.username));
       } catch (e) {
         debugPrint(e.toString());
         errorDialog(e.toString(), event.context);
