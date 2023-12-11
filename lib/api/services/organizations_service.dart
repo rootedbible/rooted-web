@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:universal_html/html.dart';
 
 import '../../const.dart';
 import '../../models/organization_model.dart';

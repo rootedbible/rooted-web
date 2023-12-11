@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(window.location.href);
     if (window.location.href.contains('close')) {
       window.close();
     }

@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rooted_web/const.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
-// import 'package:image/image.dart' as img;
 import 'dart:js' as js;
 import '../../api/services/organizations_service.dart';
 import '../../api/services/subscriptions_service.dart';
@@ -449,7 +447,8 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
             plan = plans.firstWhere((element) => plan?.type == coupleType);
           } else {
             plan = plans.firstWhere(
-                (element) => plan?.maxMembers == _currentValue.toInt());
+              (element) => plan?.maxMembers == _currentValue.toInt(),
+            );
           }
           final String url = await SubscriptionsService().createOrganization(
             planId: plan.id,
@@ -496,8 +495,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
                 : twitterController.text.trim(),
             inviteOnly: _isInviteOnly,
           );
-          js.context
-              .callMethod('open', ['https://stackoverflow.com/questions/ask']);
+          js.context.callMethod('open', [url]);
         } else {
           id = widget.organization!.uniqueId;
           await OrganizationsService().editOrganization(
