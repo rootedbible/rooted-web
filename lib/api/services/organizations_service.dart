@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:universal_html/html.dart';
 
 import '../../const.dart';
 import '../../models/organization_model.dart';
@@ -15,57 +16,7 @@ class OrganizationsService {
   final Dio dio = Api().dio;
   final String route = 'organizations';
 
-  Future<int> createOrganization({
-    required String uniqueName,
-    required String email,
-    required String name,
-    required String? description,
-    required String? phone,
-    required String? address,
-    required String? addressTwo,
-    required String? city,
-    required String? state,
-    required String? zip,
-    required String? website,
-    required String? facebook,
-    required String? instagram,
-    required String? tiktok,
-    required String? x,
-    required bool inviteOnly,
-  }) async {
-    try {
-      final url = '$baseUrl/$route/';
-      final Map<String, dynamic> data = {
-        'unique_name': uniqueName,
-        'email': email,
-        'name': name,
-        if (description != null) 'description': description,
-        if (phone != null) 'phone': phone,
-        if (address != null) 'address': address,
-        if (addressTwo != null) 'address_two': addressTwo,
-        if (city != null) 'city': city,
-        if (state != null) 'state': state,
-        if (zip != null) 'zip': zip,
-        if (website != null) 'website': website,
-        if (facebook != null) 'facebook': facebook,
-        if (instagram != null) 'instagram': instagram,
-        if (tiktok != null) 'tiktok': tiktok,
-        if (x != null) 'x': x,
-        'invite_only': inviteOnly,
-      };
 
-      final response = await dio.post(url, data: data);
-      if (!response.statusCode!.toString().startsWith('2')) {
-        debugPrint(
-          'Failed to create organization with status code: ${response.statusCode}',
-        );
-      }
-      return response.data['id'];
-    } catch (e) {
-      debugPrint('Error on create organization: $e');
-      rethrow;
-    }
-  }
 
   Future<void> editOrganization(
     int organizationId, {

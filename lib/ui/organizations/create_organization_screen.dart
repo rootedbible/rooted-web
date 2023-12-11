@@ -3,9 +3,12 @@ import 'dart:typed_data';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:rooted_web/const.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
 // import 'package:image/image.dart' as img;
-
-
+import 'dart:js' as js;
 import '../../api/services/organizations_service.dart';
 import '../../api/services/subscriptions_service.dart';
 import '../../models/organization_model.dart';
@@ -25,19 +28,23 @@ class CreateOrganizationScreen extends StatefulWidget {
 }
 
 class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
+  Plan? plan;
   Uint8List? imageBytes;
   int _activeCurrentStep = 0;
   final _formKey = GlobalKey<FormState>();
   final double gapSize = 8.0;
   bool imageLoading = false;
+
+  double _currentValue = 5.0;
+
+  String selectedDuration = monthlyDuration;
+
   // CroppedFile? croppedFile;
   bool loading = false;
   bool _isInviteOnly = false;
-  final List<bool> _selectedType = [
-    true,
-    false,
-  ]; // Individual, Family, Group
   List<Plan> plans = [];
+  String selectedType = familyType;
+  List<int> currentTiers = [];
 
   TextEditingController organizationUsernameController =
       TextEditingController();
@@ -210,45 +217,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
                         //     child: const Text('Edit Profile Picture'),
                         //   ),
                         // ),
-                        if (widget.organization == null)
-                          ToggleButtons(
-                            isSelected: _selectedType,
-                            onPressed: (index) {
-                              setState(() {
-                                for (int i = 0; i < _selectedType.length; i++) {
-                                  _selectedType[i] = (i == index);
-                                }
-                              });
-                            },
-                            children: const [
-                              SizedBox(
-                                width: 104,
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Icon(Icons.family_restroom),
-                                      Text('Family'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 104,
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.groups),
-                                      Text('Organization'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                        if (widget.organization == null) buildPlanSelector(),
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: organizationUsernameController,
@@ -473,7 +442,21 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
         Organization? popOrganization;
         int id = -1;
         if (widget.organization == null) {
-          id = await OrganizationsService().createOrganization(
+          Plan? plan;
+          if (selectedType == individualType) {
+            plan = plans.firstWhere((element) => plan?.type == individualType);
+          } else if (selectedType == coupleType) {
+            plan = plans.firstWhere((element) => plan?.type == coupleType);
+          } else {
+            plan = plans.firstWhere(
+                (element) => plan?.maxMembers == _currentValue.toInt());
+          }
+          final String url = await SubscriptionsService().createOrganization(
+            planId: plan.id,
+            priceId: selectedDuration == monthlyDuration
+                ? plan.stripeMonthly
+                : plan.stripeAnnual,
+            frequency: selectedDuration,
             uniqueName: organizationUsernameController.text.trim(),
             email: emailController.text.trim(),
             name: organizationNameController.text.trim(),
@@ -513,6 +496,8 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
                 : twitterController.text.trim(),
             inviteOnly: _isInviteOnly,
           );
+          js.context
+              .callMethod('open', ['https://stackoverflow.com/questions/ask']);
         } else {
           id = widget.organization!.uniqueId;
           await OrganizationsService().editOrganization(
@@ -620,86 +605,156 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
     }
   }
 
-  // TODO: Reimplement on web
-  // Future<void> pickAndSaveImage() async {
-  //   try {
-  //     setState(() {
-  //       imageLoading = true;
-  //     });
-  //     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (file == null) {
-  //       setState(() {
-  //         imageLoading = false;
-  //       });
-  //       return;
-  //     }
-  //
-  //     final croppedImage = await ImageCropper().cropImage(
-  //       sourcePath: file.path,
-  //       cropStyle: CropStyle.circle,
-  //       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-  //       aspectRatioPresets: [CropAspectRatioPreset.square],
-  //     );
-  //
-  //     if (croppedImage == null) {
-  //       setState(() {
-  //         imageLoading = false;
-  //       });
-  //       return;
-  //     } else {
-  //       setState(() {
-  //         croppedFile = croppedImage;
-  //       });
-  //     }
-  //
-  //     final receivePort = ReceivePort();
-  //     await Isolate.spawn(
-  //       handleIntenseIsolate,
-  //       [croppedFile!.path, receivePort.sendPort],
-  //     );
-  //     final Uint8List pngBytes = await receivePort.first;
-  //
-  //     final Uint8List compressedBytes =
-  //         await FlutterImageCompress.compressWithList(
-  //       pngBytes,
-  //       quality: 50,
-  //     );
-  //     setState(() {
-  //       imageBytes = compressedBytes;
-  //       imageLoading = false;
-  //     });
-  //   } catch (e) {
-  //     setState(() {
-  //       imageLoading = false;
-  //     });
-  //     debugPrint(e.toString());
-  //   }
-  // }
-
-  // static void handleIntenseIsolate(List<dynamic> arguments) async {
-  //   String path = arguments[0];
-  //   SendPort sendPort = arguments[1];
-  //
-  //   try {
-  //     final imageBytes = await File(path).readAsBytes();
-  //     final img.Image image = img.decodeImage(imageBytes)!;
-  //     final Uint8List finalBytes = img.encodePng(image);
-  //
-  //     sendPort.send(finalBytes);
-  //   } catch (e) {
-  //     debugPrint('Error handling intense decoding: $e');
-  //     rethrow;
-  //   }
-  // }
-
   Future<void> getPlans() async {
     try {
       List<Plan> plans = (await SubscriptionsService().getPlans()).plans;
       setState(() {
         this.plans = plans;
       });
+      setType(familyType);
     } catch (e) {
       debugPrint('Error Getting plans: $e');
     }
+  }
+
+  Widget buildPlanSelector() {
+    late final String title;
+    if (selectedType == familyType) {
+      title = 'Family';
+    } else if (selectedType == coupleType) {
+      title = 'Couple';
+    } else if (selectedType == individualType) {
+      title = 'Individual';
+    } else {
+      title = 'Error';
+    }
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Selected Plan Type: $title',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildTypeSelector(individualType),
+              buildTypeSelector(coupleType),
+              buildTypeSelector(familyType),
+            ],
+          ),
+        ),
+        if (selectedType == familyType)
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('How many members will you need?'),
+              SizedBox(
+                width: 256,
+                child: SfSlider(
+                  min: currentTiers.first.toDouble(),
+                  max: currentTiers.last.toDouble(),
+                  value: _currentValue,
+                  interval: currentTiers.length.toDouble(),
+                  showLabels: true,
+                  enableTooltip: true,
+                  stepSize: 1,
+                  minorTicksPerInterval: 0,
+                  onChanged: (dynamic value) {
+                    if (currentTiers.contains(value.round())) {
+                      setState(() {
+                        _currentValue = value;
+                      });
+                    }
+                  },
+                  labelFormatterCallback: (dynamic value, String label) {
+                    // Custom label for each tier
+                    if (currentTiers.contains(value.round())) {
+                      return 'Tier ${value.round()}';
+                    }
+                    return '';
+                  },
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+
+  Widget buildTypeSelector(String type) {
+    late final IconData? icon;
+    late final String title;
+    if (type == familyType) {
+      icon = Icons.family_restroom;
+      title = 'Family';
+    } else if (type == coupleType) {
+      icon = Icons.group;
+      title = 'Couple';
+    } else if (type == individualType) {
+      icon = Icons.account_circle;
+      title = 'Individual';
+    } else {
+      icon = Icons.error;
+      title = 'Error';
+    }
+    return GestureDetector(
+      onTap: () => setState(() {
+        selectedType = type;
+      }),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: selectedType == type
+                    ? Theme.of(context).colorScheme.primary
+                    : null,
+                size: selectedType == type ? 32 : null,
+              ),
+              Text(
+                title,
+                style: TextStyle(
+                  color: selectedType == type
+                      ? Theme.of(context).colorScheme.primary
+                      : null,
+                  fontWeight: selectedType == type ? FontWeight.bold : null,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void setType(String type) {
+    List<int> newTiers = [];
+    if (type == organizationType || type == familyType) {
+      for (Plan plan in plans) {
+        if ((type == familyType && plan.type == familyType) ||
+            (type == organizationType && plan.type == organizationType)) {
+          newTiers.add(plan.maxMembers);
+          newTiers.sort();
+        }
+      }
+    }
+    setState(() {
+      if (currentTiers.isNotEmpty) {
+        _currentValue = currentTiers.first.toDouble();
+      }
+      selectedType = type;
+      currentTiers = newTiers;
+    });
   }
 }

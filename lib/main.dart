@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rooted_web/bloc/organizations/organizations_bloc.dart';
 import 'package:rooted_web/ui/screens/auth/splash_screen.dart';
+import 'package:universal_html/html.dart';
 import 'bloc/auth/auth_bloc.dart';
 
 void main() {
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(window.location.href);
+    if (window.location.href.contains('close')) {
+      window.close();
+    }
     const workSans = TextStyle(
       fontFamily: 'WorkSans',
     );
