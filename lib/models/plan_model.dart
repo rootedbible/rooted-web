@@ -1,3 +1,5 @@
+import 'package:rooted_web/const.dart';
+
 class Plan {
   final int id;
   final String type;
@@ -31,4 +33,14 @@ class Plan {
       stripeMonthly: json['price_id_monthly'],
     );
   }
+
+  static final empty = Plan(
+      type: individualType,
+      id: 0,
+      displayName: 'displayName',
+      annualPrice: 0,
+      maxMembers: 1,
+      monthlyPrice: 0,
+      stripeAnnual: 'stripeAnnual',
+      stripeMonthly: 'stripeMonthly',);
 }

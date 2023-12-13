@@ -4,8 +4,11 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rooted_web/const.dart';
+import 'package:rooted_web/utils/capitalize.dart';
+import 'package:rooted_web/utils/percent_saved.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
 import '../../api/services/organizations_service.dart';
 import '../../api/services/subscriptions_service.dart';
@@ -43,6 +46,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
   List<Plan> plans = [];
   String selectedType = familyType;
   List<int> currentTiers = [];
+  Plan currentPlan = Plan.empty;
 
   TextEditingController organizationUsernameController =
       TextEditingController();
@@ -630,13 +634,6 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Selected Plan Type: $title',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -668,11 +665,12 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
                         _currentValue = value;
                       });
                     }
+                    getCurrentPlan();
                   },
                   labelFormatterCallback: (dynamic value, String label) {
                     // Custom label for each tier
                     if (currentTiers.contains(value.round())) {
-                      return 'Tier ${value.round()}';
+                      return 'Max ${value.round()} Members';
                     }
                     return '';
                   },
@@ -680,7 +678,66 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
               ),
             ],
           ),
+        buildCost(),
       ],
+    );
+  }
+
+  Widget buildCost() {
+    return Padding(
+      padding: const EdgeInsets.all(doublePadding),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Your Selected Plan:'),
+          Text(
+            "${capitalizeFirstLetter(currentPlan.type)}: ${capitalizeFirstLetter(selectedDuration)}",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          IntrinsicHeight(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () => setState(() {
+                        selectedDuration = monthlyDuration;
+                      }),
+                      icon: const Icon(
+                        Icons.calendar_month,
+                        size: 32,
+                      ),
+                    ),
+                    Text('Monthly @ \$${currentPlan.monthlyPrice}/mo'),
+                    const Text('Most Popular'),
+                  ],
+                ),
+                const Gap(doublePadding),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () => setState(() {
+                        selectedDuration = yearlyDuration;
+                      }),
+                      icon: const Icon(
+                        Icons.calendar_view_month_sharp,
+                        size: 32,
+                      ),
+                    ),
+                    Text('Annually @ \$${currentPlan.annualPrice}/yr '),
+                    Text(
+                      '(Save ~${percentSaved(currentPlan.monthlyPrice, currentPlan.annualPrice)})',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -703,6 +760,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
     return GestureDetector(
       onTap: () => setState(() {
         selectedType = type;
+        getCurrentPlan();
       }),
       child: Container(
         decoration: BoxDecoration(
@@ -754,5 +812,25 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
       selectedType = type;
       currentTiers = newTiers;
     });
+    getCurrentPlan();
+  }
+
+  void getCurrentPlan() {
+    try {
+      if (selectedType == organizationType || selectedType == familyType) {
+        currentPlan = plans.firstWhere(
+          (element) =>
+              element.type == selectedType &&
+              _currentValue.toInt() == element.maxMembers,
+        );
+      } else {
+        setState(() {
+          currentPlan =
+              plans.firstWhere((element) => element.type == selectedType);
+        });
+      }
+    } catch (e) {
+      debugPrint('ERROR GETTING PLAN: $e');
+    }
   }
 }

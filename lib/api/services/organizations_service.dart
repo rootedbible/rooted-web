@@ -15,8 +15,6 @@ class OrganizationsService {
   final Dio dio = Api().dio;
   final String route = 'organizations';
 
-
-
   Future<void> editOrganization(
     int organizationId, {
     required String? uniqueName,
@@ -172,11 +170,16 @@ class OrganizationsService {
   }
 
   Future<OrganizationsResponse> getMyOrganizations() async {
-    final url = '$baseUrl/users/me/$route';
-    final response = await dio.get(
-      url,
-    );
-    return OrganizationsResponse.fromJson(response.data);
+    try {
+      final url = '$baseUrl/users/me/$route';
+      final response = await dio.get(
+        url,
+      );
+      return OrganizationsResponse.fromJson(response.data);
+    } catch (e) {
+      debugPrint('Error getting my organizations: $e');
+      rethrow;
+    }
   }
 
   Future<Response> requestToJoin(int organizationId) async {

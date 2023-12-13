@@ -1,3 +1,5 @@
+import 'package:rooted_web/models/subscription_model.dart';
+
 class Organization {
   // Unique Stuff
   final int uniqueId;
@@ -21,6 +23,7 @@ class Organization {
   final bool isPrivate;
   final String? status;
   final int numMembers;
+  final Subscription subscription;
 
   Organization({
     required this.email,
@@ -44,6 +47,7 @@ class Organization {
     required this.status,
     required this.type,
     required this.isPrivate,
+    required this.subscription,
   });
 
   factory Organization.fromJson(Map<String, dynamic> json) {
@@ -70,10 +74,13 @@ class Organization {
       status: json['status'],
       facebook: json['facebook'],
       username: json['unique_name'],
+      subscription: Subscription.fromJson(json['subscription']),
     );
   }
 
   static final empty = Organization(
+    subscription:
+        Subscription(id: 0, expiration: '', isActive: false, userId: 0),
     username: 'msmary',
     facebook: 'msmary',
     uniqueId: 1,
@@ -83,9 +90,9 @@ class Organization {
     addressTwo: null,
     city: 'Emmitsburg',
     description:
-    'This is an organization description and mission statement. I am now putting in some filler text',
+        'This is an organization description and mission statement. I am now putting in some filler text',
     profileUrl:
-    'https://rsmowery.com/wp-content/uploads/2017/03/mt-st-marys-3.jpg',
+        'https://rsmowery.com/wp-content/uploads/2017/03/mt-st-marys-3.jpg',
     zip: '21727',
     phone: '123-456-7890',
     instagram: 'msmary',
@@ -121,6 +128,7 @@ class Organization {
     String? status,
     String? type,
     bool? isPrivate,
+    Subscription? subscription,
     String? uniqueName,
   }) {
     return Organization(
@@ -145,6 +153,7 @@ class Organization {
       status: status ?? this.status,
       type: type ?? this.type,
       isPrivate: isPrivate ?? this.isPrivate,
+      subscription: subscription ?? this.subscription,
     );
   }
 }

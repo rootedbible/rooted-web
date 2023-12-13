@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rooted_web/ui/organizations/widgets/manage_subscription_popup.dart';
 import 'package:rooted_web/ui/organizations/widgets/social_tile.dart';
 import 'package:rooted_web/ui/widgets/info_tile.dart';
 
 import '../../api/services/organizations_service.dart';
 import '../../api/services/users_service.dart';
+import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/organizations/organizations_bloc.dart';
 import '../../models/organization_model.dart';
 import '../../utils/get_map_string.dart';
@@ -46,6 +48,18 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
         actions: organization.status == statusAdmin ||
                 organization.status == statusModerator
             ? [
+                if ((organization.subscription.userId ==
+                        context.read<AuthBloc>().user.uniqueId) ||
+                    (organization.status == statusAdmin &&
+                        !organization.subscription.isActive))
+                  IconButton(
+                    onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) =>
+                            ManageSubscriptionPopup(organization)),
+                    icon: Icon(Icons.auto_awesome),
+                    tooltip: 'Manage Subscription',
+                  ),
                 IconButton(
                   onPressed: () async {
                     final Organization? newOrganization = await Navigator.push(

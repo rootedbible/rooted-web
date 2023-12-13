@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rooted_web/api/responses/plans_response.dart';
-import 'package:rooted_web/utils/pretty_print.dart';
 import 'package:universal_html/html.dart';
 import '../../const.dart';
 import '../api.dart';
@@ -14,9 +13,7 @@ class SubscriptionsService {
     try {
       final url = '$baseUrl/$route/plans';
       final response = await dio.get(url);
-      for (Map<String, dynamic> json in response.data as List<dynamic>) {
-        prettyPrintMap(json);
-      }
+
       return PlansResponse.fromJson(response.data);
     } catch (e) {
       debugPrint('Error on get plans: $e');

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:rooted_web/const.dart';
 
 import '../../../models/organization_model.dart';
 import '../organization_screen.dart';
@@ -78,11 +79,23 @@ class _OrganizationTileState extends State<OrganizationTile> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(
-                organization.type == 'family'
+                organization.type == familyType
                     ? Icons.family_restroom
-                    : Icons.church,
+                    : organization.type == coupleType
+                        ? Icons.group
+                        : Icons.church,
               ),
             ),
+            if (organization.subscription.isActive)
+              const Icon(
+                Icons.check,
+                color: Colors.green,
+              ),
+            if (!organization.subscription.isActive)
+              const Icon(
+                Icons.clear,
+                color: Colors.red,
+              ),
           ],
         ),
       ),
