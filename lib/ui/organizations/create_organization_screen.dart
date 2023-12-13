@@ -444,21 +444,11 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
         Organization? popOrganization;
         int id = -1;
         if (widget.organization == null) {
-          Plan? plan;
-          if (selectedType == individualType) {
-            plan = plans.firstWhere((element) => plan?.type == individualType);
-          } else if (selectedType == coupleType) {
-            plan = plans.firstWhere((element) => plan?.type == coupleType);
-          } else {
-            plan = plans.firstWhere(
-              (element) => plan?.maxMembers == _currentValue.toInt(),
-            );
-          }
           final String url = await SubscriptionsService().createOrganization(
-            planId: plan.id,
+            planId: currentPlan.id,
             priceId: selectedDuration == monthlyDuration
-                ? plan.stripeMonthly
-                : plan.stripeAnnual,
+                ? currentPlan.stripeMonthly
+                : currentPlan.stripeAnnual,
             frequency: selectedDuration,
             uniqueName: organizationUsernameController.text.trim(),
             email: emailController.text.trim(),

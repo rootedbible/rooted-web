@@ -43,7 +43,7 @@ class SubscriptionsService {
     required bool inviteOnly,
   }) async {
     try {
-      final url = '$baseUrl/$route/';
+      final url = '$baseUrl/$route/purchase';
       final Map<String, dynamic> org = {
         if (uniqueName != null) 'unique_name': uniqueName,
         if (email != null) 'email': email,
