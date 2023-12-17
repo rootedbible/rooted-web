@@ -56,8 +56,8 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                     onPressed: () => showDialog(
                         context: context,
                         builder: (context) =>
-                            ManageSubscriptionPopup(organization)),
-                    icon: Icon(Icons.auto_awesome),
+                            ManageSubscriptionPopup(organization),),
+                    icon: const Icon(Icons.auto_awesome),
                     tooltip: 'Manage Subscription',
                   ),
                 IconButton(

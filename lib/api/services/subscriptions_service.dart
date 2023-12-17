@@ -13,7 +13,6 @@ class SubscriptionsService {
     try {
       final url = '$baseUrl/$route/plans';
       final response = await dio.get(url);
-
       return PlansResponse.fromJson(response.data);
     } catch (e) {
       debugPrint('Error on get plans: $e');
@@ -21,7 +20,7 @@ class SubscriptionsService {
     }
   }
 
-  Future<String> createOrganization({
+  Future<String> createSubscription({
     required String priceId,
     required int planId,
     required String frequency,
@@ -74,12 +73,21 @@ class SubscriptionsService {
       };
 
       final response = await dio.post(url, data: data);
-      if (!response.statusCode!.toString().startsWith('2')) {
-        debugPrint(
-          'Failed to create organization with status code: ${response.statusCode}',
-        );
-      }
-      return response.data['id'];
+
+      return response.data['stripe_url'];
+    } catch (e) {
+      debugPrint('Error on create organization: $e');
+      rethrow;
+    }
+  }
+
+  Future<Response> cancel(int id) async {
+    try {
+      final url = '$baseUrl/$route/cancel/$id';
+
+      final response = await dio.post(url);
+
+      return response;
     } catch (e) {
       debugPrint('Error on create organization: $e');
       rethrow;

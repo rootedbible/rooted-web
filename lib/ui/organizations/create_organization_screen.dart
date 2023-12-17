@@ -29,7 +29,6 @@ class CreateOrganizationScreen extends StatefulWidget {
 }
 
 class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
-  Plan? plan;
   Uint8List? imageBytes;
   int _activeCurrentStep = 0;
   final _formKey = GlobalKey<FormState>();
@@ -444,7 +443,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
         Organization? popOrganization;
         int id = -1;
         if (widget.organization == null) {
-          final String url = await SubscriptionsService().createOrganization(
+          final String url = await SubscriptionsService().createSubscription(
             planId: currentPlan.id,
             priceId: selectedDuration == monthlyDuration
                 ? currentPlan.stripeMonthly
@@ -681,8 +680,8 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
         children: [
           const Text('Your Selected Plan:'),
           Text(
-            "${capitalizeFirstLetter(currentPlan.type)}: ${capitalizeFirstLetter(selectedDuration)}",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            '${capitalizeFirstLetter(currentPlan.type)}: ${capitalizeFirstLetter(selectedDuration)}',
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           IntrinsicHeight(
             child: Row(
@@ -819,6 +818,9 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
               plans.firstWhere((element) => element.type == selectedType);
         });
       }
+      debugPrint(
+        'Selected Plan: ${currentPlan.id} | ${currentPlan.displayName}',
+      );
     } catch (e) {
       debugPrint('ERROR GETTING PLAN: $e');
     }

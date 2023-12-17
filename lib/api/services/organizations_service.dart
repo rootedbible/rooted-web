@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:rooted_web/utils/pretty_print.dart';
 
 import '../../const.dart';
 import '../../models/organization_model.dart';
@@ -175,6 +176,9 @@ class OrganizationsService {
       final response = await dio.get(
         url,
       );
+      for (var temp in response.data ) {
+        print(temp);
+      }
       return OrganizationsResponse.fromJson(response.data);
     } catch (e) {
       debugPrint('Error getting my organizations: $e');

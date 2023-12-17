@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rooted_web/api/services/subscriptions_service.dart';
 import 'package:rooted_web/ui/widgets/error_dialog.dart';
 
 import '../../../models/organization_model.dart';
@@ -69,8 +70,8 @@ class ManageSubscriptionPopup extends StatelessWidget {
                                     child: const Text('Nevermind'),
                                   ),
                                   TextButton(
-                                    onPressed: () async =>
-                                        await _handleCancel(context),
+                                    onPressed: () async => await _handleCancel(
+                                        context, organization,),
                                     child: const Text('Cancel'),
                                   ),
                                 ],
@@ -95,11 +96,13 @@ class ManageSubscriptionPopup extends StatelessWidget {
     );
   }
 
-  Future<void> _handleCancel(BuildContext context) async {
+  Future<void> _handleCancel(
+      BuildContext context, Organization organization,) async {
     try {
-      // TODO
+      await SubscriptionsService().cancel(organization.subscription.id);
       Navigator.pop(context);
       Navigator.pop(context);
+      // TODO: Update the stuff
     } catch (e) {
       errorDialog(e.toString(), context);
     }

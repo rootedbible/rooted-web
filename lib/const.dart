@@ -14,4 +14,4 @@ const String familyType = 'family';
 const String organizationType = 'organization';
 
 const String monthlyDuration = 'monthly';
-const String yearlyDuration = 'yearly';
+const String yearlyDuration = 'annually';
