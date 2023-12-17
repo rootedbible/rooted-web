@@ -5,7 +5,7 @@ import 'package:rooted_web/ui/screens/auth/splash_screen.dart';
 import 'package:universal_html/html.dart';
 import 'bloc/auth/auth_bloc.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
