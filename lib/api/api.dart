@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rooted_web/api/services/auth_service.dart';
 
@@ -38,8 +37,7 @@ class Api {
 
   Future<String> getAuthCode() async {
     try {
-      await dotenv.load();
-      final String key = dotenv.env['KEY']!;
+      const String key = '2REPVOEwDrVzjVrukS5bjXDqQsySzpvI';
       return key;
     } catch (e) {
       rethrow;
