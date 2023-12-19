@@ -1,4 +1,5 @@
 import 'package:rooted_web/models/subscription_model.dart';
+import 'package:rooted_web/utils/pretty_print.dart';
 
 class Organization {
   // Unique Stuff
@@ -23,6 +24,7 @@ class Organization {
   final bool isPrivate;
   final String? status;
   final int numMembers;
+  final bool isCanceled;
   final Subscription subscription;
 
   Organization({
@@ -48,10 +50,13 @@ class Organization {
     required this.type,
     required this.isPrivate,
     required this.subscription,
+    required this.isCanceled,
   });
 
   factory Organization.fromJson(Map<String, dynamic> json) {
+    prettyPrintMap(json);
     return Organization(
+      isCanceled: json['is_cancelled'] ?? false,
       email: json['email'],
       isPrivate: json['invite_only'],
       type: json['type'],
@@ -104,6 +109,7 @@ class Organization {
     email: 'test@email.com',
     numMembers: 10,
     status: 'admin',
+    isCanceled: false,
   );
 
   Organization copyWith({
@@ -130,6 +136,7 @@ class Organization {
     bool? isPrivate,
     Subscription? subscription,
     String? uniqueName,
+    bool? isCanceled,
   }) {
     return Organization(
       email: email ?? this.email,
@@ -154,6 +161,7 @@ class Organization {
       type: type ?? this.type,
       isPrivate: isPrivate ?? this.isPrivate,
       subscription: subscription ?? this.subscription,
+      isCanceled: isCanceled ?? this.isCanceled,
     );
   }
 }

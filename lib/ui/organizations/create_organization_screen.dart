@@ -609,16 +609,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
   }
 
   Widget buildPlanSelector() {
-    late final String title;
-    if (selectedType == familyType) {
-      title = 'Family';
-    } else if (selectedType == coupleType) {
-      title = 'Couple';
-    } else if (selectedType == individualType) {
-      title = 'Individual';
-    } else {
-      title = 'Error';
-    }
+
     return Column(
       children: [
         Padding(

@@ -29,7 +29,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Subscription ${organization.subscription.isActive ? "Renews" : dateTime.isBefore(DateTime.now()) ? "Expired" : "Expires"} ${dateTime.month}/${dateTime.day}/${dateTime.year}",
+                "Subscription ${organization.isCanceled ? 'Expires' : organization.subscription.isActive ? "Renews" : "Expired"} ${dateTime.month}/${dateTime.day}/${dateTime.year}",
               ),
             ),
             Row(
@@ -71,7 +71,9 @@ class ManageSubscriptionPopup extends StatelessWidget {
                                   ),
                                   TextButton(
                                     onPressed: () async => await _handleCancel(
-                                        context, organization,),
+                                      context,
+                                      organization,
+                                    ),
                                     child: const Text('Cancel'),
                                   ),
                                 ],
@@ -97,7 +99,9 @@ class ManageSubscriptionPopup extends StatelessWidget {
   }
 
   Future<void> _handleCancel(
-      BuildContext context, Organization organization,) async {
+    BuildContext context,
+    Organization organization,
+  ) async {
     try {
       await SubscriptionsService().cancel(organization.subscription.id);
       Navigator.pop(context);
