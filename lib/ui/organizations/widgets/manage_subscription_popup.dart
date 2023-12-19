@@ -46,6 +46,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
                       content: SizedBox(
                         width: 350,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
@@ -64,6 +65,8 @@ class ManageSubscriptionPopup extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
