@@ -138,7 +138,6 @@ class ManageSubscriptionPopup extends StatelessWidget {
       Navigator.pop(context);
       Navigator.pop(context);
       // TODO: Update the stuff
-
     } catch (e) {
       errorDialog(e.toString(), context);
     }

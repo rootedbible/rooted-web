@@ -97,8 +97,19 @@ class SubscriptionsService {
   Future<String> renewSubscription({required int subscriptionId}) async {
     try {
       final url = '$baseUrl/$route/renew/$subscriptionId';
-      final response = await dio.post(url);
+      final Map<String, dynamic> data = {
+        'success_url': window.location.href,
+      };
+      final response = await dio.post(url, data: data);
       return response.data['stripe_url'];
+    } on DioError catch (dioError) {
+      debugPrint('DioError caught: ${dioError.message}');
+      if (dioError.response != null) {
+        debugPrint('Status code: ${dioError.response?.statusCode}');
+        debugPrint('Data: ${dioError.response?.data}');
+        debugPrint('Headers: ${dioError.response?.headers}');
+      }
+      rethrow;
     } catch (e) {
       debugPrint('Error on renew subscription: $e');
       rethrow;
