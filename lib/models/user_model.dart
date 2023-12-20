@@ -42,8 +42,7 @@ class User {
       email: json['email'],
       uniqueId: json['id'],
       isPublic: json['is_public'],
-      imageUrl: json['image_url'] ??
-          'https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg',
+      imageUrl: json['image_url'] ?? 'https://i.imgur.com/jNNT4LE.png',
       followStatus: json['follow_status'],
       percentageRecorded: json['percentage_recorded'],
       followersCount: json['total_followers'],

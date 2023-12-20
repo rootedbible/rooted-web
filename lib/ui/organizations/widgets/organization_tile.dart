@@ -34,22 +34,22 @@ class _OrganizationTileState extends State<OrganizationTile> {
             builder: (context) => OrganizationScreen(organization),
           ),
         ),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+        leading: SizedBox(
+          height: 64,
+          width: 64,
           child: ClipOval(
-            child: SizedBox(
-              height: 64,
-              width: 64,
-              child: CachedNetworkImage(
-                imageUrl: organization.profileUrl!,
-                fit: BoxFit.contain,
-                errorWidget: (_, __, ___) {
-                  return const Icon(
-                    Icons.account_circle,
-                    size: 64,
-                  );
-                },
+            child: organization.profileUrl == null ? Icon(Icons.account_circle, size: 64,): CachedNetworkImage(
+              imageUrl: organization.profileUrl!,
+              imageBuilder: (context, imageProvider) => Container(
+                width: 64.0,
+                height: 64.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image:
+                      DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                ),
               ),
+
             ),
           ),
         ),
