@@ -118,7 +118,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
                         color: !organization.subscription.isActive ||
                                 organization.subscription.isCanceled
                             ? null
-                            : Theme.of(context).colorScheme.error),
+                            : Theme.of(context).colorScheme.error,),
                   ),
                 ),
               ],

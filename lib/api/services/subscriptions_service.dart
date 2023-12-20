@@ -102,7 +102,7 @@ class SubscriptionsService {
       };
       final response = await dio.post(url, data: data);
       return response.data['stripe_url'];
-    } on DioError catch (dioError) {
+    } on DioException catch (dioError) {
       debugPrint('DioError caught: ${dioError.message}');
       if (dioError.response != null) {
         debugPrint('Status code: ${dioError.response?.statusCode}');
