@@ -89,7 +89,7 @@ class SubscriptionsService {
 
       return response;
     } catch (e) {
-      debugPrint('Error on create organization: $e');
+      debugPrint('Error on cancel subcription: $e');
       rethrow;
     }
   }
