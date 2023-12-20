@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rooted_web/api/services/subscriptions_service.dart';
 import 'package:rooted_web/ui/widgets/error_dialog.dart';
+import 'package:universal_html/html.dart';
 
 import '../../../models/organization_model.dart';
 
@@ -32,6 +33,10 @@ class ManageSubscriptionPopup extends StatelessWidget {
                 "Subscription ${organization.subscription.isCanceled ? 'Expires' : organization.subscription.isActive ? "Renews" : "Expired"} ${dateTime.month}/${dateTime.day}/${dateTime.year}",
               ),
             ),
+            if (!organization.subscription.isActive ||
+                organization.subscription.isCanceled)
+              const Text(
+                  'If you renew the subscription before it expires, currently you will not get the remaining time as extra.',),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -73,11 +78,25 @@ class ManageSubscriptionPopup extends StatelessWidget {
                                     child: const Text('Nevermind'),
                                   ),
                                   TextButton(
-                                    onPressed: () async => await _handleCancel(
-                                      context,
-                                      organization,
-                                    ),
-                                    child: const Text('Cancel'),
+                                    onPressed: () async {
+                                      if (!organization.subscription.isActive ||
+                                          organization
+                                              .subscription.isCanceled) {
+                                        final String url =
+                                            await SubscriptionsService()
+                                                .renewSubscription(
+                                                    subscriptionId: organization
+                                                        .subscription.id,);
+                                        window.location.href = url;
+                                      } else {
+                                        await _handleCancel(
+                                          context,
+                                          organization,
+                                        );
+                                      }
+                                    },
+                                    child: Text(
+                                        '${!organization.subscription.isActive || organization.subscription.isCanceled ? 'Renew' : 'Cancel'} Subscription',),
                                   ),
                                 ],
                               ),

@@ -38,7 +38,7 @@ class _OrganizationTileState extends State<OrganizationTile> {
           height: 64,
           width: 64,
           child: ClipOval(
-            child: organization.profileUrl == null ? Icon(Icons.account_circle, size: 64,): CachedNetworkImage(
+            child: organization.profileUrl == null ? const Icon(Icons.account_circle, size: 64,): CachedNetworkImage(
               imageUrl: organization.profileUrl!,
               imageBuilder: (context, imageProvider) => Container(
                 width: 64.0,

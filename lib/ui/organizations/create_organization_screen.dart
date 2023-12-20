@@ -7,9 +7,8 @@ import 'package:rooted_web/const.dart';
 import 'package:rooted_web/utils/capitalize.dart';
 import 'package:rooted_web/utils/percent_saved.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:universal_html/html.dart';
 
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:js' as js;
 import '../../api/services/organizations_service.dart';
 import '../../api/services/subscriptions_service.dart';
 import '../../models/organization_model.dart';
@@ -488,7 +487,7 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
                 : twitterController.text.trim(),
             inviteOnly: _isInviteOnly,
           );
-          js.context.callMethod('open', [url]);
+          window.location.href = url;
         } else {
           id = widget.organization!.uniqueId;
           await OrganizationsService().editOrganization(
@@ -609,7 +608,6 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
   }
 
   Widget buildPlanSelector() {
-
     return Column(
       children: [
         Padding(

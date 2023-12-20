@@ -93,4 +93,15 @@ class SubscriptionsService {
       rethrow;
     }
   }
+
+  Future<String> renewSubscription({required int subscriptionId}) async {
+    try {
+      final url = '$baseUrl/$route/renew/$subscriptionId';
+      final response = await dio.post(url);
+      return response.data['stripe_url'];
+    } catch (e) {
+      debugPrint('Error on renew subscription: $e');
+      rethrow;
+    }
+  }
 }
