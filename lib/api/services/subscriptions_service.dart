@@ -88,6 +88,14 @@ class SubscriptionsService {
       final response = await dio.post(url);
 
       return response;
+    } on DioException catch (dioError) {
+      debugPrint('DioError caught: ${dioError.message}');
+      if (dioError.response != null) {
+        print('Status code: ${dioError.response?.statusCode}');
+        print('Data: ${dioError.response?.data}');
+        print('Headers: ${dioError.response?.headers}');
+      }
+      rethrow;
     } catch (e) {
       debugPrint('Error on cancel subcription: $e');
       rethrow;
