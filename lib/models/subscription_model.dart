@@ -16,7 +16,7 @@ class Subscription {
   factory Subscription.fromJson(Map<String, dynamic> json) {
     return Subscription(
       id: json['id'],
-      isCanceled: json['is_canceled'] ?? false,
+      isCanceled: json['is_canceled'],
       expiration: json['expiration'],
       isActive: json['is_active'],
       userId: json['user_id'],
