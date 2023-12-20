@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: Build
-        run: flutter build web
+        run: flutter build web --web-renderer html
 
       - name: Create CNAME File
         run: echo "app.myrooted.org" > ./build/web/CNAME

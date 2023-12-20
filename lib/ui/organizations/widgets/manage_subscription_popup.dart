@@ -36,7 +36,8 @@ class ManageSubscriptionPopup extends StatelessWidget {
             if (!organization.subscription.isActive ||
                 organization.subscription.isCanceled)
               const Text(
-                  'If you renew the subscription before it expires, currently you will not get the remaining time as extra.',),
+                'If you renew the subscription before it expires, currently you will not get the remaining time as extra.',
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -45,71 +46,79 @@ class ManageSubscriptionPopup extends StatelessWidget {
                   child: const Text('Done'),
                 ),
                 TextButton(
-                  onPressed: () => showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      content: SizedBox(
-                        width: 350,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Cancel Subscription?',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Your subscription will remain active until ${dateTime.month}/${dateTime.day}/${dateTime.year}',
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text('Nevermind'),
+                  onPressed: () async {
+                    if (!organization.subscription.isActive ||
+                        organization.subscription.isCanceled) {
+                      final String url =
+                          await SubscriptionsService().renewSubscription(
+                        subscriptionId: organization.subscription.id,
+                      );
+                      window.location.href = url;
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: SizedBox(
+                            width: 350,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Cancel Subscription?',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
-                                  TextButton(
-                                    onPressed: () async {
-                                      if (!organization.subscription.isActive ||
-                                          organization
-                                              .subscription.isCanceled) {
-                                        final String url =
-                                            await SubscriptionsService()
-                                                .renewSubscription(
-                                                    subscriptionId: organization
-                                                        .subscription.id,);
-                                        window.location.href = url;
-                                      } else {
-                                        await _handleCancel(
-                                          context,
-                                          organization,
-                                        );
-                                      }
-                                    },
-                                    child: Text(
-                                        '${!organization.subscription.isActive || organization.subscription.isCanceled ? 'Renew' : 'Cancel'} Subscription',),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Your subscription will remain active until ${dateTime.month}/${dateTime.day}/${dateTime.year}',
                                   ),
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Nevermind'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await _handleCancel(
+                                            context,
+                                            organization,
+                                          );
+                                        },
+                                        child: const Text(
+                                          'Cancel Subscription',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
+                      );
+                    }
+                  },
                   child: Text(
-                    'Cancel',
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.error),
+                    !organization.subscription.isActive ||
+                            organization.subscription.isCanceled
+                        ? 'Renew'
+                        : 'Cancel',
+                    style: TextStyle(
+                        color: !organization.subscription.isActive ||
+                                organization.subscription.isCanceled
+                            ? null
+                            : Theme.of(context).colorScheme.error),
                   ),
                 ),
               ],
@@ -129,6 +138,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
       Navigator.pop(context);
       Navigator.pop(context);
       // TODO: Update the stuff
+
     } catch (e) {
       errorDialog(e.toString(), context);
     }
