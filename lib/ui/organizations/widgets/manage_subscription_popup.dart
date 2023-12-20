@@ -112,8 +112,8 @@ class ManageSubscriptionPopup extends StatelessWidget {
                   child: Text(
                     !organization.subscription.isActive ||
                             organization.subscription.isCanceled
-                        ? 'Renew'
-                        : 'Cancel',
+                        ? 'Renew Subscription'
+                        : 'Cancel Subscription',
                     style: TextStyle(
                         color: !organization.subscription.isActive ||
                                 organization.subscription.isCanceled
