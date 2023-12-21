@@ -7,9 +7,9 @@ class Subscription {
 
   Subscription({
     required this.id,
+    required this.userId,
     required this.expiration,
     required this.isActive,
-    required this.userId,
     required this.isCanceled,
   });
 
@@ -20,6 +20,22 @@ class Subscription {
       expiration: json['expiration'],
       isActive: json['is_active'],
       userId: json['user_id'],
+    );
+  }
+
+  Subscription copyWith({
+    int? id,
+    int? userId,
+    String? expiration,
+    bool? isActive,
+    bool? isCanceled,
+  }) {
+    return Subscription(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      expiration: expiration ?? this.expiration,
+      isActive: isActive ?? this.isActive,
+      isCanceled: isCanceled ?? this.isCanceled,
     );
   }
 }

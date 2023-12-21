@@ -115,10 +115,11 @@ class ManageSubscriptionPopup extends StatelessWidget {
                         ? 'Renew Subscription'
                         : 'Cancel Subscription',
                     style: TextStyle(
-                        color: !organization.subscription.isActive ||
-                                organization.subscription.isCanceled
-                            ? null
-                            : Theme.of(context).colorScheme.error,),
+                      color: !organization.subscription.isActive ||
+                              organization.subscription.isCanceled
+                          ? null
+                          : Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
               ],
@@ -135,9 +136,10 @@ class ManageSubscriptionPopup extends StatelessWidget {
   ) async {
     try {
       await SubscriptionsService().cancel(organization.subscription.id);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      // TODO: Update the stuff
+      Organization newOrg = organization.copyWith(
+          subscription: organization.subscription.copyWith(isCanceled: true));
+      Navigator.pop(context, newOrg);
+      Navigator.pop(context, newOrg);
     } catch (e) {
       errorDialog(e.toString(), context);
     }

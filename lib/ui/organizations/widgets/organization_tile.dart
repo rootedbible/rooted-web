@@ -28,29 +28,40 @@ class _OrganizationTileState extends State<OrganizationTile> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OrganizationScreen(organization),
-          ),
-        ),
+        onTap: () async {
+          Organization? newOrg = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrganizationScreen(organization),
+            ),
+          );
+          if (newOrg != null) {
+            setState(() {
+              organization = newOrg;
+            });
+          }
+        },
         leading: SizedBox(
           height: 64,
           width: 64,
           child: ClipOval(
-            child: organization.profileUrl == null ? const Icon(Icons.account_circle, size: 64,): CachedNetworkImage(
-              imageUrl: organization.profileUrl!,
-              imageBuilder: (context, imageProvider) => Container(
-                width: 64.0,
-                height: 64.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image:
-                      DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                ),
-              ),
-
-            ),
+            child: organization.profileUrl == null
+                ? const Icon(
+                    Icons.account_circle,
+                    size: 64,
+                  )
+                : CachedNetworkImage(
+                    imageUrl: organization.profileUrl!,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 64.0,
+                      height: 64.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                  ),
           ),
         ),
         title: Column(

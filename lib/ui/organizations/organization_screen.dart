@@ -43,6 +43,10 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.pop(context, organization),
+        ),
         title: Text('@${organization.username}'),
         centerTitle: false,
         actions: organization.status == statusAdmin ||
@@ -53,10 +57,18 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                     (organization.status == statusAdmin &&
                         !organization.subscription.isActive))
                   IconButton(
-                    onPressed: () => showDialog(
+                    onPressed: () async {
+                      Organization? newOrg = await showDialog(
                         context: context,
                         builder: (context) =>
-                            ManageSubscriptionPopup(organization),),
+                            ManageSubscriptionPopup(organization),
+                      );
+                      if (newOrg != null) {
+                        setState(() {
+                          organization = newOrg;
+                        });
+                      }
+                    },
                     icon: const Icon(Icons.auto_awesome),
                     tooltip: 'Manage Subscription',
                   ),
