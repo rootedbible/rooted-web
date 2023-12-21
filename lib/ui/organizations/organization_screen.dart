@@ -78,7 +78,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            CreateOrganizationScreen(organization),
+                            CreateOrganizationScreen(organization: organization),
                       ),
                     );
                     if (newOrganization != null) {

@@ -93,7 +93,6 @@ class SubscriptionsService {
       if (dioError.response != null) {
         print('Status code: ${dioError.response?.statusCode}');
         print('Data: ${dioError.response?.data}');
-        print('Headers: ${dioError.response?.headers}');
       }
       rethrow;
     } catch (e) {

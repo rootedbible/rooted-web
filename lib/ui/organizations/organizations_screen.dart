@@ -50,12 +50,15 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CreateOrganizationScreen(null),),),
-                          child: const Icon(Icons.add),),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const CreateOrganizationScreen(organization: null),
+                          ),
+                        ),
+                        child: const Icon(Icons.add),
+                      ),
                     ),
                   ],
                 ),

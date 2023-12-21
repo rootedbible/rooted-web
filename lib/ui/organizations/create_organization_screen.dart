@@ -20,7 +20,7 @@ import '../widgets/small_wheel.dart';
 class CreateOrganizationScreen extends StatefulWidget {
   final Organization? organization;
 
-  const CreateOrganizationScreen(this.organization, {super.key});
+  const CreateOrganizationScreen({required this.organization, super.key});
 
   @override
   State<CreateOrganizationScreen> createState() =>
@@ -104,331 +104,336 @@ class _CreateOrganizationScreenState extends State<CreateOrganizationScreen> {
           ? const LoadingScreen(
               text: 'Getting Plans...',
             )
-          : Form(
-              key: _formKey,
-              child: Stepper(
-                controlsBuilder: (context, controls) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (_activeCurrentStep != 0)
-                          ElevatedButton(
-                            onPressed: controls.onStepCancel,
-                            child: const Text('Back'),
-                          ),
-                        ElevatedButton(
-                          onPressed: controls.onStepContinue,
-                          child: loading
-                              ? const SmallWheel()
-                              : Text(
-                                  _activeCurrentStep == 2 &&
-                                          widget.organization != null
-                                      ? 'Update'
-                                      : _activeCurrentStep == 2
-                                          ? 'Create'
-                                          : 'Continue',
-                                ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                type: StepperType.horizontal,
-                currentStep: _activeCurrentStep,
-                onStepContinue: () async {
-                  if (_activeCurrentStep < 2) {
-                    setState(() {
-                      _activeCurrentStep += 1;
-                    });
-                  } else {
-                    try {
-                      await submitForm();
-                    } catch (e) {
-                      errorDialog(e.toString(), context);
-                    }
-                  }
-                },
-                onStepCancel: () {
-                  if (_activeCurrentStep > 0) {
-                    setState(() {
-                      _activeCurrentStep -= 1;
-                    });
-                  }
-                },
-                onStepTapped: (int index) {
-                  setState(() {
-                    if (index < _activeCurrentStep) {
-                      _activeCurrentStep = index;
-                    }
-                  });
-                },
-                steps: [
-                  Step(
-                    title: Text(
-                      'Basic Info',
-                      style: TextStyle(
-                        fontWeight: _activeCurrentStep == 0
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: _activeCurrentStep == 0
-                            ? Theme.of(context).primaryColor
-                            : null,
-                      ),
-                    ),
-                    content: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // TODO: Reimplement image picker
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: ClipOval(
-                        //     child: imageLoading
-                        //         ? const SizedBox(
-                        //             width: 128,
-                        //             height: 128,
-                        //             child: CircularProgressIndicator(),
-                        //           )
-                        //         : imageBytes != null
-                        //             ? Image.memory(
-                        //                 imageBytes!,
-                        //                 width: 128,
-                        //                 height: 128,
-                        //               )
-                        //             : widget.organization != null
-                        //                 ? CachedNetworkImage(
-                        //                     imageUrl: widget
-                        //                         .organization!.profileUrl!,
-                        //                     height: 128,
-                        //                     width: 128,
-                        //                   )
-                        //                 : const Icon(
-                        //                     Icons.account_circle,
-                        //                     size: 128,
-                        //                   ),
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: TextButton(
-                        //     onPressed: () async => await pickAndSaveImage(),
-                        //     child: const Text('Edit Profile Picture'),
-                        //   ),
-                        // ),
-                        if (widget.organization == null) buildPlanSelector(),
-                        const SizedBox(height: 16),
-                        TextFormField(
-                          controller: organizationUsernameController,
-                          decoration: const InputDecoration(
-                            labelText: 'Organization Username*',
-                            hintText: 'Enter organization username',
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Required';
-                            }
-                            return null;
-                          },
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: organizationNameController,
-                          decoration: const InputDecoration(
-                            labelText: 'Organization Name*',
-                            hintText: 'Enter organization name',
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Name is required';
-                            }
-                            return null;
-                          },
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          maxLength: 32,
-                          controller: descriptionController,
-                          decoration: const InputDecoration(
-                            labelText: 'Description',
-                            hintText: 'Enter organization description',
-                          ),
-                        ),
-                        Gap(gapSize),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+          : Center(
+            child: SizedBox(
+                width: 400,
+                child: Form(
+                  key: _formKey,
+                  child: Stepper(
+                    controlsBuilder: (context, controls) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Text('Invite Only'),
-                            Switch(
-                              value: _isInviteOnly,
-                              onChanged: (value) {
-                                setState(() {
-                                  _isInviteOnly = value;
-                                });
-                              },
+                            if (_activeCurrentStep != 0)
+                              ElevatedButton(
+                                onPressed: controls.onStepCancel,
+                                child: const Text('Back'),
+                              ),
+                            ElevatedButton(
+                              onPressed: controls.onStepContinue,
+                              child: loading
+                                  ? const SmallWheel()
+                                  : Text(
+                                      _activeCurrentStep == 2 &&
+                                              widget.organization != null
+                                          ? 'Update'
+                                          : _activeCurrentStep == 2
+                                              ? 'Create'
+                                              : 'Continue',
+                                    ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Step(
-                    title: Text(
-                      'Contact',
-                      style: TextStyle(
-                        fontWeight: _activeCurrentStep == 1
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: _activeCurrentStep == 1
-                            ? Theme.of(context).primaryColor
-                            : null,
-                      ),
-                    ),
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextFormField(
-                          controller: emailController,
-                          decoration: const InputDecoration(
-                            labelText: 'Email*',
-                            hintText: 'Enter email address',
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Email is required';
-                            }
-                            if (!isValidEmail(value)) {
-                              return 'Invalid email format';
-                            }
-                            return null;
-                          },
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: phoneController,
-                          decoration: const InputDecoration(
-                            labelText: 'Phone',
-                            hintText: 'Enter phone number',
-                          ),
-                          keyboardType: TextInputType.phone,
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: addressController,
-                          decoration: const InputDecoration(
-                            labelText: 'Address',
-                            hintText: 'Enter address',
+                      );
+                    },
+                    type: StepperType.horizontal,
+                    currentStep: _activeCurrentStep,
+                    onStepContinue: () async {
+                      if (_activeCurrentStep < 2) {
+                        setState(() {
+                          _activeCurrentStep += 1;
+                        });
+                      } else {
+                        try {
+                          await submitForm();
+                        } catch (e) {
+                          errorDialog(e.toString(), context);
+                        }
+                      }
+                    },
+                    onStepCancel: () {
+                      if (_activeCurrentStep > 0) {
+                        setState(() {
+                          _activeCurrentStep -= 1;
+                        });
+                      }
+                    },
+                    onStepTapped: (int index) {
+                      setState(() {
+                        if (index < _activeCurrentStep) {
+                          _activeCurrentStep = index;
+                        }
+                      });
+                    },
+                    steps: [
+                      Step(
+                        title: Text(
+                          'Basic Info',
+                          style: TextStyle(
+                            fontWeight: _activeCurrentStep == 0
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: _activeCurrentStep == 0
+                                ? Theme.of(context).primaryColor
+                                : null,
                           ),
                         ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: addressTwoController,
-                          decoration: const InputDecoration(
-                            labelText: 'Address Two',
-                            hintText: 'Enter second address line',
-                          ),
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            labelText: 'City',
-                            hintText: 'Enter city',
-                          ),
-                        ),
-                        Gap(gapSize),
-                        Row(
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: stateController,
-                                decoration: const InputDecoration(
-                                  labelText: 'State',
-                                  hintText: 'Enter state',
-                                ),
+                            // TODO: Reimplement image picker
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: ClipOval(
+                            //     child: imageLoading
+                            //         ? const SizedBox(
+                            //             width: 128,
+                            //             height: 128,
+                            //             child: CircularProgressIndicator(),
+                            //           )
+                            //         : imageBytes != null
+                            //             ? Image.memory(
+                            //                 imageBytes!,
+                            //                 width: 128,
+                            //                 height: 128,
+                            //               )
+                            //             : widget.organization != null
+                            //                 ? CachedNetworkImage(
+                            //                     imageUrl: widget
+                            //                         .organization!.profileUrl!,
+                            //                     height: 128,
+                            //                     width: 128,
+                            //                   )
+                            //                 : const Icon(
+                            //                     Icons.account_circle,
+                            //                     size: 128,
+                            //                   ),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: TextButton(
+                            //     onPressed: () async => await pickAndSaveImage(),
+                            //     child: const Text('Edit Profile Picture'),
+                            //   ),
+                            // ),
+                            if (widget.organization == null) buildPlanSelector(),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              controller: organizationUsernameController,
+                              decoration: const InputDecoration(
+                                labelText: 'Organization Username*',
+                                hintText: 'Enter organization username',
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Required';
+                                }
+                                return null;
+                              },
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: organizationNameController,
+                              decoration: const InputDecoration(
+                                labelText: 'Organization Name*',
+                                hintText: 'Enter organization name',
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Name is required';
+                                }
+                                return null;
+                              },
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              maxLength: 32,
+                              controller: descriptionController,
+                              decoration: const InputDecoration(
+                                labelText: 'Description',
+                                hintText: 'Enter organization description',
                               ),
                             ),
                             Gap(gapSize),
-                            Expanded(
-                              child: TextFormField(
-                                controller: zipController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Zip',
-                                  hintText: 'Enter ZIP code',
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('Invite Only'),
+                                Switch(
+                                  value: _isInviteOnly,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _isInviteOnly = value;
+                                    });
+                                  },
                                 ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) {
-                                  if (value != null && value.isNotEmpty) {
-                                    if (value.length != 5) {
-                                      return 'A Zip Code is 5 Digits';
-                                    }
-                                  }
-                                  return null;
-                                },
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Step(
+                        title: Text(
+                          'Contact',
+                          style: TextStyle(
+                            fontWeight: _activeCurrentStep == 1
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: _activeCurrentStep == 1
+                                ? Theme.of(context).primaryColor
+                                : null,
+                          ),
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              controller: emailController,
+                              decoration: const InputDecoration(
+                                labelText: 'Email*',
+                                hintText: 'Enter email address',
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Email is required';
+                                }
+                                if (!isValidEmail(value)) {
+                                  return 'Invalid email format';
+                                }
+                                return null;
+                              },
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: phoneController,
+                              decoration: const InputDecoration(
+                                labelText: 'Phone',
+                                hintText: 'Enter phone number',
+                              ),
+                              keyboardType: TextInputType.phone,
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: addressController,
+                              decoration: const InputDecoration(
+                                labelText: 'Address',
+                                hintText: 'Enter address',
+                              ),
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: addressTwoController,
+                              decoration: const InputDecoration(
+                                labelText: 'Address Two',
+                                hintText: 'Enter second address line',
+                              ),
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                labelText: 'City',
+                                hintText: 'Enter city',
+                              ),
+                            ),
+                            Gap(gapSize),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: stateController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'State',
+                                      hintText: 'Enter state',
+                                    ),
+                                  ),
+                                ),
+                                Gap(gapSize),
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: zipController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Zip',
+                                      hintText: 'Enter ZIP code',
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value != null && value.isNotEmpty) {
+                                        if (value.length != 5) {
+                                          return 'A Zip Code is 5 Digits';
+                                        }
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Step(
+                        title: Text(
+                          'Socials',
+                          style: TextStyle(
+                            fontWeight: _activeCurrentStep == 2
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: _activeCurrentStep == 2
+                                ? Theme.of(context).primaryColor
+                                : null,
+                          ),
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              controller: instagramController,
+                              decoration: const InputDecoration(
+                                prefixText: 'instagram.com/',
+                                labelText: 'Instagram',
+                                hintText: 'Enter Instagram username',
+                              ),
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: facebookController,
+                              decoration: const InputDecoration(
+                                prefixText: 'facebook.com/',
+                                labelText: 'Facebook',
+                                hintText: 'Enter Facebook username',
+                              ),
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: twitterController,
+                              decoration: const InputDecoration(
+                                prefixText: 'twitter.com/',
+                                labelText: 'Twitter',
+                                hintText: 'Enter Twitter username',
+                              ),
+                            ),
+                            Gap(gapSize),
+                            TextFormField(
+                              controller: tiktokController,
+                              decoration: const InputDecoration(
+                                prefixText: 'tiktok.com/',
+                                labelText: 'TikTok',
+                                hintText: 'Enter TikTok username',
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Step(
-                    title: Text(
-                      'Socials',
-                      style: TextStyle(
-                        fontWeight: _activeCurrentStep == 2
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: _activeCurrentStep == 2
-                            ? Theme.of(context).primaryColor
-                            : null,
                       ),
-                    ),
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextFormField(
-                          controller: instagramController,
-                          decoration: const InputDecoration(
-                            prefixText: 'instagram.com/',
-                            labelText: 'Instagram',
-                            hintText: 'Enter Instagram username',
-                          ),
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: facebookController,
-                          decoration: const InputDecoration(
-                            prefixText: 'facebook.com/',
-                            labelText: 'Facebook',
-                            hintText: 'Enter Facebook username',
-                          ),
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: twitterController,
-                          decoration: const InputDecoration(
-                            prefixText: 'twitter.com/',
-                            labelText: 'Twitter',
-                            hintText: 'Enter Twitter username',
-                          ),
-                        ),
-                        Gap(gapSize),
-                        TextFormField(
-                          controller: tiktokController,
-                          decoration: const InputDecoration(
-                            prefixText: 'tiktok.com/',
-                            labelText: 'TikTok',
-                            hintText: 'Enter TikTok username',
-                          ),
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+          ),
     );
   }
 
