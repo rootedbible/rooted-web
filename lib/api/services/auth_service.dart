@@ -72,8 +72,10 @@ class AuthService {
     }
   }
 
-  Future<Response> resetPassword(
-      {required String pin, required String password,}) async {
+  Future<Response> resetPassword({
+    required String pin,
+    required String password,
+  }) async {
     try {
       final url = '$baseUrl/$route/reset-password';
       final Map<String, dynamic> data = {'pin': pin, 'new_password': password};
