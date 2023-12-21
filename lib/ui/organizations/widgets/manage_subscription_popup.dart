@@ -137,7 +137,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
     try {
       await SubscriptionsService().cancel(organization.subscription.id);
       Organization newOrg = organization.copyWith(
-          subscription: organization.subscription.copyWith(isCanceled: true));
+          subscription: organization.subscription.copyWith(isCanceled: true),);
       Navigator.pop(context, newOrg);
       Navigator.pop(context, newOrg);
     } catch (e) {

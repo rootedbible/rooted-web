@@ -44,7 +44,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context, organization),
         ),
         title: Text('@${organization.username}'),

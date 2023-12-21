@@ -58,7 +58,7 @@ class _OrganizationTileState extends State<OrganizationTile> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
+                            image: imageProvider, fit: BoxFit.cover,),
                       ),
                     ),
                   ),
