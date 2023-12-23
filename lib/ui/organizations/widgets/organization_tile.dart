@@ -25,6 +25,7 @@ class _OrganizationTileState extends State<OrganizationTile> {
 
   @override
   Widget build(BuildContext context) {
+    print(organization.type);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(

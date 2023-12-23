@@ -1,3 +1,6 @@
+import 'package:rooted_web/models/subscription_model.dart';
+import 'package:rooted_web/utils/pretty_print.dart';
+
 class User {
   final int uniqueId;
   final String firstName;
@@ -12,6 +15,7 @@ class User {
   final double percentageRecorded;
   final String? followStatus;
   final String? orgStatus;
+  final Subscription? subscription;
 
   User({
     required this.firstName,
@@ -27,6 +31,7 @@ class User {
     required this.followersCount,
     required this.followingCount,
     required this.orgStatus,
+    required this.subscription,
   });
 
   factory User.fromJson(
@@ -34,6 +39,7 @@ class User {
     String? status,
     String? followStatus,
   }) {
+    prettyPrintMap(json);
     return User(
       lastName: json['last_name'],
       firstName: json['first_name'],
@@ -48,6 +54,9 @@ class User {
       followersCount: json['total_followers'],
       followingCount: json['total_following'],
       orgStatus: status ?? json['status'],
+      subscription: json['subscription'] != null
+          ? Subscription.fromJson(json['subscription'])
+          : null,
     );
   }
 
@@ -66,6 +75,7 @@ class User {
     followersCount: 0,
     followingCount: 0,
     orgStatus: 'member',
+    subscription: null,
   );
 
   User copyWith({
@@ -82,6 +92,7 @@ class User {
     int? followersCount,
     int? followingCount,
     String? orgStatus,
+    Subscription? subscription,
   }) {
     return User(
       uniqueId: uniqueId ?? this.uniqueId,
@@ -97,6 +108,7 @@ class User {
       followersCount: followersCount ?? this.followersCount,
       followingCount: followingCount ?? this.followingCount,
       orgStatus: orgStatus ?? this.orgStatus,
+      subscription: subscription ?? this.subscription,
     );
   }
 }

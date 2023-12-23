@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:rooted_web/api/services/subscriptions_service.dart';
+import 'package:rooted_web/models/subscription_model.dart';
 import 'package:rooted_web/ui/widgets/error_dialog.dart';
 import 'package:universal_html/html.dart';
 
 import '../../../models/organization_model.dart';
 
 class ManageSubscriptionPopup extends StatelessWidget {
-  final Organization organization;
+  final Subscription subscription;
+  final Organization? organization;
 
-  const ManageSubscriptionPopup(this.organization, {super.key});
+  const ManageSubscriptionPopup(
+    this.subscription,
+    this.organization, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateTime = DateTime.parse(organization.subscription.expiration);
+    DateTime dateTime = DateTime.parse(subscription.expiration);
     return AlertDialog(
       content: SizedBox(
         width: 350,
@@ -30,11 +36,10 @@ class ManageSubscriptionPopup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Subscription ${organization.subscription.isCanceled ? 'Expires' : organization.subscription.isActive ? "Renews" : "Expired"} ${dateTime.month}/${dateTime.day}/${dateTime.year}",
+                "Subscription ${subscription.isCanceled ? 'Expires' : subscription.isActive ? "Renews" : "Expired"} ${dateTime.month}/${dateTime.day}/${dateTime.year}",
               ),
             ),
-            if (!organization.subscription.isActive ||
-                organization.subscription.isCanceled)
+            if (!subscription.isActive || subscription.isCanceled)
               const Text(
                 'If you renew the subscription before it expires, currently you will not get the remaining time as extra.',
               ),
@@ -47,11 +52,10 @@ class ManageSubscriptionPopup extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () async {
-                    if (!organization.subscription.isActive ||
-                        organization.subscription.isCanceled) {
+                    if (!subscription.isActive || subscription.isCanceled) {
                       final String url =
                           await SubscriptionsService().renewSubscription(
-                        subscriptionId: organization.subscription.id,
+                        subscriptionId: subscription.id,
                       );
                       window.location.href = url;
                     } else {
@@ -93,6 +97,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
                                           await _handleCancel(
                                             context,
                                             organization,
+                                            subscription.id,
                                           );
                                         },
                                         child: const Text(
@@ -110,13 +115,11 @@ class ManageSubscriptionPopup extends StatelessWidget {
                     }
                   },
                   child: Text(
-                    !organization.subscription.isActive ||
-                            organization.subscription.isCanceled
+                    !subscription.isActive || subscription.isCanceled
                         ? 'Renew Subscription'
                         : 'Cancel Subscription',
                     style: TextStyle(
-                      color: !organization.subscription.isActive ||
-                              organization.subscription.isCanceled
+                      color: !subscription.isActive || subscription.isCanceled
                           ? null
                           : Theme.of(context).colorScheme.error,
                     ),
@@ -132,11 +135,13 @@ class ManageSubscriptionPopup extends StatelessWidget {
 
   Future<void> _handleCancel(
     BuildContext context,
-    Organization organization,
+    Organization? organization,
+    int subscriptionId,
   ) async {
     try {
-      await SubscriptionsService().cancel(organization.subscription.id);
-      Organization newOrg = organization.copyWith(
+      await SubscriptionsService().cancel(subscription.id);
+
+      Organization? newOrg = organization?.copyWith(
         subscription: organization.subscription.copyWith(isCanceled: true),
       );
       Navigator.pop(context, newOrg);

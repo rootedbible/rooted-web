@@ -61,7 +61,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                       Organization? newOrg = await showDialog(
                         context: context,
                         builder: (context) =>
-                            ManageSubscriptionPopup(organization),
+                            ManageSubscriptionPopup(organization.subscription, organization, ),
                       );
                       if (newOrg != null) {
                         setState(() {
