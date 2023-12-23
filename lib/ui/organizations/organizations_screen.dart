@@ -54,7 +54,8 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                const CreateOrganizationScreen(organization: null),
+                                const CreateOrganizationScreen(
+                                    organization: null,),
                           ),
                         ),
                         child: const Icon(Icons.add),
@@ -91,4 +92,7 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
       },
     );
   }
+
+
+
 }

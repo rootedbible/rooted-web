@@ -35,7 +35,7 @@ class Plan {
   }
 
   static final empty = Plan(
-      type: individualType,
+      type: familyType,
       id: 0,
       displayName: 'displayName',
       annualPrice: 0,
