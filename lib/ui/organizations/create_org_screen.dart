@@ -233,9 +233,11 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                 });
               }
             },
-            child: Text(currentPlan.type == individualType
-                ? 'Proceed to Checkout'
-                : 'Continue'),
+            child: Text(
+              currentPlan.type == individualType
+                  ? 'Proceed to Checkout'
+                  : 'Continue',
+            ),
           ),
         ),
       ],
