@@ -63,7 +63,9 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   @override
   void initState() {
     super.initState();
+    getPlans();
   }
+
   @override
   Widget build(BuildContext context) {
     steps = [
@@ -74,26 +76,30 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView( // Moved up to wrap the entire page content
-        child: Center(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildSteps(),
-                SizedBox(
-                  width: _formWidth,
-                  child: steps[currentStep],
+      body: plans.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              // Moved up to wrap the entire page content
+              child: Center(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildSteps(),
+                      SizedBox(
+                        width: _formWidth,
+                        child: steps[currentStep],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
-
 
   Widget _buildSteps() {
     return SizedBox(
