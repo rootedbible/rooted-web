@@ -64,7 +64,6 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   void initState() {
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     steps = [
@@ -73,26 +72,28 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
     if (currentPlan.type != individualType) {
       steps.addAll([_buildStepTwo(), _buildStepThree(), _buildStepFour()]);
     }
+
     return Scaffold(
-      body: Form(
-        key: _formKey,
+      body: SingleChildScrollView( // Moved up to wrap the entire page content
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildSteps(),
-              SingleChildScrollView(
-                child: SizedBox(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildSteps(),
+                SizedBox(
                   width: _formWidth,
                   child: steps[currentStep],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
 
   Widget _buildSteps() {
     return SizedBox(
