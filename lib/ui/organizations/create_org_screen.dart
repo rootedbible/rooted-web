@@ -34,8 +34,6 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   bool loading = false;
   bool inviteOnly = false;
   List<Plan> plans = [];
-  String selectedType = individualType;
-  List<int> currentTiers = [];
   Plan currentPlan = Plan.empty;
 
   TextEditingController organizationUsernameController =
@@ -57,7 +55,6 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   Uint8List? imageBytes;
 
   int currentStep = 0;
-  int currentPlanType = 0;
   late List<Widget> steps;
 
   @override
@@ -76,6 +73,10 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Create Subscription'),
+      ),
       body: plans.isEmpty
           ? const Center(
               child: CircularProgressIndicator(),
@@ -164,14 +165,12 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   }
 
   Widget _planTypeTile(int index, String type, IconData iconData) {
-    final bool isSelected = index == currentPlanType;
+    final bool isSelected = currentPlan.type == type;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: InkWell(
-        onTap: () => setState(() {
-          currentPlanType = index;
-        }),
+        onTap: () => switchType(type),
         child: Container(
           padding: const EdgeInsets.all(32),
           decoration: isSelected
@@ -202,34 +201,41 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
     return Column(
       children: [
         _buildPlanTypes(),
-        if (selectedType == familyType) _buildSizes(),
+        if (currentPlan.type != individualType) _buildSizes(),
         _buildDurations(),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Invite Only'),
-              Switch(
-                value: inviteOnly,
-                onChanged: (value) {
-                  setState(() {
-                    inviteOnly = value;
-                  });
-                },
-              ),
-            ],
+        if (currentPlan.type != individualType)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Invite Only'),
+                Switch(
+                  value: inviteOnly,
+                  onChanged: (value) {
+                    setState(() {
+                      inviteOnly = value;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                currentStep += 1;
-              });
+            onPressed: () async {
+              if (currentPlan.type == individualType) {
+                await submitForm();
+              } else {
+                setState(() {
+                  currentStep += 1;
+                });
+              }
             },
-            child: const Text('Continue'),
+            child: Text(currentPlan.type == individualType
+                ? 'Proceed to Checkout'
+                : 'Continue'),
           ),
         ),
       ],
@@ -237,9 +243,44 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   }
 
   Widget _buildSizes() {
-    return const SizedBox(
+    // TODO: Make it more flexible for organizations
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          if (currentPlan.type == coupleType) _buildQuantity(2),
+          if (currentPlan.type == familyType) _buildQuantity(5),
+          if (currentPlan.type == familyType) _buildQuantity(10),
+          if (currentPlan.type == familyType) _buildQuantity(20),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuantity(int maxMembers) {
+    return Container(
       width: 128,
-      child: Text('Temp'),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(45),
+        border:
+            maxMembers == currentPlan.maxMembers ? Border.all(width: 2) : null,
+        color: maxMembers == currentPlan.maxMembers
+            ? Theme.of(context).colorScheme.secondary
+            : null,
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextButton(
+            onPressed: () => setQuantity(maxMembers),
+            child: Text(
+              'Up to $maxMembers members',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -312,6 +353,12 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
           TextFormField(
             controller: organizationUsernameController,
             decoration: const InputDecoration(hintText: 'ex: smithFamily'),
+            validator: (_) {
+              if (organizationUsernameController.text.trim().length < 4) {
+                'Must be at least 4 Characters';
+              }
+              return null;
+            },
           ),
         ),
         formTile(
@@ -319,6 +366,12 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
           TextFormField(
             controller: organizationNameController,
             decoration: const InputDecoration(hintText: 'ex: The Smiths'),
+            validator: (_) {
+              if (organizationNameController.text.trim().length < 4) {
+                'Must be at least 4 Characters';
+              }
+              return null;
+            },
           ),
         ),
         Padding(
@@ -549,9 +602,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                 child: const Text('Back'),
               ),
               ElevatedButton(
-                onPressed: () => setState(() {
-                  // TODO: Handle Submit
-                }),
+                onPressed: () async => await submitForm(),
                 child: const Text('Proceed to Checkout'),
               ),
             ],
@@ -563,7 +614,9 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
 
   // TODO: Move this to the BLoC
   Future<void> submitForm() async {
-    if (_formKey.currentState?.validate() == true && !loading) {
+    if ((currentPlan.type == individualType ||
+            _formKey.currentState?.validate() == true) &&
+        !loading) {
       setState(() {
         loading = true;
       });
@@ -572,6 +625,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
         int id = -1;
         if (widget.organization == null) {
           final String url = await SubscriptionsService().createSubscription(
+            currentPlan.type,
             planId: currentPlan.id,
             priceId: selectedDuration == monthlyDuration
                 ? currentPlan.stripeMonthly
@@ -729,9 +783,26 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
       List<Plan> plans = (await SubscriptionsService().getPlans()).plans;
       setState(() {
         this.plans = plans;
+        currentPlan = plans.first;
       });
     } catch (e) {
       debugPrint('Error Getting plans: $e');
     }
+  }
+
+  void switchType(String type) {
+    setState(() {
+      currentPlan = plans.firstWhere((element) => element.type == type);
+    });
+  }
+
+  void setQuantity(int maxMembers) {
+    setState(() {
+      currentPlan = plans.firstWhere(
+        (element) =>
+            element.type == currentPlan.type &&
+            element.maxMembers == maxMembers,
+      );
+    });
   }
 }

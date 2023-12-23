@@ -20,7 +20,8 @@ class SubscriptionsService {
     }
   }
 
-  Future<String> createSubscription({
+  Future<String> createSubscription(
+    String type, {
     required String priceId,
     required int planId,
     required String frequency,
@@ -69,7 +70,7 @@ class SubscriptionsService {
         'plan_id': planId,
         'frequency': frequency,
         'success_url': window.location.href,
-        if (uniqueName != null) 'organization': org,
+        if (type != individualType) 'organization': org,
       };
 
       final response = await dio.post(url, data: data);

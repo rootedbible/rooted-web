@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rooted_web/ui/organizations/create_org_screen.dart';
 import 'package:rooted_web/ui/organizations/widgets/manage_subscription_popup.dart';
 import 'package:rooted_web/ui/organizations/widgets/social_tile.dart';
 import 'package:rooted_web/ui/widgets/info_tile.dart';
@@ -12,7 +13,6 @@ import '../../bloc/organizations/organizations_bloc.dart';
 import '../../models/organization_model.dart';
 import '../../utils/get_map_string.dart';
 import '../widgets/snackbar.dart';
-import 'create_organization_screen.dart';
 import 'organization_management_screen.dart';
 
 class OrganizationScreen extends StatefulWidget {
@@ -78,7 +78,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            CreateOrganizationScreen(organization: organization),
+                            CreateOrgScreen( organization),
                       ),
                     );
                     if (newOrganization != null) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/ui/organizations/create_organization_screen.dart';
+import 'package:rooted_web/ui/organizations/create_org_screen.dart';
 import 'package:rooted_web/ui/organizations/widgets/organization_tile.dart';
 
 import '../../bloc/organizations/organizations_bloc.dart';
@@ -53,9 +53,9 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                const CreateOrganizationScreen(
-                                    organization: null,),
+                            builder: (context) => const CreateOrgScreen(
+                              null,
+                            ),
                           ),
                         ),
                         child: const Icon(Icons.add),
@@ -92,7 +92,4 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
       },
     );
   }
-
-
-
 }
