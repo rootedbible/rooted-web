@@ -4,6 +4,7 @@ class Subscription {
   final String expiration;
   final bool isActive;
   final bool isCanceled;
+  final String? type;
 
   Subscription({
     required this.id,
@@ -11,6 +12,7 @@ class Subscription {
     required this.expiration,
     required this.isActive,
     required this.isCanceled,
+    required this.type,
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Subscription {
       expiration: json['expiration'],
       isActive: json['is_active'],
       userId: json['user_id'],
+      type: json['plan_type'],
     );
   }
 
@@ -29,6 +32,7 @@ class Subscription {
     String? expiration,
     bool? isActive,
     bool? isCanceled,
+    String? type,
   }) {
     return Subscription(
       id: id ?? this.id,
@@ -36,6 +40,7 @@ class Subscription {
       expiration: expiration ?? this.expiration,
       isActive: isActive ?? this.isActive,
       isCanceled: isCanceled ?? this.isCanceled,
+      type: type ?? this.type,
     );
   }
 }

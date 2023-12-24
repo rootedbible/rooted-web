@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
       children: [
         ElevatedButton(
             onPressed: () => ManageSubscriptionPopup(user.subscription!, null),
-            child: Text("Manage Individual Subscription"))
+            child: const Text("Manage Individual Subscription"),),
       ],
     );
   }

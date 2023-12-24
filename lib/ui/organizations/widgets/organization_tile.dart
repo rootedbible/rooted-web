@@ -25,7 +25,6 @@ class _OrganizationTileState extends State<OrganizationTile> {
 
   @override
   Widget build(BuildContext context) {
-    print(organization.type);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
@@ -91,9 +90,9 @@ class _OrganizationTileState extends State<OrganizationTile> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(
-                organization.type == familyType
+                organization.subscription.type == familyType
                     ? Icons.family_restroom
-                    : organization.type == coupleType
+                    : organization.subscription.type == coupleType
                         ? Icons.group
                         : Icons.church,
               ),

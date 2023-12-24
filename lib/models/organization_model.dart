@@ -1,3 +1,4 @@
+import 'package:rooted_web/const.dart';
 import 'package:rooted_web/models/subscription_model.dart';
 import 'package:rooted_web/utils/pretty_print.dart';
 
@@ -5,7 +6,6 @@ class Organization {
   // Unique Stuff
   final int uniqueId;
   final String username;
-  final String? type;
   final String name;
   final String? description;
   final String? profileUrl;
@@ -46,7 +46,6 @@ class Organization {
     required this.x,
     required this.numMembers,
     required this.status,
-    required this.type,
     required this.isPrivate,
     required this.subscription,
   });
@@ -56,15 +55,14 @@ class Organization {
     return Organization(
       email: json['email'],
       isPrivate: json['invite_only'],
-      type: json['type'],
       uniqueId: json['id'],
       state: json['state'],
       name: json['name'],
       address: json['address'],
       addressTwo: json['address_two'],
       description: json['description'],
-      profileUrl: json['profile_image_url'] ??
-          'https://i.imgur.com/jNNT4LE.png',
+      profileUrl:
+          json['profile_image_url'] ?? 'https://i.imgur.com/jNNT4LE.png',
       zip: json['zip'],
       phone: json['phone'],
       instagram: json['instagram'],
@@ -81,8 +79,8 @@ class Organization {
   }
 
   static final empty = Organization(
-    subscription:
-        Subscription(id: 0, expiration: '', isActive: false, userId: 0, isCanceled: false),
+    subscription: Subscription(
+        id: 0, expiration: '', isActive: false, userId: 0, isCanceled: false, type: individualType),
     username: 'msmary',
     facebook: 'msmary',
     uniqueId: 1,
@@ -101,7 +99,6 @@ class Organization {
     tiktok: 'msmary',
     website: 'https://msmary.edu',
     x: 'msmary',
-    type: 'church',
     isPrivate: false,
     email: 'test@email.com',
     numMembers: 10,
@@ -128,7 +125,6 @@ class Organization {
     String? x,
     int? numMembers,
     String? status,
-    String? type,
     bool? isPrivate,
     Subscription? subscription,
     String? uniqueName,
@@ -153,7 +149,6 @@ class Organization {
       x: x ?? this.x,
       numMembers: numMembers ?? this.numMembers,
       status: status ?? this.status,
-      type: type ?? this.type,
       isPrivate: isPrivate ?? this.isPrivate,
       subscription: subscription ?? this.subscription,
     );
