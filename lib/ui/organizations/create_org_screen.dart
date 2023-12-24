@@ -2,7 +2,9 @@ import 'dart:typed_data';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:rooted_web/bloc/auth/auth_bloc.dart';
 import 'package:rooted_web/const.dart';
 import 'package:rooted_web/models/organization_model.dart';
 import 'package:rooted_web/ui/widgets/divider_line.dart';
@@ -625,7 +627,11 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
       try {
         Organization? popOrganization;
         int id = -1;
-        if (widget.organization == null) {
+        if (currentPlan.type == individualType &&
+            context.read<AuthBloc>().user.subscription != null &&
+            context.read<AuthBloc>().user.subscription!.isActive) {
+          throw 'You already have an active individual account';
+        } else if (widget.organization == null) {
           final String url = await SubscriptionsService().createSubscription(
             currentPlan.type,
             planId: currentPlan.id,
