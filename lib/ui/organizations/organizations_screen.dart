@@ -67,7 +67,7 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                   ],
                 ),
               ),
-              // if (context.read<AuthBloc>().user.subscription != null)
+              if (context.read<AuthBloc>().user.subscription != null)
                 _buildIndividual(context.read<AuthBloc>().user),
               Expanded(
                 child: state is OrganizationLoading
