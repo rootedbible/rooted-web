@@ -104,7 +104,8 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
       children: [
         ElevatedButton(
           onPressed: () => ManageSubscriptionPopup(user.subscription!, null),
-          child: const Text("Manage Individual Subscription"),),
+          child: const Text('Manage Individual Subscription'),
+        ),
       ],
     );
   }

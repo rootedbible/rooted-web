@@ -80,7 +80,13 @@ class Organization {
 
   static final empty = Organization(
     subscription: Subscription(
-        id: 0, expiration: '', isActive: false, userId: 0, isCanceled: false, type: individualType),
+      id: 0,
+      expiration: '',
+      isActive: false,
+      userId: 0,
+      isCanceled: false,
+      type: individualType,
+    ),
     username: 'msmary',
     facebook: 'msmary',
     uniqueId: 1,

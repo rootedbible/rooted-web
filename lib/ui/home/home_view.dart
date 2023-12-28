@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rooted_web/bloc/auth/auth_bloc.dart';
 import 'package:rooted_web/const.dart';
 import 'package:rooted_web/ui/organizations/organizations_screen.dart';
-import 'package:rooted_web/ui/organizations/widgets/manage_subscription_popup.dart';
 import 'package:rooted_web/utils/logout.dart';
 
 import '../../models/user_model.dart';
@@ -31,7 +30,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = context.read<AuthBloc>().user;
     isMobile = MediaQuery.of(context).size.width <= mobileWidth;
     final List<Widget> screens = [
       OrganizationsScreen(

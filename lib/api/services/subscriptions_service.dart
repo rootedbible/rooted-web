@@ -79,8 +79,8 @@ class SubscriptionsService {
     }  on DioException catch (dioError) {
       debugPrint('DioError caught: ${dioError.message}');
       if (dioError.response != null) {
-        print('Status code: ${dioError.response?.statusCode}');
-        print('Data: ${dioError.response?.data}');
+        debugPrint('Status code: ${dioError.response?.statusCode}');
+        debugPrint('Data: ${dioError.response?.data}');
       }
       rethrow;
     }  catch (e) {
@@ -99,8 +99,8 @@ class SubscriptionsService {
     } on DioException catch (dioError) {
       debugPrint('DioError caught: ${dioError.message}');
       if (dioError.response != null) {
-        print('Status code: ${dioError.response?.statusCode}');
-        print('Data: ${dioError.response?.data}');
+        debugPrint('Status code: ${dioError.response?.statusCode}');
+        debugPrint('Data: ${dioError.response?.data}');
       }
       rethrow;
     } catch (e) {
