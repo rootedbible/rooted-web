@@ -44,23 +44,13 @@ class _HomeViewState extends State<HomeView> {
       body: Row(
         children: [
           if (!isMobile) buildBar(),
-          if (user.subscription != null) _buildIndividual(user),
+
           Expanded(child: screens[_selectedIndex]),
         ],
       ),
     );
   }
 
-  Widget _buildIndividual(User user) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-            onPressed: () => ManageSubscriptionPopup(user.subscription!, null),
-            child: const Text("Manage Individual Subscription"),),
-      ],
-    );
-  }
 
   Widget buildBar() {
     final User user = context.read<AuthBloc>().user;

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rooted_web/bloc/auth/auth_bloc.dart';
 import 'package:rooted_web/ui/organizations/create_org_screen.dart';
+import 'package:rooted_web/ui/organizations/widgets/manage_subscription_popup.dart';
 import 'package:rooted_web/ui/organizations/widgets/organization_tile.dart';
 
 import '../../bloc/organizations/organizations_bloc.dart';
+import '../../models/user_model.dart';
 
 class OrganizationsScreen extends StatefulWidget {
   final bool isMobile;
@@ -64,6 +67,8 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                   ],
                 ),
               ),
+              // if (context.read<AuthBloc>().user.subscription != null)
+                _buildIndividual(context.read<AuthBloc>().user),
               Expanded(
                 child: state is OrganizationLoading
                     ? const Center(
@@ -90,6 +95,17 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildIndividual(User user) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => ManageSubscriptionPopup(user.subscription!, null),
+          child: const Text("Manage Individual Subscription"),),
+      ],
     );
   }
 }
