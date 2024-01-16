@@ -56,7 +56,6 @@ class User {
       followersCount: json['total_followers'],
       followingCount: json['total_following'],
       orgStatus: status ?? json['status'],
-      // TODO: Fix
       isSuperAdmin: json['is_super_user'] ?? false,
       subscription: json['subscription'] != null
           ? Subscription.fromJson(json['subscription'])

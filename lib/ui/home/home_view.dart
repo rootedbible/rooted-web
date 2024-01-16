@@ -108,15 +108,16 @@ class _HomeViewState extends State<HomeView> {
       leading: Icon(
         iconData,
         color: _selectedIndex == index
-            ? Theme.of(context).colorScheme.primary
+            ? Theme.of(context).colorScheme.secondary
             : null,
       ),
       title: Text(
         title,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: _selectedIndex == index
-                  ? Theme.of(context).colorScheme.primary
+                  ? Theme.of(context).colorScheme.secondary
                   : null,
+              fontWeight: _selectedIndex == index ? FontWeight.bold : null,
             ),
       ),
     );
