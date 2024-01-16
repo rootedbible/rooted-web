@@ -76,14 +76,14 @@ class SubscriptionsService {
       final response = await dio.post(url, data: data);
 
       return response.data['stripe_url'];
-    }  on DioException catch (dioError) {
+    } on DioException catch (dioError) {
       debugPrint('DioError caught: ${dioError.message}');
       if (dioError.response != null) {
         debugPrint('Status code: ${dioError.response?.statusCode}');
         debugPrint('Data: ${dioError.response?.data}');
       }
       rethrow;
-    }  catch (e) {
+    } catch (e) {
       debugPrint('Error on create organization: $e');
       rethrow;
     }

@@ -16,6 +16,7 @@ class User {
   final String? followStatus;
   final String? orgStatus;
   final Subscription? subscription;
+  final bool isSuperAdmin;
 
   User({
     required this.firstName,
@@ -32,6 +33,7 @@ class User {
     required this.followingCount,
     required this.orgStatus,
     required this.subscription,
+    required this.isSuperAdmin,
   });
 
   factory User.fromJson(
@@ -54,6 +56,7 @@ class User {
       followersCount: json['total_followers'],
       followingCount: json['total_following'],
       orgStatus: status ?? json['status'],
+      isSuperAdmin: json['is_super_admin'] ?? false,
       subscription: json['subscription'] != null
           ? Subscription.fromJson(json['subscription'])
           : null,
@@ -76,6 +79,7 @@ class User {
     followingCount: 0,
     orgStatus: 'member',
     subscription: null,
+    isSuperAdmin: false,
   );
 
   User copyWith({
@@ -93,6 +97,7 @@ class User {
     int? followingCount,
     String? orgStatus,
     Subscription? subscription,
+    bool? isSuperAdmin,
   }) {
     return User(
       uniqueId: uniqueId ?? this.uniqueId,
@@ -109,6 +114,7 @@ class User {
       followingCount: followingCount ?? this.followingCount,
       orgStatus: orgStatus ?? this.orgStatus,
       subscription: subscription ?? this.subscription,
+      isSuperAdmin: isSuperAdmin ?? this.isSuperAdmin,
     );
   }
 }
