@@ -3,12 +3,7 @@ part of 'reports_bloc.dart';
 @immutable
 abstract class ReportsEvent {}
 
-class GetReports extends ReportsEvent {
-  final String type;
-  final bool dismissed;
-
-  GetReports({required this.type, this.dismissed = false});
-}
+class GetReports extends ReportsEvent {}
 
 class DismissReport extends ReportsEvent {
   final int index;

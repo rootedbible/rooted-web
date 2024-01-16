@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:rooted_web/api/api.dart';
+import 'package:rooted_web/api/responses/user_response.dart';
 import '../../const.dart';
 import '../../models/user_model.dart';
 import '../responses/users_response.dart';
@@ -167,6 +168,18 @@ class UsersService {
       return response;
     } catch (e) {
       debugPrint('Error leaving organization: $e');
+      rethrow;
+    }
+  }
+
+  Future<User> getUserById({required int id}) async {
+    try {
+      final url = '$baseUrl/$route/$id';
+      final response = await dio.get(url);
+      print(response.data);
+      return User.fromJson(response.data);
+    } catch (e) {
+      debugPrint('Error on get user by id: $e');
       rethrow;
     }
   }

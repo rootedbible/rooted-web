@@ -50,14 +50,14 @@ class _FeedbackTileState extends State<FeedbackTile> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
-                    commentModel.platform.toLowerCase().contains('apple')
+                    commentModel.platform.toLowerCase().contains('ios')
                         ? Icons.apple
                         : Icons.android,
                   ),
                 ),
               ],
             ),
-            title: Expanded(child: Text(commentModel.comment)),
+            title: Text(commentModel.comment),
             trailing: IconButton(
               tooltip: 'Archive Comment',
               icon: const Icon(Icons.archive),
