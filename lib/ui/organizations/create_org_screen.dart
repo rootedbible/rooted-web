@@ -336,7 +336,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
                     selectedDuration = yearlyDuration;
                   }),
                   child: Text(
-                    'Annually @ \$${currentPlan.monthlyPrice}/yr\n(Two Months Free)',
+                    'Annually @ \$${currentPlan.annualPrice}/yr\n(Two Months Free)',
                     textAlign: TextAlign.center,
                   ),
                 ),

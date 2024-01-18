@@ -41,16 +41,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: const SplashScreen(),
         title: 'Rooted',
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(1, 68, 74, 1),
-            brightness: Brightness.dark,
-          ),
-          inputDecorationTheme: const InputDecorationTheme(
-            border: OutlineInputBorder(borderSide: BorderSide()),
-          ),
-          useMaterial3: true,
-        ),
+        // darkTheme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(
+        //     seedColor: const Color.fromRGBO(1, 68, 74, 1),
+        //     brightness: Brightness.dark,
+        //   ),
+        //   inputDecorationTheme: const InputDecorationTheme(
+        //     border: OutlineInputBorder(borderSide: BorderSide()),
+        //   ),
+        //   useMaterial3: true,
+        // ),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'WorkSans',
