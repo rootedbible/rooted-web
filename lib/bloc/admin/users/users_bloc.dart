@@ -14,28 +14,33 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   bool hasMore = true;
   List<User> users = [];
 
-  UsersBloc() : super(UsersLoading()) {
+  UsersBloc() : super(const UsersLoaded(users: [])) {
     on<GetUsers>((event, emit) async {
-      try {
-        emit(UsersLoading());
-        if (previousQuery != event.query) {
-          previousQuery = event.query;
-          page = 0;
-          hasMore = true;
-          users = [];
+      if (state is! UsersLoading) {
+        try {
+          emit(UsersLoading(users: users));
+          if (previousQuery != event.query) {
+            previousQuery = event.query;
+            page = 0;
+            hasMore = true;
+            users = [];
+          }
+          if (hasMore) {
+            final newUsers = (await UsersService()
+                    .searchUsers(query: event.query, page: page))
+                .users;
+            hasMore = newUsers.length == 20;
+            users.addAll(newUsers);
+            page++;
+          }
+          for (User user in users) {
+            print(user.firstName + " " + user.lastName);
+          }
+          emit(UsersLoaded(users: users));
+        } catch (e) {
+          debugPrint('Error getting users: $e');
+          emit(UsersError(error: e.toString(), users: users));
         }
-        if (hasMore) {
-          final newUsers =
-              (await UsersService().searchUsers(query: event.query, page: page))
-                  .users;
-          hasMore = newUsers.length == 20;
-          users.addAll(newUsers);
-          page++;
-        }
-        emit(UsersLoaded());
-      } catch (e) {
-        debugPrint('Error getting users: $e');
-        emit(UsersError(error: e.toString()));
       }
     });
   }

@@ -1,14 +1,21 @@
 part of 'users_bloc.dart';
 
 @immutable
-abstract class UsersState {}
+abstract class UsersState {
+  final List<User> users;
+  const UsersState({required this.users});
+}
 
-class UsersLoading extends UsersState {}
+class UsersLoading extends UsersState {
+  const UsersLoading({required super.users});
+}
 
-class UsersLoaded extends UsersState {}
+class UsersLoaded extends UsersState {
+  const UsersLoaded({required super.users});
+}
 
 class UsersError extends UsersState {
   final String error;
 
-  UsersError({required this.error});
+  const UsersError({required this.error, required super.users});
 }
