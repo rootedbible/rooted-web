@@ -43,6 +43,8 @@ class _UsersScreenState extends State<UsersScreen> {
                   onChanged: (_) => _handleSearch(),
                   controller: _searchController,
                   decoration: InputDecoration(
+                    labelText: 'Search',
+                    hintText: 'Search Users Here',
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.clear),
