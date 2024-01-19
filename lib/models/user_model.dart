@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:rooted_web/models/subscription_model.dart';
 import 'package:rooted_web/utils/pretty_print.dart';
 
@@ -71,8 +70,7 @@ class User {
           : null,
       followerStatus: json['follower_status'],
       followingStatus: json['following_status'],
-      hasActiveSubscription:
-          kDebugMode ? true : json['has_active_subscription'] ?? false,
+      hasActiveSubscription: json['has_active_subscription'] ?? false,
       enabled: json['is_active'] ?? true,
     );
   }

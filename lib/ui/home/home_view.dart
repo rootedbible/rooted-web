@@ -5,6 +5,7 @@ import 'package:rooted_web/bloc/auth/auth_bloc.dart';
 import 'package:rooted_web/const.dart';
 import 'package:rooted_web/ui/admin/reports/reports_screen.dart';
 import 'package:rooted_web/ui/admin/stats/stats_screen.dart';
+import 'package:rooted_web/ui/admin/users/users_screen.dart';
 import 'package:rooted_web/ui/organizations/organizations_screen.dart';
 import 'package:rooted_web/utils/logout.dart';
 
@@ -42,6 +43,7 @@ class _HomeViewState extends State<HomeView> {
       if (user.isSuperAdmin) const ReportsScreen(),
       if (user.isSuperAdmin) const StatsScreen(),
       if (user.isSuperAdmin) const FeedbackScreen(),
+      if (user.isSuperAdmin) const UsersScreen(),
     ];
     return Scaffold(
       drawer: isMobile ? buildBar() : null,

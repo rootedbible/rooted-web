@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rooted_web/bloc/admin/feedback/feedback_bloc.dart';
 import 'package:rooted_web/bloc/admin/reports/reports_bloc.dart';
+import 'package:rooted_web/bloc/admin/users/users_bloc.dart';
 import 'package:rooted_web/bloc/organizations/organizations_bloc.dart';
 import 'package:rooted_web/ui/screens/auth/splash_screen.dart';
 import 'package:universal_html/html.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ReportsBloc>(
           create: (BuildContext context) => ReportsBloc(),
+        ),
+        BlocProvider<UsersBloc>(
+          create: (BuildContext context) => UsersBloc(),
         ),
       ],
       child: MaterialApp(

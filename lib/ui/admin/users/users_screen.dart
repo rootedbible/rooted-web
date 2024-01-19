@@ -14,27 +14,68 @@ class _UsersScreenState extends State<UsersScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
+  void initState() {
+    _handleSearch();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Users',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24.0,
-            ),
+    return BlocConsumer<UsersBloc, UsersState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          body: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Users',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (_) => _handleSearch(),
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () => _clearSearch(),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: context.read<UsersBloc>().users.length,
+                  itemBuilder: (context, index) => AdminUserTile(
+                    user: context.read<UsersBloc>().users.elementAt(index),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            controller: _searchController,
-          ),
-        ),
-        Expanded(child: ListView.builder(itemCount: context.read<UsersBloc>().users.length, itemBuilder: (context, index) => AdminUserTile(user: context.read<UsersBloc>().users.elementAt(index)))),
-      ],),
+        );
+      },
     );
+  }
+
+  void _clearSearch() {
+    setState(() {
+      _searchController.clear();
+    });
+    _handleSearch();
+  }
+
+  void _handleSearch() {
+    context
+        .read<UsersBloc>()
+        .add(GetUsers(query: _searchController.text.trim()));
   }
 }

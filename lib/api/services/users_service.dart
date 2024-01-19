@@ -175,7 +175,6 @@ class UsersService {
     try {
       final url = '$baseUrl/$route/$id';
       final response = await dio.get(url);
-      print(response.data);
       return User.fromJson(response.data);
     } catch (e) {
       debugPrint('Error on get user by id: $e');

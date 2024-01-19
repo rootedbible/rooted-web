@@ -27,8 +27,6 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(user.followersCount);
-    print(user.followingCount);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
