@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:rooted_web/api/api.dart';
-import 'package:rooted_web/api/responses/user_response.dart';
 import '../../const.dart';
 import '../../models/user_model.dart';
 import '../responses/users_response.dart';

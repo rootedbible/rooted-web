@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:rooted_web/models/subscription_model.dart';
 import 'package:rooted_web/utils/pretty_print.dart';
 
@@ -7,6 +8,7 @@ class User {
   final String lastName;
   final String imageUrl;
   final String? phone;
+  final bool enabled;
   final String username;
   final String email;
   final bool isPublic;
@@ -17,6 +19,9 @@ class User {
   final String? orgStatus;
   final Subscription? subscription;
   final bool isSuperAdmin;
+  final String? followingStatus;
+  final String? followerStatus;
+  final bool hasActiveSubscription;
 
   User({
     required this.firstName,
@@ -34,6 +39,10 @@ class User {
     required this.orgStatus,
     required this.subscription,
     required this.isSuperAdmin,
+    required this.followerStatus,
+    required this.enabled,
+    required this.followingStatus,
+    required this.hasActiveSubscription,
   });
 
   factory User.fromJson(
@@ -60,46 +69,58 @@ class User {
       subscription: json['subscription'] != null
           ? Subscription.fromJson(json['subscription'])
           : null,
+      followerStatus: json['follower_status'],
+      followingStatus: json['following_status'],
+      hasActiveSubscription:
+          kDebugMode ? true : json['has_active_subscription'] ?? false,
+      enabled: json['is_active'] ?? true,
     );
   }
 
   static final empty = User(
-    firstName: 'Rooted',
-    lastName: 'User',
-    username: 'rooted.username',
-    phone: null,
-    email: 'test@email.com',
-    uniqueId: 1,
-    isPublic: false,
-    imageUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOtHiT73wb8Lqm2PuUfeHBdkn-GFxuCe0AwARhmuPT7A&s',
-    followStatus: null,
-    percentageRecorded: 0.0,
-    followersCount: 0,
-    followingCount: 0,
-    orgStatus: 'member',
-    subscription: null,
-    isSuperAdmin: false,
-  );
+      firstName: 'Rooted',
+      lastName: 'User',
+      username: 'rooted.username',
+      phone: null,
+      email: 'test@email.com',
+      uniqueId: 1,
+      isPublic: false,
+      imageUrl:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOtHiT73wb8Lqm2PuUfeHBdkn-GFxuCe0AwARhmuPT7A&s',
+      followStatus: null,
+      percentageRecorded: 0.0,
+      followersCount: 0,
+      followingCount: 0,
+      orgStatus: 'member',
+      subscription: null,
+      isSuperAdmin: false,
+      followerStatus: null,
+      followingStatus: null,
+      hasActiveSubscription: false,
+      enabled: true,);
 
-  User copyWith({
-    int? uniqueId,
-    String? firstName,
-    String? lastName,
-    String? imageUrl,
-    String? phone,
-    String? username,
-    String? email,
-    bool? isPublic,
-    String? followStatus,
-    double? percentageRecorded,
-    int? followersCount,
-    int? followingCount,
-    String? orgStatus,
-    Subscription? subscription,
-    bool? isSuperAdmin,
-  }) {
+  User copyWith(
+      {int? uniqueId,
+      String? firstName,
+      String? lastName,
+      String? imageUrl,
+      String? phone,
+      String? username,
+      String? email,
+      bool? isPublic,
+      String? followStatus,
+      double? percentageRecorded,
+      int? followersCount,
+      int? followingCount,
+      String? orgStatus,
+      Subscription? subscription,
+      bool? isSuperAdmin,
+      bool? hasActiveSubscription,
+      String? followerStatus,
+      bool? enabled,
+      String? followingStatus,}) {
     return User(
+      enabled: enabled ?? this.enabled,
       uniqueId: uniqueId ?? this.uniqueId,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -115,6 +136,10 @@ class User {
       orgStatus: orgStatus ?? this.orgStatus,
       subscription: subscription ?? this.subscription,
       isSuperAdmin: isSuperAdmin ?? this.isSuperAdmin,
+      followerStatus: followerStatus ?? this.followerStatus,
+      followingStatus: followingStatus ?? this.followingStatus,
+      hasActiveSubscription:
+          hasActiveSubscription ?? this.hasActiveSubscription,
     );
   }
 }

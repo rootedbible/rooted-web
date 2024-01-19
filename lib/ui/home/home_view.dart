@@ -82,6 +82,8 @@ class _HomeViewState extends State<HomeView> {
             navTile(index: 2, title: 'Stats', iconData: Icons.query_stats),
           if (user.isSuperAdmin)
             navTile(index: 3, title: 'Feedback', iconData: Icons.comment),
+          if (user.isSuperAdmin)
+            navTile(index: 4, title: 'Users', iconData: Icons.account_circle),
           const Spacer(),
           logoutTile(),
         ],
