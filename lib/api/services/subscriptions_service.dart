@@ -65,8 +65,6 @@ class SubscriptionsService {
 
       final Map<String, dynamic> data = {
         'price_id': priceId,
-        // TODO: Implement discounts
-        // "discount_code": "ROOTED20",
         'plan_id': planId,
         'frequency': frequency,
         'success_url': window.location.href,
@@ -81,6 +79,7 @@ class SubscriptionsService {
       if (dioError.response != null) {
         debugPrint('Status code: ${dioError.response?.statusCode}');
         debugPrint('Data: ${dioError.response?.data}');
+        throw dioError.response!.data['detail'][0]['msg'];
       }
       rethrow;
     } catch (e) {
@@ -104,7 +103,7 @@ class SubscriptionsService {
       }
       rethrow;
     } catch (e) {
-      debugPrint('Error on cancel subcription: $e');
+      debugPrint('Error on cancel subscription: $e');
       rethrow;
     }
   }

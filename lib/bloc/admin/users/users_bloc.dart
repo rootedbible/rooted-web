@@ -33,9 +33,6 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
             users.addAll(newUsers);
             page++;
           }
-          for (User user in users) {
-            print(user.firstName + " " + user.lastName);
-          }
           emit(UsersLoaded(users: users));
         } catch (e) {
           debugPrint('Error getting users: $e');

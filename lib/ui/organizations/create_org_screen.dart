@@ -355,11 +355,22 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
         formTile(
           'Group Username*',
           TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            onChanged: (_) {
+              if (organizationUsernameController.text.trim().contains(' ')) {
+                setState(() {
+                  organizationUsernameController.text
+                      .trim()
+                      .replaceAll(' ', '');
+                });
+              }
+            },
             controller: organizationUsernameController,
             decoration: const InputDecoration(hintText: 'ex: smithFamily'),
             validator: (_) {
-              if (organizationUsernameController.text.trim().length < 4) {
-                'Must be at least 4 Characters';
+              if (organizationUsernameController.text.trim().length < 4 ||
+                  organizationUsernameController.text.trim().length > 32) {
+                return 'Must be between 4-32 Characters';
               }
               return null;
             },
@@ -370,9 +381,18 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
           TextFormField(
             controller: organizationNameController,
             decoration: const InputDecoration(hintText: 'ex: The Smiths'),
+            autovalidateMode: AutovalidateMode.always,
+            onChanged: (_) {
+              if (organizationNameController.text.trim().contains(' ')) {
+                setState(() {
+                  organizationNameController.text.trim().replaceAll(' ', '');
+                });
+              }
+            },
             validator: (_) {
-              if (organizationNameController.text.trim().length < 4) {
-                'Must be at least 4 Characters';
+              if (organizationNameController.text.trim().length < 4 ||
+                  organizationNameController.text.trim().length > 32) {
+                return 'Must be at least 4 Characters';
               }
               return null;
             },
@@ -440,6 +460,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
           'Email*',
           TextFormField(
             controller: emailController,
+            autovalidateMode: AutovalidateMode.always,
             decoration: const InputDecoration(
               hintText: 'Enter email address',
             ),
@@ -619,7 +640,11 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
   // TODO: Move this to the BLoC
   Future<void> submitForm() async {
     if ((currentPlan.type == individualType ||
-            _formKey.currentState?.validate() == true) &&
+            (EmailValidator.validate(emailController.text.trim()) &&
+                !(organizationNameController.text.trim().length < 4 ||
+                    organizationNameController.text.trim().length > 32) &&
+                !(organizationUsernameController.text.trim().length < 4 ||
+                    organizationUsernameController.text.trim().length > 32))) &&
         !loading) {
       setState(() {
         loading = true;
@@ -780,6 +805,9 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
         });
         errorDialog(e.toString(), context);
         debugPrint('Failed to create organization: $e');
+        if (e is Error) {
+          print(e.stackTrace);
+        }
       }
     } else {
       errorDialog('Not all fields were filled out correctly!', context);
