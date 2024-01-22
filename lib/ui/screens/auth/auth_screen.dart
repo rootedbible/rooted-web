@@ -131,6 +131,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 onPressed: () => _handleLogin(state),
               ),
             ),
+            const SizedBox(height: doublePadding),
             Align(
               alignment: Alignment.centerLeft,
               child: TextButton(
@@ -143,8 +144,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: const Text('Forgot Password?'),
               ),
             ),
-            Container(
-              height: 0.5,
+            const Divider(
+              height: 10,
               color: Colors.grey,
             ),
             Padding(
