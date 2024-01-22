@@ -1,12 +1,12 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/ui/widgets/snackbar.dart';
 
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../const.dart';
+import '../../../themes.dart/colors.dart';
 import '../../home/home_view.dart';
+import 'auth_textfield.dart';
 import 'forgot_password_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -30,19 +30,29 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController verifyController = TextEditingController();
 
+  final ScrollController _scrollController = ScrollController();
+
   bool hidePasswords = true;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    emailController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    verifyController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is Registered && type != loginAuth) {
-          type = loginAuth;
-          snackbar(
-            context,
-            'Account Created! Log in with your new credentials...',
-          );
-        } else if (state is Authenticated) {
+        if (state is Authenticated) {
           Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.pushReplacement(
             context,
@@ -51,8 +61,37 @@ class _AuthScreenState extends State<AuthScreen> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          body: type == loginAuth ? _buildLogin(state) : _buildRegister(state),
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              backgroundColor: AppColors.primary,
+              toolbarHeight: 1,
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      color: AppColors.primary,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/images/primary_gold_logo.png',
+                          width: 250,
+                          height: 250,
+                        ),
+                      ),
+                    ),
+                    type == loginAuth
+                        ? _buildLogin(state)
+                        : _buildRegister(state),
+                  ],
+                ),
+              ),
+            ),
+          ),
         );
       },
     );
@@ -61,122 +100,68 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget _buildLogin(AuthState state) {
     return Form(
       key: _loginKey,
-      child: Center(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            width: 350,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'assets/images/main_logo.png',
-                    width: 250,
-                    height: 250,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.trim().length < 4 || value.length > 32) {
-                        return 'Must be at least 4-32 Characters';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    controller: usernameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
-                      hintText: 'Enter Username Here',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.trim().length < 4 || value.length > 32) {
-                        return 'Must be 4-32 Characters';
-                      }
-                      return null;
-                    },
-                    onFieldSubmitted: (_) => _handleLogin(state),
-                    obscureText: true,
-                    textInputAction: TextInputAction.send,
-                    controller: passwordController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Password Here',
-                      labelText: 'Password',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(),
-                          ),
-                        ),
-                        child: const Text('Forgot Password?'),
-                      ),
-                      ElevatedButton(
-                        child: state is Authenticating
-                            ? const SizedBox(
-                                width: 12,
-                                height: 12,
-                                child: CircularProgressIndicator(),
-                              )
-                            : const Text('Login'),
-                        onPressed: () => _handleLogin(state),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('OR'),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      setState(() {
-                        type = registerAuth;
-                      });
-                    },
-                    child: const Text('Create Account'),
-                  ),
-                ),
-              ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AuthTextField(
+              labelText: 'Username',
+              controller: usernameController,
+              submitFunc: () => _handleLogin(state),
             ),
-          ),
+            const SizedBox(height: doublePadding),
+            AuthTextField(
+              labelText: 'Password',
+              controller: passwordController,
+              submitFunc: () => _handleLogin(state),
+              obscureText: true,
+            ),
+            const SizedBox(height: doublePadding),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                child: state is Authenticating
+                    ? const SizedBox(
+                        width: 12,
+                        height: 12,
+                        child: CircularProgressIndicator(),
+                      )
+                    : const Text('Login'),
+                onPressed: () => _handleLogin(state),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ForgotPasswordScreen(),
+                  ),
+                ),
+                child: const Text('Forgot Password?'),
+              ),
+            ),
+            Container(
+              height: 0.5,
+              color: Colors.grey,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      type = registerAuth;
+                    });
+                  },
+                  child: const Text('Create Free Account'),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -195,233 +180,165 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Widget _buildRegister(AuthState state) {
+    final registrationTextFields = <Map<String, dynamic>>[
+      {
+        'labelText': 'Email',
+        'keyboardType': TextInputType.emailAddress,
+        'controller': emailController,
+        'obscureText': false,
+        'isRequired': true,
+        'validationFunc': (value) {
+          if (!EmailValidator.validate(value!)) {
+            return 'Not a valid email!';
+          }
+          return null;
+        },
+      },
+      {
+        'labelText': 'First Name',
+        'keyboardType': TextInputType.text,
+        'controller': firstNameController,
+        'obscureText': false,
+        'isRequired': true,
+      },
+      {
+        'labelText': 'Last Name',
+        'keyboardType': TextInputType.text,
+        'controller': lastNameController,
+        'obscureText': false,
+        'isRequired': true,
+      },
+      {
+        'labelText': 'Username',
+        'keyboardType': TextInputType.text,
+        'controller': usernameController,
+        'obscureText': false,
+        'isRequired': true,
+      },
+      {
+        'labelText': 'Phone Number',
+        'keyboardType': TextInputType.phone,
+        'controller': phoneController,
+        'obscureText': false,
+        'validationFunc': (value) {
+          if (value!.trim().isNotEmpty && value.trim().length != 10) {
+            return 'Please only enter 10 digits';
+          }
+          return null;
+        },
+      },
+      {
+        'labelText': 'Password',
+        'keyboardType': TextInputType.text,
+        'controller': passwordController,
+        'obscureText': true,
+        'isRequired': true,
+        'validationFunc': (value) {
+          if (value!.trim().length < 4 || value.length > 32) {
+            return 'Must be 4-32 Characters';
+          }
+          return null;
+        },
+      },
+      {
+        'labelText': 'Verify Password',
+        'keyboardType': TextInputType.text,
+        'controller': verifyController,
+        'obscureText': true,
+        'isRequired': true,
+        'validationFunc': (value) {
+          if (passwordController.text.trim() != value!.trim()) {
+            return 'Passwords do not Match!';
+          }
+          return null;
+        },
+      }
+    ];
+
     return Form(
       key: _registerKey,
       child: AutofillGroup(
-        child: SingleChildScrollView(
-          child: Center(
-            child: SizedBox(
-              width: 350,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      'assets/images/main_logo.png',
-                      width: 250,
-                      height: 250,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Email*',
-                        hintText: 'Enter your email here',
-                      ),
-                      autofillHints: const [AutofillHints.email],
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (_) {
-                        if (!EmailValidator.validate(
-                          emailController.text,
-                        )) {
-                          return 'Not a valid email!';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      controller: firstNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'First Name*',
-                        hintText: 'Enter your First Name Here',
-                      ),
-                      validator: (_) {
-                        if (firstNameController.text.trim().length < 2 ||
-                            firstNameController.text.length > 32) {
-                          return 'Must be 2-32 Characters';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      controller: lastNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Last Name*',
-                        hintText: 'Enter your Last Name Here',
-                      ),
-                      validator: (_) {
-                        if (lastNameController.text.trim().length < 2 ||
-                            lastNameController.text.length > 32) {
-                          return 'Must be 2-32 Characters';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      controller: usernameController,
-                      validator: (_) {
-                        if (usernameController.text.trim().length < 4 ||
-                            usernameController.text.length > 32) {
-                          return 'Must be at least 4-32 Characters';
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        labelText: 'Username*',
-                        hintText: 'Enter Username Here',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Phone Number',
-                        hintText: '1234567890',
-                      ),
-                      validator: (value) {
-                        if (phoneController.text.trim().isNotEmpty &&
-                            phoneController.text.trim().length != 10) {
-                          return 'Please only enter 10 digits';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      controller: phoneController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r'[0-9]'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      validator: (_) {
-                        if (passwordController.text.trim().length < 4 ||
-                            passwordController.text.length > 32) {
-                          return 'Must be 4-32 Characters';
-                        }
-                        return null;
-                      },
-                      controller: passwordController,
-                      obscureText: hidePasswords,
-                      decoration: InputDecoration(
-                        labelText: 'Password*',
-                        hintText: 'Minimum 8 Characters',
-                        suffixIcon: IconButton(
-                          onPressed: () => setState(() {
-                            hidePasswords = !hidePasswords;
-                          }),
-                          icon: Icon(
-                            hidePasswords
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.send,
-                      onFieldSubmitted: (_) => _handleRegister(state),
-                      validator: (_) {
-                        if (passwordController.text.trim() !=
-                            verifyController.text.trim()) {
-                          return 'Passwords do not Match!';
-                        }
-                        return null;
-                      },
-                      obscureText: hidePasswords,
-                      controller: verifyController,
-                      decoration: InputDecoration(
-                        labelText: 'Verify Password*',
-                        hintText: 'Re-Enter Your Password Here',
-                        suffixIcon: IconButton(
-                          onPressed: () => setState(() {
-                            hidePasswords = !hidePasswords;
-                          }),
-                          icon: Icon(
-                            hidePasswords
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () => _handleRegister(state),
-                        child: state is Authenticating
-                            ? const SizedBox(
-                                width: 12,
-                                height: 12,
-                                child: CircularProgressIndicator(),
-                              )
-                            : const Text('Register'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 0.5,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('OR'),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 0.5,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
+        child: Scrollbar(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
                       onPressed: () => setState(() {
                         type = loginAuth;
                       }),
-                      child: const Text('Login'),
+                      icon: const Icon(Icons.arrow_back),
                     ),
-                  ),
+                    const Text(
+                      'Register',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: doublePadding),
+                ...[
+                  for (final field in registrationTextFields) ...[
+                    AuthTextField(
+                      labelText: field['labelText']!,
+                      keyboardType: field['keyboardType']!,
+                      controller: field['controller']!,
+                      obscureText: field['obscureText']!,
+                      isRequired: field['isRequired'] ?? false,
+                      validationFunc: field['validationFunc'],
+                    ),
+                    const SizedBox(height: doublePadding),
+                  ],
                 ],
-              ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => _handleRegister(state),
+                    child: state is Authenticating
+                        ? const SizedBox(
+                            width: 12,
+                            height: 12,
+                            child: CircularProgressIndicator(),
+                          )
+                        : const Text('Register'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 0.5,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(defaultPadding),
+                        child: Text('OR'),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 0.5,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => setState(() {
+                      type = loginAuth;
+                    }),
+                    child: const Text('Login'),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -437,7 +354,7 @@ class _AuthScreenState extends State<AuthScreen> {
           .replaceAll(')', '')
           .replaceAll('(', '')
           .trim();
-
+      debugPrint(passwordController.text.trim());
       context.read<AuthBloc>().add(
             RegisterRequested(
               email: emailController.text.trim(),

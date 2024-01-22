@@ -1,12 +1,12 @@
 name: rooted_web
 description: "Rooted Web Project"
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.1 <4.0.0'
+  sdk: ">=3.2.1 <4.0.0"
 
 dependencies:
   flutter:
@@ -38,7 +38,6 @@ dependencies:
   js: ^0.6.7
   fl_chart: ^0.66.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -57,7 +56,6 @@ flutter_launcher_icons:
     theme_color: "#475E5E"
 
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -66,6 +64,8 @@ flutter:
     - assets/images/socials/facebook.png
     - assets/images/socials/x.png
     - assets/images/socials/tiktok.png
+    - assets/images/primary_gold_logo.png
+    - assets/images/primary_white_logo.png
 
   fonts:
     - family: WorkSans
