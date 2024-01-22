@@ -78,7 +78,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          'assets/images/primary_gold_logo.png',
+                          'assets/images/primary_white_logo.png',
                           width: 250,
                           height: 250,
                         ),
@@ -101,7 +101,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return Form(
       key: _loginKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -260,7 +260,7 @@ class _AuthScreenState extends State<AuthScreen> {
       child: AutofillGroup(
         child: Scrollbar(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
