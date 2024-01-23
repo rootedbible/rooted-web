@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:rooted_web/bloc/auth/auth_bloc.dart';
 import 'package:rooted_web/const.dart';
 import 'package:rooted_web/ui/admin/reports/reports_screen.dart';
@@ -10,6 +11,7 @@ import 'package:rooted_web/ui/organizations/organizations_screen.dart';
 import 'package:rooted_web/utils/logout.dart';
 
 import '../../models/user_model.dart';
+import '../../themes.dart/colors.dart';
 import '../admin/feedback/feedback_screen.dart';
 
 class HomeView extends StatefulWidget {
@@ -47,7 +49,32 @@ class _HomeViewState extends State<HomeView> {
     ];
     return Scaffold(
       drawer: isMobile ? buildBar() : null,
-      appBar: isMobile ? buildAppBar() : null,
+      appBar: isMobile
+          ? buildAppBar()
+          : AppBar(
+              title: Row(
+                children: [
+                  // show image logo
+                  SvgPicture.asset(
+                    'assets/images/icon_ivory.svg',
+                    colorFilter: const ColorFilter.mode(
+                      AppColors.background,
+                      BlendMode.srcATop,
+                    ),
+                    height: 40,
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Rooted',
+                    style: TextStyle(
+                      fontFamily: 'LibreBaskerville',
+                      color: AppColors.background,
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: AppColors.primary,
+            ),
       body: Row(
         children: [
           if (!isMobile) buildBar(),
