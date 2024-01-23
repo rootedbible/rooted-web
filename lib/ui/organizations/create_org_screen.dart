@@ -806,7 +806,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
         errorDialog(e.toString(), context);
         debugPrint('Failed to create organization: $e');
         if (e is Error) {
-          print(e.stackTrace);
+          debugPrint('${e.stackTrace}');
         }
       }
     } else {
