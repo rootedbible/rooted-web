@@ -1,7 +1,7 @@
 class Subscription {
   final int id;
   final int userId;
-  final String expiration;
+  final String? expiration;
   final bool isActive;
   final bool isCanceled;
   final String? type;
@@ -24,6 +24,13 @@ class Subscription {
       userId: json['user_id'],
       type: json['plan_type'],
     );
+  }
+
+  String? get expirationDateAsString {
+    final dt = DateTime.tryParse(expiration ?? '');
+    if (dt == null) return null;
+
+    return '${dt.month}/${dt.day}/${dt.year}';
   }
 
   Subscription copyWith({
