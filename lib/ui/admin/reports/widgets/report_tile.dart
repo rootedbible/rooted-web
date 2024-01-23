@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rooted_web/api/services/recordings_service.dart';
 import 'package:rooted_web/api/services/users_service.dart';
+import 'package:rooted_web/models/admin/chapter_data.dart';
 import 'package:rooted_web/ui/admin/reports/other_profile_screen.dart';
+import 'package:rooted_web/ui/admin/reports/widgets/audio_list_dialog.dart';
 
 import '../../../../models/admin/report_model.dart';
 
@@ -46,12 +49,20 @@ class _ReportTileState extends State<ReportTile> {
             final user =
                 await UsersService().getUserById(id: report.reportedEntityId);
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => OtherProfileScreen(user),),);
+              context,
+              MaterialPageRoute(
+                builder: (context) => OtherProfileScreen(user),
+              ),
+            );
             break;
           case 'recording':
-            // TODO: List of audio urls
+            final ChapterData chapterData = (await RecordingsService()
+                    .getChapterData(report.reportedEntityId))
+                .chapterData;
+            showDialog(
+                context: context,
+                builder: (context) =>
+                    AudioListDialog(chapterData: chapterData),);
             break;
           case 'organization':
             // TODO: Go to organization screen
