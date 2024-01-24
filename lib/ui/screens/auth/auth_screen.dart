@@ -201,6 +201,13 @@ class _AuthScreenState extends State<AuthScreen> {
         'controller': firstNameController,
         'obscureText': false,
         'isRequired': true,
+        'validationFunc': (value) {
+          if (firstNameController.text.trim().length < 2 ||
+              firstNameController.text.length > 32) {
+            return 'First Name must be 2-32 Characters!';
+          }
+          return null;
+        },
       },
       {
         'labelText': 'Last Name',
@@ -208,6 +215,13 @@ class _AuthScreenState extends State<AuthScreen> {
         'controller': lastNameController,
         'obscureText': false,
         'isRequired': true,
+        'validationFunc': (value) {
+          if (lastNameController.text.trim().length < 2 ||
+              lastNameController.text.length > 32) {
+            return 'Last Name must be 2-32 Characters!';
+          }
+          return null;
+        },
       },
       {
         'labelText': 'Username',
