@@ -18,7 +18,6 @@ class ManageSubscriptionPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateTime = DateTime.parse(subscription.expiration);
     return AlertDialog(
       content: SizedBox(
         width: 350,
@@ -36,7 +35,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Subscription ${subscription.isCanceled ? 'Expires' : subscription.isActive ? "Renews" : "Expired"} ${dateTime.month}/${dateTime.day}/${dateTime.year}",
+                "Subscription ${subscription.isCanceled ? 'Expires' : subscription.isActive ? "Renews" : "Expired"} ${subscription.expirationDateAsString}",
               ),
             ),
             if (!subscription.isActive || subscription.isCanceled)
@@ -79,7 +78,7 @@ class ManageSubscriptionPopup extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Your subscription will remain active until ${dateTime.month}/${dateTime.day}/${dateTime.year}',
+                                    'Your subscription will remain active until ${subscription.expirationDateAsString}',
                                   ),
                                 ),
                                 Padding(

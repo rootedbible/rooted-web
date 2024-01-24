@@ -37,6 +37,7 @@ dependencies:
   syncfusion_flutter_sliders: ^24.1.41
   js: ^0.6.7
   fl_chart: ^0.66.0
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,8 @@ flutter:
     - assets/images/socials/tiktok.png
     - assets/images/primary_gold_logo.png
     - assets/images/primary_white_logo.png
+    - assets/images/logo_ivory.png
+    - assets/images/icon_ivory.svg
 
   fonts:
     - family: WorkSans

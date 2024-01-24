@@ -84,9 +84,14 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
                     ),
-                    type == loginAuth
-                        ? _buildLogin(state)
-                        : _buildRegister(state),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: 500,
+                      ),
+                      child: type == loginAuth
+                          ? _buildLogin(state)
+                          : _buildRegister(state),
+                    ),
                   ],
                 ),
               ),
