@@ -31,6 +31,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
                 .users;
             hasMore = newUsers.length == 20;
             users.addAll(newUsers);
+            print("GOT PAGE: $page");
             page++;
           }
           emit(UsersLoaded(users: users));

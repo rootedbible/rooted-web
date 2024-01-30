@@ -13,7 +13,7 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: UserStatChart(),
+        child: LineChartSample2(),
       ),
     );
   }

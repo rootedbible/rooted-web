@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rooted_web/api/services/comments_service.dart';
+import 'package:rooted_web/api/services/users_service.dart';
 import 'package:rooted_web/models/admin/comment_model.dart';
+import 'package:rooted_web/ui/admin/reports/other_profile_screen.dart';
 import 'package:rooted_web/ui/widgets/snackbar.dart';
+
+import '../../../../models/user_model.dart';
 
 class FeedbackTile extends StatefulWidget {
   final CommentModel commentModel;
@@ -40,6 +44,14 @@ class _FeedbackTileState extends State<FeedbackTile> {
     return archived
         ? const SizedBox.shrink()
         : ListTile(
+            onTap: () async {
+              final User user =
+                  await UsersService().getUserById(id: commentModel.userId);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OtherProfileScreen(user),),);
+            },
             leading: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

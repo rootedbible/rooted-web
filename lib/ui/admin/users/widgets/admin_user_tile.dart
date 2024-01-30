@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rooted_web/api/services/admin_service.dart';
 import 'package:rooted_web/ui/admin/reports/other_profile_screen.dart';
 import 'package:rooted_web/ui/widgets/error_dialog.dart';
+import 'package:rooted_web/ui/widgets/snackbar.dart';
 
 import '../../../../models/user_model.dart';
 
@@ -76,6 +77,8 @@ class _AdminUserTileState extends State<AdminUserTile> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
+              tooltip:
+                  '${user.enabled ? 'Disable' : 'Enable'} @${user.username}',
               onPressed: () => _handleToggleActive(),
               icon: Icon(user.enabled ? Icons.check : Icons.clear),
             ),
@@ -97,7 +100,10 @@ class _AdminUserTileState extends State<AdminUserTile> {
         );
         setState(() {
           user = user.copyWith(enabled: !user.enabled);
+          loading = false;
         });
+        snackbar(context,
+            '${user.username} ${user.enabled ? 'Enabled' : 'Disabled'}!',);
       } catch (e) {
         debugPrint('Error Switching User: $e');
         errorDialog(e.toString(), context);

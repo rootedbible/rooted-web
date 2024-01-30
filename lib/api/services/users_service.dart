@@ -138,7 +138,8 @@ class UsersService {
   }) async {
     try {
       final url = '$baseUrl/$route/search';
-      final response = await dio.get(url, queryParameters: {'query': query});
+      final response =
+          await dio.get(url, queryParameters: {'query': query, 'page': page});
       return UsersResponse.fromJson(response.data);
     } catch (e) {
       debugPrint('Error searching users: $e');

@@ -43,6 +43,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        // home: const TestScreen(),
+        // TODO: READD
         home: const SplashScreen(),
         title: 'Rooted',
         // darkTheme: ThemeData(

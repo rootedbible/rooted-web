@@ -12,11 +12,22 @@ class UsersScreen extends StatefulWidget {
 
 class _UsersScreenState extends State<UsersScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  double scrollPosition = 0.0;
 
   @override
   void initState() {
     _handleSearch();
+    _scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      scrollPosition = _scrollController.position.pixels;
+      _handleSearch();
+    }
   }
 
   @override
@@ -55,6 +66,7 @@ class _UsersScreenState extends State<UsersScreen> {
               ),
               Expanded(
                 child: ListView.builder(
+                  controller: _scrollController,
                   itemCount: context.read<UsersBloc>().users.length,
                   itemBuilder: (context, index) => AdminUserTile(
                     user: context.read<UsersBloc>().users.elementAt(index),
