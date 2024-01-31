@@ -79,7 +79,7 @@ class SubscriptionsService {
       if (dioError.response != null) {
         debugPrint('Status code: ${dioError.response?.statusCode}');
         debugPrint('Data: ${dioError.response?.data}');
-        throw dioError.response!.data['detail'][0]['msg'];
+        throw dioError.response!.data['detail'][0]['msg'] ?? 'Dio Error';
       }
       rethrow;
     } catch (e) {
