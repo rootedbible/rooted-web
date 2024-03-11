@@ -7,7 +7,6 @@ import 'package:rooted_web/const.dart';
 import 'package:rooted_web/ui/admin/reports/reports_screen.dart';
 import 'package:rooted_web/ui/admin/stats/stats_screen.dart';
 import 'package:rooted_web/ui/admin/users/users_screen.dart';
-import 'package:rooted_web/ui/organizations/organizations_screen.dart';
 import 'package:rooted_web/utils/logout.dart';
 
 import '../../models/user_model.dart';

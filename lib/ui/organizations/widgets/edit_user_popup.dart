@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../api/services/organizations_service.dart';
 import '../../../models/user_model.dart';
 import '../../widgets/error_dialog.dart';
 

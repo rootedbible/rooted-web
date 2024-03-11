@@ -2,13 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../api/services/organizations_service.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../models/user_model.dart';
 import '../../admin/reports/other_profile_screen.dart';
 import '../../widgets/error_dialog.dart';
 import '../../widgets/small_wheel.dart';
-import 'other_profile_screen.dart';
 
 class InviteUserTile extends StatefulWidget {
   final User user;

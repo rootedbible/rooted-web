@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:rooted_web/models/subscription_model.dart';
 
 import '../utils/pretty_print.dart';
