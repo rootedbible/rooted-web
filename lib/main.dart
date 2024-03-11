@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (BuildContext context) => AuthBloc()..add(CheckIfSignedIn()),
         ),
-        BlocProvider<OrganizationsBloc>(
-          create: (BuildContext context) => OrganizationsBloc(),
-        ),
+        // BlocProvider<OrganizationsBloc>(
+        //   create: (BuildContext context) => OrganizationsBloc(),
+        // ),
         BlocProvider<FeedbackBloc>(
           create: (BuildContext context) => FeedbackBloc(),
         ),

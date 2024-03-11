@@ -31,12 +31,15 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
                 .users;
             hasMore = newUsers.length == 20;
             users.addAll(newUsers);
-            print("GOT PAGE: $page");
+            print('GOT PAGE: $page');
             page++;
           }
           emit(UsersLoaded(users: users));
         } catch (e) {
           debugPrint('Error getting users: $e');
+          if ( e is Error) {
+            debugPrint("${e.stackTrace}");
+          }
           emit(UsersError(error: e.toString(), users: users));
         }
       }

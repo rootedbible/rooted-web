@@ -35,12 +35,13 @@ class Plan {
   }
 
   static final empty = Plan(
-      type: familyType,
-      id: 0,
-      displayName: 'displayName',
-      annualPrice: 0,
-      maxMembers: 1,
-      monthlyPrice: 0,
-      stripeAnnual: 'stripeAnnual',
-      stripeMonthly: 'stripeMonthly',);
+    type: familyType,
+    id: 0,
+    displayName: 'displayName',
+    annualPrice: 0,
+    maxMembers: 1,
+    monthlyPrice: 0,
+    stripeAnnual: 'stripeAnnual',
+    stripeMonthly: 'stripeMonthly',
+  );
 }

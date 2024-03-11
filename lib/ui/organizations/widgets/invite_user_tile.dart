@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../api/services/organizations_service.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../models/user_model.dart';
+import '../../admin/reports/other_profile_screen.dart';
 import '../../widgets/error_dialog.dart';
 import '../../widgets/small_wheel.dart';
 import 'other_profile_screen.dart';
@@ -87,10 +88,10 @@ class _InviteUserTileState extends State<InviteUserTile> {
       setState(() {
         loading = true;
       });
-      await OrganizationsService().inviteUser(
-        orgId: widget.orgId,
-        userId: user.uniqueId,
-      );
+      // await OrganizationsService().inviteUser(
+      //   orgId: widget.orgId,
+      //   userId: user.uniqueId,
+      // );
       setState(() {
         invited = true;
       });

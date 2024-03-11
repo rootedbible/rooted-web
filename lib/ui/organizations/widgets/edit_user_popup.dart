@@ -53,18 +53,18 @@ class _EditUserPopupState extends State<EditUserPopup> {
           onPressed: () async {
             if (!loading) {
               try {
-                if (_selectedRole == 'remove') {
-                  await OrganizationsService().removeUserFromOrganization(
-                    organizationId: widget.orgId,
-                    userId: widget.user.uniqueId,
-                  );
-                } else {
-                  await OrganizationsService().changeOrganizationUserStatus(
-                    organizationId: widget.orgId,
-                    userId: widget.user.uniqueId,
-                    status: _selectedRole,
-                  );
-                }
+                // if (_selectedRole == 'remove') {
+                //   await OrganizationsService().removeUserFromOrganization(
+                //     organizationId: widget.orgId,
+                //     userId: widget.user.uniqueId,
+                //   );
+                // } else {
+                //   await OrganizationsService().changeOrganizationUserStatus(
+                //     organizationId: widget.orgId,
+                //     userId: widget.user.uniqueId,
+                //     status: _selectedRole,
+                //   );
+                // }
                 Navigator.pop(context, _selectedRole);
                 setState(() {
                   loading = false;

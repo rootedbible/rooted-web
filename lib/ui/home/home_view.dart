@@ -39,9 +39,6 @@ class _HomeViewState extends State<HomeView> {
     final User user = context.read<AuthBloc>().user;
     isMobile = MediaQuery.of(context).size.width <= mobileWidth;
     final List<Widget> screens = [
-      OrganizationsScreen(
-        isMobile: isMobile,
-      ),
       if (user.isSuperAdmin) const ReportsScreen(),
       if (user.isSuperAdmin) const StatsScreen(),
       if (user.isSuperAdmin) const FeedbackScreen(),
@@ -104,15 +101,14 @@ class _HomeViewState extends State<HomeView> {
           ),
           Text('@${user.username}'),
           Text(('${user.firstName} ${user.lastName}').trim()),
-          navTile(index: 0, title: 'Subscriptions', iconData: Icons.groups),
           if (user.isSuperAdmin)
-            navTile(index: 1, title: 'Reports', iconData: Icons.report_sharp),
+            navTile(index: 0, title: 'Reports', iconData: Icons.report_sharp),
           if (user.isSuperAdmin)
-            navTile(index: 2, title: 'Stats', iconData: Icons.query_stats),
+            navTile(index: 1, title: 'Stats', iconData: Icons.query_stats),
           if (user.isSuperAdmin)
-            navTile(index: 3, title: 'Feedback', iconData: Icons.comment),
+            navTile(index: 2, title: 'Feedback', iconData: Icons.comment),
           if (user.isSuperAdmin)
-            navTile(index: 4, title: 'Users', iconData: Icons.account_circle),
+            navTile(index: 3, title: 'Users', iconData: Icons.account_circle),
           const Spacer(),
           logoutTile(),
         ],
