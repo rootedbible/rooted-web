@@ -7,6 +7,7 @@ import 'package:rooted_web/const.dart';
 import 'package:rooted_web/ui/admin/reports/reports_screen.dart';
 import 'package:rooted_web/ui/admin/stats/stats_screen.dart';
 import 'package:rooted_web/ui/admin/users/users_screen.dart';
+import 'package:rooted_web/ui/referrals/referrals_screen.dart';
 import 'package:rooted_web/utils/logout.dart';
 
 import '../../models/user_model.dart';
@@ -42,6 +43,7 @@ class _HomeViewState extends State<HomeView> {
       if (user.isSuperAdmin) const StatsScreen(),
       if (user.isSuperAdmin) const FeedbackScreen(),
       if (user.isSuperAdmin) const UsersScreen(),
+      if (user.isSuperAdmin) const ReferralScreen(),
     ];
     return Scaffold(
       drawer: isMobile ? buildBar() : null,
@@ -108,6 +110,8 @@ class _HomeViewState extends State<HomeView> {
             navTile(index: 2, title: 'Feedback', iconData: Icons.comment),
           if (user.isSuperAdmin)
             navTile(index: 3, title: 'Users', iconData: Icons.account_circle),
+          if (user.isSuperAdmin)
+            navTile(index: 4, title: 'Referrals', iconData: Icons.add_reaction_outlined),
           const Spacer(),
           logoutTile(),
         ],
