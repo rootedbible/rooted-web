@@ -7,13 +7,16 @@ class Referral {
   final String name;
 
   /// The generated revenue associated with the referral.
-  final int generatedRevenue;
+  final double generatedRevenue;
 
   /// The total number of users referred by this referral.
   final int totalUsers;
 
   /// The date and time when the referral was created.
   final String createdAt;
+
+  /// Code for them to use
+  final String code;
 
   /// Constructs a new [Referral] instance.
   ///
@@ -24,6 +27,7 @@ class Referral {
     required this.generatedRevenue,
     required this.totalUsers,
     required this.createdAt,
+    required this.code,
   });
 
   /// Creates a [Referral] instance from a JSON map.
@@ -34,6 +38,7 @@ class Referral {
       generatedRevenue: json['generated_revenue'] ?? 0,
       totalUsers: json['total_users'] ?? 0,
       createdAt: json['created_at'] ?? '',
+      code: json['code'] ?? 'ERROR!',
     );
   }
 
@@ -44,9 +49,10 @@ class Referral {
   Referral copyWith({
     int? id,
     String? name,
-    int? generatedRevenue,
+    double? generatedRevenue,
     int? totalUsers,
     String? createdAt,
+    String? code,
   }) {
     return Referral(
       id: id ?? this.id,
@@ -54,6 +60,7 @@ class Referral {
       generatedRevenue: generatedRevenue ?? this.generatedRevenue,
       totalUsers: totalUsers ?? this.totalUsers,
       createdAt: createdAt ?? this.createdAt,
+      code: code ?? this.code,
     );
   }
 }

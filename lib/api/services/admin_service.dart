@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../const.dart';
 import '../../models/admin/referral_model.dart';
+import '../../utils/string_to_date.dart';
 import '../api.dart';
 
 class AdminService {
@@ -44,15 +45,15 @@ class AdminService {
   Future<void> createReferral({
     required String meta,
     required String? startTime,
-   required String? endTime,
+    required String? endTime,
   }) async {
     try {
       final url = '$baseUrl/$route/referrals';
       final data = {
         'meta': meta,
         'type': 'organization',
-        'start_date': startTime,
-        'end_date': startTime,
+        if (startTime != null) 'start_date': convertStringToDate(startTime),
+        if (endTime != null) 'end_date': convertStringToDate(endTime),
       };
       await dio.post(url, data: data);
     } catch (e) {

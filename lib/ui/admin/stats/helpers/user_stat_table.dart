@@ -194,7 +194,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData(userSpots) {
+  LineChartData mainData( userSpots) {
     return LineChartData(
       gridData: const FlGridData(
         show: false,
