@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rooted_web/bloc/admin/feedback/feedback_bloc.dart';
 import 'package:rooted_web/bloc/admin/reports/reports_bloc.dart';
+import 'package:rooted_web/bloc/admin/stats/stats_bloc.dart';
 import 'package:rooted_web/bloc/admin/users/users_bloc.dart';
 import 'package:rooted_web/ui/screens/auth/splash_screen.dart';
 import 'package:universal_html/html.dart';
@@ -29,9 +30,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (BuildContext context) => AuthBloc()..add(CheckIfSignedIn()),
         ),
-        // BlocProvider<OrganizationsBloc>(
-        //   create: (BuildContext context) => OrganizationsBloc(),
-        // ),
+        BlocProvider<StatsBloc>(
+          create: (BuildContext context) => StatsBloc(),
+        ),
         BlocProvider<FeedbackBloc>(
           create: (BuildContext context) => FeedbackBloc(),
         ),

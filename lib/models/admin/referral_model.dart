@@ -1,3 +1,5 @@
+import 'package:rooted_web/utils/pretty_print.dart';
+
 /// A class representing a referral.
 class Referral {
   /// The unique identifier of the referral.
@@ -32,6 +34,7 @@ class Referral {
 
   /// Creates a [Referral] instance from a JSON map.
   factory Referral.fromJson(Map<String, dynamic> json) {
+    prettyPrintMap(json);
     return Referral(
       id: json['id'] ?? 0,
       name: json['name'] ?? '',

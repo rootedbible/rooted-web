@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rooted_web/ui/admin/stats/helpers/user_stat_table.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -13,7 +12,6 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: LineChartSample2(),
       ),
     );
   }

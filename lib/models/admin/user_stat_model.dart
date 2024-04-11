@@ -1,6 +1,6 @@
 class UserStat {
   final int count;
-  final int year;
+  final String year;
   final int month;
 
   UserStat({
@@ -10,8 +10,9 @@ class UserStat {
   });
 
   factory UserStat.fromJson(Map<String, dynamic> json) {
+    print(json);
     return UserStat(
-      year: json['year'],
+      year: json['year'].toString()[2]+json['year'].toString()[3],
       month: json['month'],
       count: json['count'],
     );

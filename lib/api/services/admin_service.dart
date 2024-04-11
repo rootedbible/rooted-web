@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:rooted_web/api/responses/user_stats_response.dart';
+import 'package:rooted_web/models/admin/user_stat_model.dart';
+import 'package:rooted_web/utils/pretty_print.dart';
 
 import '../../const.dart';
 import '../../models/admin/referral_model.dart';
@@ -58,6 +61,41 @@ class AdminService {
       await dio.post(url, data: data);
     } catch (e) {
       debugPrint('Error creating referral: $e');
+      rethrow;
+    }
+  }
+
+  Future<String> statsTotalMinutes() async {
+    try {
+      final url = '$baseUrl/$route/recordings/total-minutes';
+      final response = await dio.get(url);
+      return (response.data as double).toStringAsFixed(2);
+    } catch (e) {
+      debugPrint('Error Getting statsTotalMinutes: $e ');
+      rethrow;
+    }
+  }
+
+  Future<void> statsSubscriptionCounts() async {
+    try {
+      final url = '$baseUrl/$route/subscriptions/counts';
+      final response = await dio.get(url);
+      print(url);
+      print(response.data);
+      print(prettyPrintMap(response.data));
+    } catch (e) {
+      debugPrint('Error Getting statsSubscriptionCounts: $e ');
+      rethrow;
+    }
+  }
+
+  Future<List<UserStat>> statsUsersTotalPerMonth() async {
+    try {
+      final url = '$baseUrl/$route/users/total-per-month';
+      final response = await dio.get(url);
+      return UserStatsResponse.fromMap(response.data ).userStats;
+    } catch (e) {
+      debugPrint('Error Getting statsUsersTotalPerMonth: $e ');
       rethrow;
     }
   }
