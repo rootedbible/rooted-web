@@ -16,11 +16,11 @@ class RecentRecording {
 
   factory RecentRecording.fromJson(Map<String, dynamic> json) {
     return RecentRecording(
-      id: json['id'],
-      chapter: json['chapter'],
-      book: json['book'],
-      accuracy: json['accuracy'],
-      timestamp: json['timestamp'],
+      id: json["id"],
+      chapter: json["chapter"],
+      book: json["book"],
+      accuracy: json["accuracy"],
+      timestamp: json["timestamp"],
     );
   }
 }

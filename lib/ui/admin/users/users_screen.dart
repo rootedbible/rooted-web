@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/bloc/admin/users/users_bloc.dart';
-import 'package:rooted_web/ui/admin/users/widgets/admin_user_tile.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/bloc/admin/users/users_bloc.dart";
+import "package:rooted_web/ui/admin/users/widgets/admin_user_tile.dart";
+import "package:rooted_web/utils/user_download_service.dart";
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
@@ -38,15 +39,25 @@ class _UsersScreenState extends State<UsersScreen> {
         return Scaffold(
           body: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Users',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Users",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                      ),
+                    ),
                   ),
-                ),
+                  // Download Icon
+                  IconButton(
+                    icon: const Icon(Icons.download),
+                    onPressed: () => UserDownloadService.downloadAllUsers(),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -54,8 +65,8 @@ class _UsersScreenState extends State<UsersScreen> {
                   onChanged: (_) => _handleSearch(),
                   controller: _searchController,
                   decoration: InputDecoration(
-                    labelText: 'Search',
-                    hintText: 'Search Users Here',
+                    labelText: "Search",
+                    hintText: "Search Users Here",
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.clear),

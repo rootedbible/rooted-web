@@ -1,12 +1,12 @@
-import 'package:collection/collection.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/bloc/admin/stats/stats_bloc.dart';
-import 'package:rooted_web/models/admin/stat_point.dart';
+import "package:collection/collection.dart";
+import "package:fl_chart/fl_chart.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/bloc/admin/stats/stats_bloc.dart";
+import "package:rooted_web/models/admin/stat_point.dart";
 
-import '../../../../const.dart';
-import '../../../../models/admin/user_stat_model.dart';
+import "../../../../const.dart";
+import "../../../../models/admin/user_stat_model.dart";
 
 class UserStatChart extends StatelessWidget {
   const UserStatChart({super.key});
@@ -24,7 +24,7 @@ class UserStatChart extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'User Counts By Month',
+            "User Counts By Month",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -71,7 +71,7 @@ class UserStatChart extends StatelessWidget {
                           strokeColor: Theme
                               .of(context)
                               .colorScheme
-                              .background,
+                              .surface,
                         );
                       },
                     ),
@@ -92,8 +92,8 @@ class UserStatChart extends StatelessWidget {
                         final isWholeNumber = value % 1 == 0;
                         return Text(
                           isWholeNumber
-                              ? '${stats[value.toInt()].month}/${stats[value.toInt()].year}'
-                              : '',
+                              ? "${stats[value.toInt()].month}/${stats[value.toInt()].year}"
+                              : "",
                           style: const TextStyle(
                               color: Colors.black, fontSize: 10,),
                         );

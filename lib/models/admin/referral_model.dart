@@ -1,4 +1,4 @@
-import 'package:rooted_web/utils/pretty_print.dart';
+import "package:rooted_web/utils/pretty_print.dart";
 
 /// A class representing a referral.
 class Referral {
@@ -36,12 +36,12 @@ class Referral {
   factory Referral.fromJson(Map<String, dynamic> json) {
     prettyPrintMap(json);
     return Referral(
-      id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      generatedRevenue: json['generated_revenue'] ?? 0,
-      totalUsers: json['total_users'] ?? 0,
-      createdAt: json['created_at'] ?? '',
-      code: json['code'] ?? 'ERROR!',
+      id: json["id"] ?? 0,
+      name: json["name"] ?? "",
+      generatedRevenue: json["generated_revenue"] ?? 0,
+      totalUsers: json["total_users"] ?? 0,
+      createdAt: json["created_at"] ?? "",
+      code: json["code"] ?? "ERROR!",
     );
   }
 

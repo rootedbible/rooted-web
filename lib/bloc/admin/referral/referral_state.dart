@@ -1,4 +1,4 @@
-part of 'referral_bloc.dart';
+part of "referral_bloc.dart";
 
 @immutable
 abstract class ReferralState {}

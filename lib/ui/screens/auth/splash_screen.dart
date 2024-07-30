@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/ui/screens/auth/auth_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/ui/screens/auth/auth_screen.dart";
 
-import '../../../bloc/auth/auth_bloc.dart';
-import '../../home/home_view.dart';
+import "../../../bloc/auth/auth_bloc.dart";
+import "../../home/home_view.dart";
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -27,7 +27,7 @@ class SplashScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
-                  'assets/images/main_logo.png',
+                  "assets/images/main_logo.png",
                   width: 250,
                   height: 250,
                 ),
@@ -35,9 +35,9 @@ class SplashScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  'Rooted',
+                  "Rooted",
                   style: TextStyle(
-                    fontFamily: 'LibreBaskerville',
+                    fontFamily: "LibreBaskerville",
                     fontSize: 24.0,
                   ),
                 ),

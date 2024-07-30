@@ -1,4 +1,4 @@
-import '../../models/user_model.dart';
+import "../../models/user_model.dart";
 
 class UsersResponse {
   final List<User> users;
@@ -10,10 +10,10 @@ class UsersResponse {
   });
 
   factory UsersResponse.fromJson(Map<String, dynamic> json, {String? status}) {
-    List<User> users = [];
-    for (Map<String, dynamic> user in json['users']) {
+    final List<User> users = [];
+    for (final Map<String, dynamic> user in json["users"]) {
       users.add(User.fromJson(user, status: status));
     }
-    return UsersResponse(message: json['message'], users: users);
+    return UsersResponse(message: json["message"], users: users);
   }
 }

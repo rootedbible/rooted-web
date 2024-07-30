@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:rooted_web/api/services/admin_service.dart';
-import 'package:rooted_web/bloc/admin/referral/referral_bloc.dart';
-import 'package:rooted_web/const.dart';
-import 'package:rooted_web/ui/widgets/error_dialog.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:intl/intl.dart";
+import "package:rooted_web/api/services/admin_service.dart";
+import "package:rooted_web/bloc/admin/referral/referral_bloc.dart";
+import "package:rooted_web/const.dart";
+import "package:rooted_web/ui/widgets/error_dialog.dart";
 
 class CreateReferralDialog extends StatefulWidget {
   const CreateReferralDialog({super.key});
@@ -60,7 +60,7 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
             children: [
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text('Create Referral',style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,),),
+                child: Text("Create Referral",style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,),),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -68,13 +68,13 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
                   controller: nameController,
                   validator: (_) {
                     if (nameController.text.trim().isEmpty) {
-                      return 'Can\'t be empty!';
+                      return "Can't be empty!";
                     }
                     return null;
                   },
                   decoration: const InputDecoration(
-                    hintText: 'Ex: Church Name',
-                    labelText: 'Display Name',
+                    hintText: "Ex: Church Name",
+                    labelText: "Display Name",
                   ),
                 ),
               ),
@@ -84,11 +84,11 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
                   controller: startDateController,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.calendar_today),
-                    labelText: 'Date',
+                    labelText: "Date",
                   ),
                   readOnly: true,
                   onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
+                    final DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
@@ -96,8 +96,8 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
                     );
 
                     if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('MM/dd/yyyy').format(pickedDate);
+                      final String formattedDate =
+                          DateFormat("MM/dd/yyyy").format(pickedDate);
                       setState(() {
                         startDateController.text = formattedDate;
                       });
@@ -111,11 +111,11 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
                   controller: endDateController,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.calendar_today),
-                    labelText: 'Date',
+                    labelText: "Date",
                   ),
                   readOnly: true,
                   onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
+                    final DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
@@ -123,8 +123,8 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
                     );
 
                     if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('MM/dd/yyyy').format(pickedDate);
+                      final String formattedDate =
+                          DateFormat("MM/dd/yyyy").format(pickedDate);
                       setState(() {
                         endDateController.text = formattedDate;
                       });
@@ -148,11 +148,11 @@ class _CreateReferralDialogState extends State<CreateReferralDialog> {
                   children: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('Cancel'),
+                      child: const Text("Cancel"),
                     ),
                     TextButton(
                       onPressed: () async => _handleCreate(),
-                      child: const Text('Create'),
+                      child: const Text("Create"),
                     ),
                   ],
                 ),

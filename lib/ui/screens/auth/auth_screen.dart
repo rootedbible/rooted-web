@@ -1,13 +1,13 @@
-import 'package:email_validator/email_validator.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:email_validator/email_validator.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../../bloc/auth/auth_bloc.dart';
-import '../../../const.dart';
-import '../../../themes.dart/colors.dart';
-import '../../home/home_view.dart';
-import 'auth_textfield.dart';
-import 'forgot_password_screen.dart';
+import "../../../bloc/auth/auth_bloc.dart";
+import "../../../const.dart";
+import "../../../themes.dart/colors.dart";
+import "../../home/home_view.dart";
+import "auth_textfield.dart";
+import "forgot_password_screen.dart";
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -78,7 +78,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          'assets/images/primary_white_logo.png',
+                          "assets/images/primary_white_logo.png",
                           width: 250,
                           height: 250,
                         ),
@@ -111,13 +111,13 @@ class _AuthScreenState extends State<AuthScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AuthTextField(
-              labelText: 'Username',
+              labelText: "Username",
               controller: usernameController,
               submitFunc: () => _handleLogin(state),
             ),
             const SizedBox(height: doublePadding),
             AuthTextField(
-              labelText: 'Password',
+              labelText: "Password",
               controller: passwordController,
               submitFunc: () => _handleLogin(state),
               obscureText: true,
@@ -132,7 +132,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         height: 12,
                         child: CircularProgressIndicator(),
                       )
-                    : const Text('Login'),
+                    : const Text("Login"),
                 onPressed: () => _handleLogin(state),
               ),
             ),
@@ -146,7 +146,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     builder: (context) => const ForgotPasswordScreen(),
                   ),
                 ),
-                child: const Text('Forgot Password?'),
+                child: const Text("Forgot Password?"),
               ),
             ),
             const Divider(
@@ -163,7 +163,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       type = registerAuth;
                     });
                   },
-                  child: const Text('Create Free Account'),
+                  child: const Text("Create Free Account"),
                 ),
               ),
             ),
@@ -188,87 +188,87 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget _buildRegister(AuthState state) {
     final registrationTextFields = <Map<String, dynamic>>[
       {
-        'labelText': 'Email',
-        'keyboardType': TextInputType.emailAddress,
-        'controller': emailController,
-        'obscureText': false,
-        'isRequired': true,
-        'validationFunc': (value) {
+        "labelText": "Email",
+        "keyboardType": TextInputType.emailAddress,
+        "controller": emailController,
+        "obscureText": false,
+        "isRequired": true,
+        "validationFunc": (value) {
           if (!EmailValidator.validate(value!)) {
-            return 'Not a valid email!';
+            return "Not a valid email!";
           }
           return null;
         },
       },
       {
-        'labelText': 'First Name',
-        'keyboardType': TextInputType.text,
-        'controller': firstNameController,
-        'obscureText': false,
-        'isRequired': true,
-        'validationFunc': (value) {
+        "labelText": "First Name",
+        "keyboardType": TextInputType.text,
+        "controller": firstNameController,
+        "obscureText": false,
+        "isRequired": true,
+        "validationFunc": (value) {
           if (firstNameController.text.trim().length < 2 ||
               firstNameController.text.length > 32) {
-            return 'First Name must be 2-32 Characters!';
+            return "First Name must be 2-32 Characters!";
           }
           return null;
         },
       },
       {
-        'labelText': 'Last Name',
-        'keyboardType': TextInputType.text,
-        'controller': lastNameController,
-        'obscureText': false,
-        'isRequired': true,
-        'validationFunc': (value) {
+        "labelText": "Last Name",
+        "keyboardType": TextInputType.text,
+        "controller": lastNameController,
+        "obscureText": false,
+        "isRequired": true,
+        "validationFunc": (value) {
           if (lastNameController.text.trim().length < 2 ||
               lastNameController.text.length > 32) {
-            return 'Last Name must be 2-32 Characters!';
+            return "Last Name must be 2-32 Characters!";
           }
           return null;
         },
       },
       {
-        'labelText': 'Username',
-        'keyboardType': TextInputType.text,
-        'controller': usernameController,
-        'obscureText': false,
-        'isRequired': true,
+        "labelText": "Username",
+        "keyboardType": TextInputType.text,
+        "controller": usernameController,
+        "obscureText": false,
+        "isRequired": true,
       },
       {
-        'labelText': 'Phone Number',
-        'keyboardType': TextInputType.phone,
-        'controller': phoneController,
-        'obscureText': false,
-        'validationFunc': (value) {
+        "labelText": "Phone Number",
+        "keyboardType": TextInputType.phone,
+        "controller": phoneController,
+        "obscureText": false,
+        "validationFunc": (value) {
           if (value!.trim().isNotEmpty && value.trim().length != 10) {
-            return 'Please only enter 10 digits';
+            return "Please only enter 10 digits";
           }
           return null;
         },
       },
       {
-        'labelText': 'Password',
-        'keyboardType': TextInputType.text,
-        'controller': passwordController,
-        'obscureText': true,
-        'isRequired': true,
-        'validationFunc': (value) {
+        "labelText": "Password",
+        "keyboardType": TextInputType.text,
+        "controller": passwordController,
+        "obscureText": true,
+        "isRequired": true,
+        "validationFunc": (value) {
           if (value!.trim().length < 4 || value.length > 32) {
-            return 'Must be 4-32 Characters';
+            return "Must be 4-32 Characters";
           }
           return null;
         },
       },
       {
-        'labelText': 'Verify Password',
-        'keyboardType': TextInputType.text,
-        'controller': verifyController,
-        'obscureText': true,
-        'isRequired': true,
-        'validationFunc': (value) {
+        "labelText": "Verify Password",
+        "keyboardType": TextInputType.text,
+        "controller": verifyController,
+        "obscureText": true,
+        "isRequired": true,
+        "validationFunc": (value) {
           if (passwordController.text.trim() != value!.trim()) {
-            return 'Passwords do not Match!';
+            return "Passwords do not Match!";
           }
           return null;
         },
@@ -293,7 +293,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       icon: const Icon(Icons.arrow_back),
                     ),
                     const Text(
-                      'Register',
+                      "Register",
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -303,12 +303,12 @@ class _AuthScreenState extends State<AuthScreen> {
                 ...[
                   for (final field in registrationTextFields) ...[
                     AuthTextField(
-                      labelText: field['labelText']!,
-                      keyboardType: field['keyboardType']!,
-                      controller: field['controller']!,
-                      obscureText: field['obscureText']!,
-                      isRequired: field['isRequired'] ?? false,
-                      validationFunc: field['validationFunc'],
+                      labelText: field["labelText"]!,
+                      keyboardType: field["keyboardType"]!,
+                      controller: field["controller"]!,
+                      obscureText: field["obscureText"]!,
+                      isRequired: field["isRequired"] ?? false,
+                      validationFunc: field["validationFunc"],
                     ),
                     const SizedBox(height: doublePadding),
                   ],
@@ -323,7 +323,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             height: 12,
                             child: CircularProgressIndicator(),
                           )
-                        : const Text('Register'),
+                        : const Text("Register"),
                   ),
                 ),
                 Padding(
@@ -338,7 +338,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       const Padding(
                         padding: EdgeInsets.all(defaultPadding),
-                        child: Text('OR'),
+                        child: Text("OR"),
                       ),
                       Expanded(
                         child: Container(
@@ -355,7 +355,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     onPressed: () => setState(() {
                       type = loginAuth;
                     }),
-                    child: const Text('Login'),
+                    child: const Text("Login"),
                   ),
                 ),
               ],
@@ -369,10 +369,10 @@ class _AuthScreenState extends State<AuthScreen> {
   void _handleRegister(AuthState state) {
     if (_registerKey.currentState!.validate() && state is! Authenticating) {
       final String rawPhone = phoneController.text
-          .replaceAll('+', '')
-          .replaceAll(' ', '')
-          .replaceAll(')', '')
-          .replaceAll('(', '')
+          .replaceAll("+", "")
+          .replaceAll(" ", "")
+          .replaceAll(")", "")
+          .replaceAll("(", "")
           .trim();
       debugPrint(passwordController.text.trim());
       context.read<AuthBloc>().add(

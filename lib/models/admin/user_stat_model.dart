@@ -10,11 +10,10 @@ class UserStat {
   });
 
   factory UserStat.fromJson(Map<String, dynamic> json) {
-    print(json);
     return UserStat(
-      year: json['year'].toString()[2]+json['year'].toString()[3],
-      month: json['month'],
-      count: json['count'],
+      year: json["year"].toString()[2]+json["year"].toString()[3],
+      month: json["month"],
+      count: json["count"],
     );
   }
 }

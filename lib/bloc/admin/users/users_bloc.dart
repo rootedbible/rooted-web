@@ -1,12 +1,12 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
+import "package:bloc/bloc.dart";
+import "package:flutter/cupertino.dart";
 
-import '../../../api/services/users_service.dart';
-import '../../../models/user_model.dart';
+import "../../../api/services/users_service.dart";
+import "../../../models/user_model.dart";
 
-part 'users_event.dart';
+part "users_event.dart";
 
-part 'users_state.dart';
+part "users_state.dart";
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   String? previousQuery;
@@ -35,9 +35,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           }
           emit(UsersLoaded(users: users));
         } catch (e) {
-          debugPrint('Error getting users: $e');
+          debugPrint("Error getting users: $e");
           if ( e is Error) {
-            debugPrint('${e.stackTrace}');
+            debugPrint("${e.stackTrace}");
           }
           emit(UsersError(error: e.toString(), users: users));
         }

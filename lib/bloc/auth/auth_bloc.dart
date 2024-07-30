@@ -1,16 +1,16 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
+import "package:bloc/bloc.dart";
+import "package:flutter/cupertino.dart";
 
-import '../../api/api.dart';
-import '../../api/responses/user_response.dart';
-import '../../api/services/auth_service.dart';
-import '../../api/services/users_service.dart';
-import '../../models/user_model.dart';
-import '../../ui/widgets/error_dialog.dart';
+import "../../api/api.dart";
+import "../../api/responses/user_response.dart";
+import "../../api/services/auth_service.dart";
+import "../../api/services/users_service.dart";
+import "../../models/user_model.dart";
+import "../../ui/widgets/error_dialog.dart";
 
-part 'auth_event.dart';
+part "auth_event.dart";
 
-part 'auth_state.dart';
+part "auth_state.dart";
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final Api api = Api();
@@ -37,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CheckIfSignedIn>((event, emit) async {
       try {
         emit(Authenticating());
-        String? token = await api.storage.read(key: 'token');
+        final String? token = await api.storage.read(key: "token");
         if (token != null) {
           await api.login(token);
           user = await UsersService().getMe();
@@ -63,12 +63,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         emit(Authenticating());
         await UsersService().registerUser({
-          'username': event.username,
-          'password': event.password,
-          'email': event.email,
-          'first_name': event.firstName,
-          'last_name': event.lastName,
-          if (event.phone.trim().isNotEmpty) 'phone': event.phone,
+          "username": event.username,
+          "password": event.password,
+          "email": event.email,
+          "first_name": event.firstName,
+          "last_name": event.lastName,
+          if (event.phone.trim().isNotEmpty) "phone": event.phone,
         });
         add(SignInRequested(
             context: event.context,

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import '../../../../const.dart';
-import '../../../../models/user_model.dart';
+import "package:flutter/material.dart";
+import "../../../../const.dart";
+import "../../../../models/user_model.dart";
 
 class OtherFollowTile extends StatelessWidget {
   const OtherFollowTile({
@@ -41,7 +41,7 @@ class OtherFollowTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '$count ',
+                  "$count ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
@@ -52,7 +52,7 @@ class OtherFollowTile extends StatelessWidget {
                   type,
                   style: TextStyle(
                     fontSize: 18.0,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                 ),
               ],

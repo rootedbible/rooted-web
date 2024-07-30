@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:rooted_web/api/services/comments_service.dart';
-import 'package:rooted_web/api/services/users_service.dart';
-import 'package:rooted_web/models/admin/comment_model.dart';
-import 'package:rooted_web/ui/admin/reports/other_profile_screen.dart';
-import 'package:rooted_web/ui/widgets/snackbar.dart';
+import "package:flutter/material.dart";
+import "package:rooted_web/api/services/comments_service.dart";
+import "package:rooted_web/api/services/users_service.dart";
+import "package:rooted_web/models/admin/comment_model.dart";
+import "package:rooted_web/ui/admin/reports/other_profile_screen.dart";
+import "package:rooted_web/ui/widgets/snackbar.dart";
 
-import '../../../../models/user_model.dart';
+import "../../../../models/user_model.dart";
 
 class FeedbackTile extends StatefulWidget {
   final CommentModel commentModel;
@@ -28,11 +28,11 @@ class _FeedbackTileState extends State<FeedbackTile> {
 
   IconData _getReasonIcon() {
     switch (commentModel.reason) {
-      case 'bug':
+      case "bug":
         return Icons.bug_report;
-      case 'suggestion':
+      case "suggestion":
         return Icons.lightbulb;
-      case 'comment':
+      case "comment":
         return Icons.comment;
       default:
         return Icons.question_mark;
@@ -62,7 +62,7 @@ class _FeedbackTileState extends State<FeedbackTile> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
-                    commentModel.platform.toLowerCase().contains('ios')
+                    commentModel.platform.toLowerCase().contains("ios")
                         ? Icons.apple
                         : Icons.android,
                   ),
@@ -71,7 +71,7 @@ class _FeedbackTileState extends State<FeedbackTile> {
             ),
             title: Text(commentModel.comment),
             trailing: IconButton(
-              tooltip: 'Archive Comment',
+              tooltip: "Archive Comment",
               icon: const Icon(Icons.archive),
               onPressed: () async {
                 try {
@@ -80,9 +80,9 @@ class _FeedbackTileState extends State<FeedbackTile> {
                   setState(() {
                     archived = true;
                   });
-                  snackbar(context, 'Archived!');
+                  snackbar(context, "Archived!");
                 } catch (e) {
-                  snackbar(context, 'Error Archiving: $e');
+                  snackbar(context, "Error Archiving: $e");
                 }
               },
             ),

@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:rooted_web/ui/admin/reports/widgets/other_follow_tile.dart';
-import 'package:rooted_web/ui/admin/reports/widgets/percentage_tree.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:rooted_web/ui/admin/reports/widgets/other_follow_tile.dart";
+import "package:rooted_web/ui/admin/reports/widgets/percentage_tree.dart";
 
-import '../../../const.dart';
-import '../../../models/user_model.dart';
+import "../../../const.dart";
+import "../../../models/user_model.dart";
 
 class OtherProfileScreen extends StatefulWidget {
   final User user;
@@ -35,7 +35,7 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
         ),
         centerTitle: true,
         title: Text(
-          '@${user.username}',
+          "@${user.username}",
         ),
       ),
       body: SafeArea(
@@ -57,7 +57,7 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
                       ),
                     ),
                     Text(
-                      '${user.firstName} ${user.lastName}',
+                      "${user.firstName} ${user.lastName}",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -80,12 +80,12 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
                           children: [
                             OtherFollowTile(
                               user: user,
-                              type: 'following',
+                              type: "following",
                               count: user.followingCount,
                             ),
                             OtherFollowTile(
                               user: user,
-                              type: 'followers',
+                              type: "followers",
                               count: user.followersCount,
                             ),
                           ],
@@ -109,7 +109,7 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
                     ),
                   ),
                   Text(
-                    '${user.percentageRecorded}% RECORDED',
+                    "${user.percentageRecorded}% RECORDED",
                     style: const TextStyle(
                       fontSize: 24.0,
                     ),

@@ -1,4 +1,4 @@
-import 'package:rooted_web/const.dart';
+import "package:rooted_web/const.dart";
 
 class Plan {
   final int id;
@@ -23,25 +23,25 @@ class Plan {
 
   factory Plan.fromJson(Map<String, dynamic> json) {
     return Plan(
-      type: json['type'],
-      id: json['id'],
-      displayName: json['display_name'],
-      annualPrice: json['annual_price'],
-      maxMembers: json['max_members'],
-      monthlyPrice: json['monthly_price'],
-      stripeAnnual: json['price_id_annual'],
-      stripeMonthly: json['price_id_monthly'],
+      type: json["type"],
+      id: json["id"],
+      displayName: json["display_name"],
+      annualPrice: json["annual_price"],
+      maxMembers: json["max_members"],
+      monthlyPrice: json["monthly_price"],
+      stripeAnnual: json["price_id_annual"],
+      stripeMonthly: json["price_id_monthly"],
     );
   }
 
   static final empty = Plan(
     type: familyType,
     id: 0,
-    displayName: 'displayName',
+    displayName: "displayName",
     annualPrice: 0,
     maxMembers: 1,
     monthlyPrice: 0,
-    stripeAnnual: 'stripeAnnual',
-    stripeMonthly: 'stripeMonthly',
+    stripeAnnual: "stripeAnnual",
+    stripeMonthly: "stripeMonthly",
   );
 }

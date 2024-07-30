@@ -19,13 +19,13 @@ class Report {
 
   factory Report.fromJson(Map<String, dynamic> json) {
     return Report(
-      comment: json['comment'],
-      createdAt: json['created_at'],
-      id: json['id'],
-      type: json['type'],
-      handled: json['handled'],
-      reportedEntityId: json['entity_id'],
-      reportingUserId: json['reporting_user_id'],
+      comment: json["comment"],
+      createdAt: json["created_at"],
+      id: json["id"],
+      type: json["type"],
+      handled: json["handled"],
+      reportedEntityId: json["entity_id"],
+      reportingUserId: json["reporting_user_id"],
     );
   }
 }

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/bloc/admin/reports/reports_bloc.dart';
-import 'package:rooted_web/ui/admin/reports/widgets/report_tile.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/bloc/admin/reports/reports_bloc.dart";
+import "package:rooted_web/ui/admin/reports/widgets/report_tile.dart";
 
-import '../../../const.dart';
-import '../../../models/admin/report_model.dart';
+import "../../../const.dart";
+import "../../../models/admin/report_model.dart";
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -33,7 +33,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               const Padding(
                 padding: EdgeInsets.all(doublePadding),
                 child: Text(
-                  'Reports',
+                  "Reports",
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ),

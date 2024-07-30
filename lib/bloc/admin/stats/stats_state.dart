@@ -1,4 +1,4 @@
-part of 'stats_bloc.dart';
+part of "stats_bloc.dart";
 
 @immutable
 sealed class StatsState {}

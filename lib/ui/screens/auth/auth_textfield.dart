@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class AuthTextField extends StatefulWidget {
   const AuthTextField({
@@ -43,7 +43,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
           vertical: 0,
           horizontal: 15,
         ),
-        labelText: widget.labelText + (widget.isRequired ? ' *' : ''),
+        labelText: widget.labelText + (widget.isRequired ? " *" : ""),
         // hintText: 'Enter your email',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -64,7 +64,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       validator: widget.validationFunc == null
           ? (value) {
               if (value!.trim().length < 4 || value.length > 32) {
-                return 'Must be at least 4-32 Characters';
+                return "Must be at least 4-32 Characters";
               }
               return null;
             }

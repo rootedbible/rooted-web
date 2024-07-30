@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 void errorDialog(String error, BuildContext context) {
-  if (error.contains('429')) {
-    error = 'Organization Username Already Taken!';
+  if (error.contains("429")) {
+    error = "Organization Username Already Taken!";
   }
   showDialog(
     context: context,
@@ -16,7 +16,7 @@ void errorDialog(String error, BuildContext context) {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Error!',
+                "Error!",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -32,11 +32,11 @@ void errorDialog(String error, BuildContext context) {
                   TextButton(
                     onPressed: () async =>
                         await Clipboard.setData(ClipboardData(text: error)),
-                    child: const Text('Copy'),
+                    child: const Text("Copy"),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text('Okay'),
+                    child: const Text("Okay"),
                   ),
                 ],
               ),

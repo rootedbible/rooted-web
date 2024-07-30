@@ -1,5 +1,5 @@
 
-import '../const.dart';
+import "../const.dart";
 
 /// Represents a subscription.
 class Subscription {
@@ -54,15 +54,15 @@ class Subscription {
   /// The [json] parameter is a map representing the JSON object.
   factory Subscription.fromJson(Map<String, dynamic> json) {
     return Subscription(
-      id: json['id'],
-      type: json['subscription_type'],
-      maxMembers: json['subscription_type'] == coupleType
+      id: json["id"],
+      type: json["subscription_type"],
+      maxMembers: json["subscription_type"] == coupleType
           ? 2
-          : json['max_members'] ?? 1,
-      isActive: json['is_active'],
-      planId: json['plan_id'],
-      atMax: json['at_max_members'] ?? true,
-      ownerId: json['user_id'],
+          : json["max_members"] ?? 1,
+      isActive: json["is_active"],
+      planId: json["plan_id"],
+      atMax: json["at_max_members"] ?? true,
+      ownerId: json["user_id"],
     );
   }
 }

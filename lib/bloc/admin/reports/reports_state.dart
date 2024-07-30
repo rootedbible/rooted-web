@@ -1,4 +1,4 @@
-part of 'reports_bloc.dart';
+part of "reports_bloc.dart";
 
 @immutable
 abstract class ReportsState {}

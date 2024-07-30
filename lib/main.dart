@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/bloc/admin/feedback/feedback_bloc.dart';
-import 'package:rooted_web/bloc/admin/reports/reports_bloc.dart';
-import 'package:rooted_web/bloc/admin/stats/stats_bloc.dart';
-import 'package:rooted_web/bloc/admin/users/users_bloc.dart';
-import 'package:rooted_web/ui/screens/auth/splash_screen.dart';
-import 'package:universal_html/html.dart';
-import 'bloc/admin/referral/referral_bloc.dart';
-import 'bloc/auth/auth_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/bloc/admin/feedback/feedback_bloc.dart";
+import "package:rooted_web/bloc/admin/reports/reports_bloc.dart";
+import "package:rooted_web/bloc/admin/stats/stats_bloc.dart";
+import "package:rooted_web/bloc/admin/users/users_bloc.dart";
+import "package:rooted_web/ui/screens/auth/splash_screen.dart";
+import "package:universal_html/html.dart";
+import "bloc/admin/referral/referral_bloc.dart";
+import "bloc/auth/auth_bloc.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +19,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (window.location.href.contains('close')) {
+    if (window.location.href.contains("close")) {
       window.close();
     }
     const workSans = TextStyle(
-      fontFamily: 'WorkSans',
+      fontFamily: "WorkSans",
     );
     return MultiBlocProvider(
       providers: [
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         // home: const TestScreen(),
         // TODO: READD
         home: const SplashScreen(),
-        title: 'Rooted',
+        title: "Rooted",
         // darkTheme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(
         //     seedColor: const Color.fromRGBO(1, 68, 74, 1),
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
         // ),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: 'WorkSans',
+          fontFamily: "WorkSans",
           textTheme: TextTheme(
             displayLarge: workSans.copyWith(
               fontSize: 24.0,
@@ -90,7 +90,6 @@ class MyApp extends StatelessWidget {
             primary: const Color(0xFF475E5E),
             secondary: const Color(0xFFC1A45E),
             tertiary: const Color(0xFFDFE6E4),
-            background: const Color(0xFFEFEFEA),
             surface: const Color(0xFFDFE6E4),
           ),
           inputDecorationTheme: const InputDecorationTheme(

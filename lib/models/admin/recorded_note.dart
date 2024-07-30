@@ -9,8 +9,8 @@ class RecordedNote {
 
   factory RecordedNote.fromJson(Map<String, dynamic> json) {
     return RecordedNote(
-      url: json['audio_url'],
-      location: json['location'],
+      url: json["audio_url"],
+      location: json["location"],
     );
   }
 

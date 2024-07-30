@@ -1,6 +1,6 @@
-import 'package:rooted_web/models/subscription_model.dart';
+import "package:rooted_web/models/subscription_model.dart";
 
-import '../utils/pretty_print.dart';
+import "../utils/pretty_print.dart";
 
 /// Represents a user.
 class User {
@@ -127,31 +127,30 @@ class User {
   factory User.fromJson(
     Map<String, dynamic> json, {
     String? status,
-    String? followStatus,
   }) {
     prettyPrintMap(json);
     return User(
-      isSuperAdmin: json['is_super_user'] ?? false,
-      enabled: json['is_active'] ?? true,
-      hasActiveSubscription: json['has_active_subscription'] ?? false,
-      lastName: json['last_name'],
-      firstName: json['first_name'],
-      username: (json['username']).toString().toLowerCase(),
-      phone: json['phone'],
-      email: json['email'],
-      uniqueId: json['id'],
-      isPublic: json['is_public'] ?? false,
-      imageUrl: json['image_url'] ?? 'https://i.imgur.com/jNNT4LE.png',
-      followingStatus: json['following_status'],
-      followerStatus: json['follower_status'],
-      percentageRecorded: json['percentage_recorded'],
-      followersCount: json['total_followers'],
-      followingCount: json['total_following'],
-      orgStatus: status ?? json['status'],
-      recordingStreak: json['current_streak'] ?? 0,
-      postNotifications: json['receive_alerts'] ?? false,
-      subscription: json['subscription'] != null
-          ? Subscription.fromJson(json['subscription'])
+      isSuperAdmin: json["is_super_user"] ?? false,
+      enabled: json["is_active"] ?? true,
+      hasActiveSubscription: json["has_active_subscription"] ?? false,
+      lastName: json["last_name"],
+      firstName: json["first_name"],
+      username: json["username"].toString().toLowerCase(),
+      phone: json["phone"],
+      email: json["email"],
+      uniqueId: json["id"],
+      isPublic: json["is_public"] ?? false,
+      imageUrl: json["image_url"] ?? "https://i.imgur.com/jNNT4LE.png",
+      followingStatus: json["following_status"],
+      followerStatus: json["follower_status"],
+      percentageRecorded: json["percentage_recorded"],
+      followersCount: json["total_followers"],
+      followingCount: json["total_following"],
+      orgStatus: status ?? json["status"],
+      recordingStreak: json["current_streak"] ?? 0,
+      postNotifications: json["receive_alerts"] ?? false,
+      subscription: json["subscription"] != null
+          ? Subscription.fromJson(json["subscription"])
           : null,
     );
   }
@@ -162,20 +161,20 @@ class User {
     isSuperAdmin: false,
     postNotifications: false,
     hasActiveSubscription: false,
-    firstName: 'Rooted',
-    lastName: 'User',
-    username: 'rooted.username',
+    firstName: "Rooted",
+    lastName: "User",
+    username: "rooted.username",
     phone: null,
-    email: 'test@email.com',
+    email: "test@email.com",
     uniqueId: 1,
     isPublic: false,
-    imageUrl: 'https://i.imgur.com/jNNT4LE.png',
+    imageUrl: "https://i.imgur.com/jNNT4LE.png",
     followingStatus: null,
     followerStatus: null,
     percentageRecorded: 0.0,
     followersCount: 0,
     followingCount: 0,
-    orgStatus: 'member',
+    orgStatus: "member",
     recordingStreak: 0,
     subscription: null,
   );

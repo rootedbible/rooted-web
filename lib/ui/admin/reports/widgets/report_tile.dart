@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:rooted_web/api/services/recordings_service.dart';
-import 'package:rooted_web/api/services/users_service.dart';
-import 'package:rooted_web/models/admin/chapter_data.dart';
-import 'package:rooted_web/ui/admin/reports/other_profile_screen.dart';
-import 'package:rooted_web/ui/admin/reports/widgets/audio_list_dialog.dart';
+import "package:flutter/material.dart";
+import "package:rooted_web/api/services/recordings_service.dart";
+import "package:rooted_web/api/services/users_service.dart";
+import "package:rooted_web/models/admin/chapter_data.dart";
+import "package:rooted_web/ui/admin/reports/other_profile_screen.dart";
+import "package:rooted_web/ui/admin/reports/widgets/audio_list_dialog.dart";
 
-import '../../../../models/admin/report_model.dart';
+import "../../../../models/admin/report_model.dart";
 
 class ReportTile extends StatefulWidget {
   final Report report;
@@ -27,11 +27,11 @@ class _ReportTileState extends State<ReportTile> {
 
   IconData _getReasonIcon() {
     switch (report.type) {
-      case 'user':
+      case "user":
         return Icons.account_circle;
-      case 'recording':
+      case "recording":
         return Icons.mic;
-      case 'organization':
+      case "organization":
         return Icons.groups;
       default:
         return Icons.question_mark;
@@ -45,7 +45,7 @@ class _ReportTileState extends State<ReportTile> {
       title: Text(report.comment),
       onTap: () async {
         switch (report.type) {
-          case 'user':
+          case "user":
             final user =
                 await UsersService().getUserById(id: report.reportedEntityId);
             Navigator.push(
@@ -55,7 +55,7 @@ class _ReportTileState extends State<ReportTile> {
               ),
             );
             break;
-          case 'recording':
+          case "recording":
             final ChapterData chapterData = (await RecordingsService()
                     .getChapterData(report.reportedEntityId))
                 .chapterData;
@@ -64,7 +64,7 @@ class _ReportTileState extends State<ReportTile> {
                 builder: (context) =>
                     AudioListDialog(chapterData: chapterData),);
             break;
-          case 'organization':
+          case "organization":
             // TODO: Go to organization screen
             break;
           default:

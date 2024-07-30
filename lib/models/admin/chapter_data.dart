@@ -1,6 +1,6 @@
-import 'package:rooted_web/models/admin/recorded_note.dart';
-import 'package:rooted_web/models/admin/recorded_verse.dart';
-import 'package:rooted_web/utils/pretty_print.dart';
+import "package:rooted_web/models/admin/recorded_note.dart";
+import "package:rooted_web/models/admin/recorded_verse.dart";
+import "package:rooted_web/utils/pretty_print.dart";
 
 class ChapterData {
   final String? book;
@@ -24,25 +24,25 @@ class ChapterData {
   });
 
   factory ChapterData.fromJson(Map<String, dynamic> json) {
-    List<RecordedVerse> recordedVerses = [];
-    List<RecordedNote> recordedNotes = [];
+    final List<RecordedVerse> recordedVerses = [];
+    final List<RecordedNote> recordedNotes = [];
 
-    for (Map<String, dynamic> recordedVerse in json['recorded_verses']) {
+    for (final Map<String, dynamic> recordedVerse in json["recorded_verses"]) {
       recordedVerses.add(RecordedVerse.fromJson(recordedVerse));
     }
-    for (Map<String, dynamic> recordedNote in json['recorded_notes']) {
+    for (final Map<String, dynamic> recordedNote in json["recorded_notes"]) {
       recordedNotes.add(RecordedNote.fromJson(recordedNote));
     }
     prettyPrintMap(json);
     return ChapterData(
-      isOwner: json['is_owner'] ?? true,
-      id: json['id'],
-      audioUrl: json['audio_url'],
+      isOwner: json["is_owner"] ?? true,
+      id: json["id"],
+      audioUrl: json["audio_url"],
       recordedVerses: recordedVerses,
       recordedNotes: recordedNotes,
-      duration: json['duration'] ?? 0.0,
-      number: json['number'],
-      book: json['book'],
+      duration: json["duration"] ?? 0.0,
+      number: json["number"],
+      book: json["book"],
     );
   }
 

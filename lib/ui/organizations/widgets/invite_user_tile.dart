@@ -1,12 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../../bloc/auth/auth_bloc.dart';
-import '../../../models/user_model.dart';
-import '../../admin/reports/other_profile_screen.dart';
-import '../../widgets/error_dialog.dart';
-import '../../widgets/small_wheel.dart';
+import "../../../bloc/auth/auth_bloc.dart";
+import "../../../models/user_model.dart";
+import "../../admin/reports/other_profile_screen.dart";
+import "../../widgets/error_dialog.dart";
+import "../../widgets/small_wheel.dart";
 
 class InviteUserTile extends StatefulWidget {
   final User user;
@@ -52,7 +52,7 @@ class _InviteUserTileState extends State<InviteUserTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${user.firstName} ${user.lastName}',
+            "${user.firstName} ${user.lastName}",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -67,7 +67,7 @@ class _InviteUserTileState extends State<InviteUserTile> {
     );
   }
 
-  void _onUserTileTapped() async {
+  Future<void> _onUserTileTapped() async {
     final updatedUser = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -81,7 +81,7 @@ class _InviteUserTileState extends State<InviteUserTile> {
     }
   }
 
-  void _onInviteButtonPressed() async {
+  Future<void> _onInviteButtonPressed() async {
     try {
       setState(() {
         loading = true;
@@ -105,7 +105,7 @@ class _InviteUserTileState extends State<InviteUserTile> {
     if (loading) {
       return const SmallWheel();
     } else {
-      return Text(invited ? 'Invited' : 'Invite');
+      return Text(invited ? "Invited" : "Invite");
     }
   }
 }

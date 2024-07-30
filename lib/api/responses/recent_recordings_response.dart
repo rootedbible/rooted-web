@@ -1,4 +1,4 @@
-import '../../models/admin/recent_recording_model.dart';
+import "../../models/admin/recent_recording_model.dart";
 
 class RecentRecordingsResponse {
   final List<RecentRecording> recentRecordings;
@@ -6,8 +6,8 @@ class RecentRecordingsResponse {
   RecentRecordingsResponse({required this.recentRecordings});
 
   factory RecentRecordingsResponse.fromJson(List<dynamic> recs) {
-    List<RecentRecording> recentRecordings = [];
-    for (Map<String, dynamic> recentRecording in recs) {
+    final List<RecentRecording> recentRecordings = [];
+    for (final Map<String, dynamic> recentRecording in recs) {
       recentRecordings.add(RecentRecording.fromJson(recentRecording));
     }
     return RecentRecordingsResponse(recentRecordings: recentRecordings);

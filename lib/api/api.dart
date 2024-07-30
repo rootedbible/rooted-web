@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:rooted_web/api/services/auth_service.dart';
+import "package:dio/dio.dart";
+import "package:flutter/cupertino.dart";
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
+import "package:rooted_web/api/services/auth_service.dart";
 
 class Api {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
@@ -22,10 +22,10 @@ class Api {
 
   Future<void> login(String token) async {
     try {
-      await storage.write(key: 'token', value: token);
-      dio.options.headers = {'Authorization': 'Bearer $token'};
+      await storage.write(key: "token", value: token);
+      dio.options.headers = {"Authorization": "Bearer $token"};
     } catch (e) {
-      debugPrint('Error on Singleton Login: $e');
+      debugPrint("Error on Singleton Login: $e");
     }
   }
 
@@ -37,7 +37,7 @@ class Api {
 
   Future<String> getAuthCode() async {
     try {
-      const String key = '2REPVOEwDrVzjVrukS5bjXDqQsySzpvI';
+      const String key = "2REPVOEwDrVzjVrukS5bjXDqQsySzpvI";
       return key;
     } catch (e) {
       rethrow;

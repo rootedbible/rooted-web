@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../../models/user_model.dart';
-import '../../widgets/error_dialog.dart';
+import "../../../models/user_model.dart";
+import "../../widgets/error_dialog.dart";
 
 class EditUserPopup extends StatefulWidget {
   final int orgId;
@@ -19,7 +19,7 @@ class EditUserPopup extends StatefulWidget {
 }
 
 class _EditUserPopupState extends State<EditUserPopup> {
-  String _selectedRole = '';
+  String _selectedRole = "";
   bool loading = false;
 
   @override
@@ -31,14 +31,14 @@ class _EditUserPopupState extends State<EditUserPopup> {
   @override
   Widget build(BuildContext context) {
     final Map<String, String> roleTexts = {
-      'remove':
-          'This will remove ${widget.user.username} from the organization. You will need to re-invite them or accept a request for them to re-join',
-      'member':
-          'This will set ${widget.user.username} as a member, allowing them to record themselves and see other members',
-      'moderator':
-          'This will set ${widget.user.username} as a moderator, giving them the ability to accept or deny join requests',
-      'admin':
-          'This will give ${widget.user.username} admin privileges: removing users and editing their permissions and the organization info',
+      "remove":
+          "This will remove ${widget.user.username} from the organization. You will need to re-invite them or accept a request for them to re-join",
+      "member":
+          "This will set ${widget.user.username} as a member, allowing them to record themselves and see other members",
+      "moderator":
+          "This will set ${widget.user.username} as a moderator, giving them the ability to accept or deny join requests",
+      "admin":
+          "This will give ${widget.user.username} admin privileges: removing users and editing their permissions and the organization info",
     };
 
     return AlertDialog(
@@ -46,7 +46,7 @@ class _EditUserPopupState extends State<EditUserPopup> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text("Cancel"),
         ),
         TextButton(
           onPressed: () async {
@@ -76,7 +76,7 @@ class _EditUserPopupState extends State<EditUserPopup> {
               }
             }
           },
-          child: const Text('Save'),
+          child: const Text("Save"),
         ),
       ],
     );
@@ -90,7 +90,7 @@ class _EditUserPopupState extends State<EditUserPopup> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Edit ${widget.user.username}',
+            "Edit ${widget.user.username}",
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
           ),
         ),
@@ -108,10 +108,10 @@ class _EditUserPopupState extends State<EditUserPopup> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildRoleIconButton('remove', Icons.delete),
-        _buildRoleIconButton('member', Icons.account_circle),
-        _buildRoleIconButton('moderator', Icons.remove_red_eye),
-        _buildRoleIconButton('admin', Icons.admin_panel_settings),
+        _buildRoleIconButton("remove", Icons.delete),
+        _buildRoleIconButton("member", Icons.account_circle),
+        _buildRoleIconButton("moderator", Icons.remove_red_eye),
+        _buildRoleIconButton("admin", Icons.admin_panel_settings),
       ],
     );
   }

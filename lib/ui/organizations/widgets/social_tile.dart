@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:maps_launcher/maps_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import "package:flutter/material.dart";
+import "package:maps_launcher/maps_launcher.dart";
+import "package:url_launcher/url_launcher_string.dart";
 
 class SocialTile extends StatelessWidget {
   final String site;
@@ -10,7 +10,7 @@ class SocialTile extends StatelessWidget {
   const SocialTile({
     required this.site,
     this.username,
-    this.type = 'social',
+    this.type = "social",
     super.key,
   });
 
@@ -24,11 +24,11 @@ class SocialTile extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
-          if (type == 'social') {
-            await launchUrlString('https://$site.com/$username');
-          } else if (type == 'website') {
+          if (type == "social") {
+            await launchUrlString("https://$site.com/$username");
+          } else if (type == "website") {
             await launchUrlString(site);
-          } else if (type == 'location') {
+          } else if (type == "location") {
             await MapsLauncher.launchQuery(site);
           }
         },
@@ -53,14 +53,14 @@ class SocialTile extends StatelessWidget {
                 child: Align(
                   alignment: const Alignment(-0.75, 0),
                   child: ClipRect(
-                    child: type != 'social'
+                    child: type != "social"
                         ? Icon(
-                            type == 'website' ? Icons.link : Icons.location_pin,
+                            type == "website" ? Icons.link : Icons.location_pin,
                             color: Colors.white,
                             size: 128,
                           )
                         : Image.asset(
-                            'assets/images/socials/${site.toLowerCase()}.png',
+                            "assets/images/socials/${site.toLowerCase()}.png",
                             height: 128,
                             width: 128,
                           ),
@@ -75,10 +75,10 @@ class SocialTile extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  type == 'website'
-                      ? 'Website'
-                      : type == 'location'
-                          ? 'Location'
+                  type == "website"
+                      ? "Website"
+                      : type == "location"
+                          ? "Location"
                           : site,
                   style: const TextStyle(
                     fontSize: 24,
@@ -103,13 +103,13 @@ class SocialTile extends StatelessWidget {
 
   List<Color> getColors(String site, BuildContext context) {
     switch (site) {
-      case 'Facebook':
+      case "Facebook":
         return [const Color(0xFF3B5998), const Color(0xFF8b9DC3)];
-      case 'X':
+      case "X":
         return [Colors.black, Colors.white];
-      case 'TikTok':
+      case "TikTok":
         return [const Color(0xFF00f2ea), const Color(0xFFff0050)];
-      case 'Instagram':
+      case "Instagram":
         return [const Color(0xFF405DE6), const Color(0xFFF56040)];
       default:
         return [

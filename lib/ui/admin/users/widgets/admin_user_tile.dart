@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:rooted_web/api/services/admin_service.dart';
-import 'package:rooted_web/ui/admin/reports/other_profile_screen.dart';
-import 'package:rooted_web/ui/widgets/error_dialog.dart';
-import 'package:rooted_web/ui/widgets/snackbar.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:rooted_web/api/services/admin_service.dart";
+import "package:rooted_web/ui/admin/reports/other_profile_screen.dart";
+import "package:rooted_web/ui/widgets/error_dialog.dart";
+import "package:rooted_web/ui/widgets/snackbar.dart";
 
-import '../../../../models/user_model.dart';
+import "../../../../models/user_model.dart";
 
 class AdminUserTile extends StatefulWidget {
   final User user;
@@ -62,7 +62,7 @@ class _AdminUserTileState extends State<AdminUserTile> {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
-            '${user.firstName} ${user.lastName}',
+            "${user.firstName} ${user.lastName}",
           ),
         ],
       ),
@@ -105,7 +105,7 @@ class _AdminUserTileState extends State<AdminUserTile> {
         snackbar(context,
             '${user.username} ${user.enabled ? 'Enabled' : 'Disabled'}!',);
       } catch (e) {
-        debugPrint('Error Switching User: $e');
+        debugPrint("Error Switching User: $e");
         errorDialog(e.toString(), context);
       }
       setState(() {

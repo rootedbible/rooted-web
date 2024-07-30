@@ -11,9 +11,9 @@ class RecordedVerse {
 
   factory RecordedVerse.fromJson(Map<String, dynamic> json) {
     return RecordedVerse(
-      number: json['verse_number'].toDouble(),
-      startTime: json['start_time'],
-      endTime: json['end_time'],
+      number: json["verse_number"].toDouble(),
+      startTime: json["start_time"],
+      endTime: json["end_time"],
     );
   }
 

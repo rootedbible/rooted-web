@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:rooted_web/models/admin/referral_model.dart';
-import 'package:rooted_web/utils/money_format.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import "package:rooted_web/models/admin/referral_model.dart";
+import "package:rooted_web/utils/money_format.dart";
 
-import '../../widgets/snackbar.dart';
+import "../../widgets/snackbar.dart";
 
 class ReferralTile extends StatefulWidget {
   final Referral referral;
@@ -38,7 +38,7 @@ class _ReferralTileState extends State<ReferralTile> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(Icons.group_add),
-              Text(': ${referral.totalUsers}'),
+              Text(": ${referral.totalUsers}"),
             ],
           ),
           Row(
@@ -46,7 +46,7 @@ class _ReferralTileState extends State<ReferralTile> {
             children: [
               const Icon(Icons.attach_money),
               Text(
-                ': \$${referral.generatedRevenue.toMoneyFormat()}',
+                ": \$${referral.generatedRevenue.toMoneyFormat()}",
               ),
             ],
           ),
@@ -58,7 +58,7 @@ class _ReferralTileState extends State<ReferralTile> {
           IconButton(
             onPressed: () async => await Clipboard.setData(
               ClipboardData(text: referral.code),
-            ).then((value) => snackbar(context, 'Copied to clipboard!')),
+            ).then((value) => snackbar(context, "Copied to clipboard!")),
             icon: const Icon(Icons.copy),
           ),
           Text(referral.code),

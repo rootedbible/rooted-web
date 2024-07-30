@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class PercentageTree extends StatelessWidget {
   final double percentage;
@@ -15,9 +15,9 @@ class PercentageTree extends StatelessWidget {
         children: [
           ClipRect(
             clipper: _PercentageClipper(percentage),
-            child: Image.asset('assets/images/gold_filled.png'),
+            child: Image.asset("assets/images/gold_filled.png"),
           ),
-          Image.asset('assets/images/main_logo.png'),
+          Image.asset("assets/images/main_logo.png"),
         ],
       ),
     );

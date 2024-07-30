@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rooted_web/ui/referrals/widgets/create_referral_dialog.dart';
-import 'package:rooted_web/ui/referrals/widgets/referral_tile.dart';
-import 'package:rooted_web/ui/widgets/loading_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/ui/referrals/widgets/create_referral_dialog.dart";
+import "package:rooted_web/ui/referrals/widgets/referral_tile.dart";
+import "package:rooted_web/ui/widgets/loading_screen.dart";
 
-import '../../bloc/admin/referral/referral_bloc.dart';
+import "../../bloc/admin/referral/referral_bloc.dart";
 
 class ReferralScreen extends StatefulWidget {
   const ReferralScreen({super.key});
@@ -49,7 +49,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                       child: const Icon(Icons.refresh),
                     ),
                     const Text(
-                      'Referrals',
+                      "Referrals",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24.0,

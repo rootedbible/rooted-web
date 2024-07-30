@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:rooted_web/models/admin/recorded_note.dart';
-import 'package:rooted_web/ui/widgets/error_dialog.dart';
+import "package:flutter/material.dart";
+import "package:rooted_web/models/admin/recorded_note.dart";
+import "package:rooted_web/ui/widgets/error_dialog.dart";
 
-import '../../../../models/admin/chapter_data.dart';
-import '../../../../models/admin/record_link.dart';
-import 'package:universal_html/html.dart' as html;
+import "../../../../models/admin/chapter_data.dart";
+import "../../../../models/admin/record_link.dart";
+import "package:universal_html/html.dart" as html;
 
 class AudioListDialog extends StatelessWidget {
   final ChapterData chapterData;
@@ -13,17 +13,17 @@ class AudioListDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<RecordLink> recordLinks = [];
+    final List<RecordLink> recordLinks = [];
     recordLinks.add(RecordLink(
         url: chapterData.audioUrl,
-        name: '${chapterData.book} ${chapterData.number}.mp3',
-        type: 'main',),);
-    for (RecordedNote note in chapterData.recordedNotes) {
+        name: "${chapterData.book} ${chapterData.number}.mp3",
+        type: "main",),);
+    for (final RecordedNote note in chapterData.recordedNotes) {
       recordLinks.add(RecordLink(
           url: note.url,
           name:
-              'Note ${chapterData.book} ${chapterData.number} ${note.location}.mp3',
-          type: 'note',),);
+              "Note ${chapterData.book} ${chapterData.number} ${note.location}.mp3",
+          type: "note",),);
     }
     return AlertDialog(
       content: SizedBox(
@@ -37,7 +37,7 @@ class AudioListDialog extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '${chapterData.book} ${chapterData.number} Recordings:',
+                  "${chapterData.book} ${chapterData.number} Recordings:",
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
               ),
@@ -47,7 +47,7 @@ class AudioListDialog extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final RecordLink recordLink = recordLinks[index];
                       return ListTile(
-                        leading: Icon(recordLink.type == 'main'
+                        leading: Icon(recordLink.type == "main"
                             ? Icons.record_voice_over
                             : Icons.notes,),
                         title: Text(recordLink.name),
@@ -64,10 +64,10 @@ class AudioListDialog extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('Done'),),
+                      child: const Text("Done"),),
                   TextButton(
                       onPressed: () async => await _handleDelete(context),
-                      child: const Text('DELETE'),),
+                      child: const Text("DELETE"),),
                 ],
               ),
             ],
@@ -82,7 +82,7 @@ class AudioListDialog extends StatelessWidget {
     final String url = recordLink.url;
 
     html.AnchorElement(href: url)
-      ..setAttribute('download', fileName)
+      ..setAttribute("download", fileName)
       ..click();
   }
 

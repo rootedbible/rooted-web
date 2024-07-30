@@ -19,13 +19,13 @@ class CommentModel {
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {
     return CommentModel(
-      id: json['id'],
-      reason: json['reason'],
-      comment: json['comment'],
-      userId: json['user_id'],
-      createdAt: json['created_at'],
-      isArchived: json['is_archived'],
-      platform: json['platform'],
+      id: json["id"],
+      reason: json["reason"],
+      comment: json["comment"],
+      userId: json["user_id"],
+      createdAt: json["created_at"],
+      isArchived: json["is_archived"],
+      platform: json["platform"],
     );
   }
 }

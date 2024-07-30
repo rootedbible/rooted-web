@@ -1,13 +1,13 @@
 
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:rooted_web/api/services/comments_service.dart';
+import "package:bloc/bloc.dart";
+import "package:flutter/cupertino.dart";
+import "package:rooted_web/api/services/comments_service.dart";
 
-import '../../../models/admin/comment_model.dart';
+import "../../../models/admin/comment_model.dart";
 
-part 'feedback_event.dart';
+part "feedback_event.dart";
 
-part 'feedback_state.dart';
+part "feedback_state.dart";
 
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
 
@@ -20,7 +20,7 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
         comments = (await CommentsService().getComments()).comments;
         emit(FeedbackLoaded());
       } catch (e) {
-        debugPrint('Error getting feedback');
+        debugPrint("Error getting feedback");
         emit(FeedbackError(error: e.toString()));
       }
     });

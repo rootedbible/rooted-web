@@ -1,18 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:rooted_web/bloc/auth/auth_bloc.dart';
-import 'package:rooted_web/const.dart';
-import 'package:rooted_web/ui/admin/reports/reports_screen.dart';
-import 'package:rooted_web/ui/admin/stats/stats_screen.dart';
-import 'package:rooted_web/ui/admin/users/users_screen.dart';
-import 'package:rooted_web/ui/referrals/referrals_screen.dart';
-import 'package:rooted_web/utils/logout.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_svg/svg.dart";
+import "package:rooted_web/bloc/auth/auth_bloc.dart";
+import "package:rooted_web/const.dart";
+import "package:rooted_web/ui/admin/reports/reports_screen.dart";
+import "package:rooted_web/ui/admin/stats/stats_screen.dart";
+import "package:rooted_web/ui/admin/users/users_screen.dart";
+import "package:rooted_web/ui/referrals/referrals_screen.dart";
+import "package:rooted_web/utils/logout.dart";
 
-import '../../models/user_model.dart';
-import '../../themes.dart/colors.dart';
-import '../admin/feedback/feedback_screen.dart';
+import "../../models/user_model.dart";
+import "../../themes.dart/colors.dart";
+import "../admin/feedback/feedback_screen.dart";
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -54,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   // show image logo
                   SvgPicture.asset(
-                    'assets/images/icon_ivory.svg',
+                    "assets/images/icon_ivory.svg",
                     colorFilter: const ColorFilter.mode(
                       AppColors.background,
                       BlendMode.srcATop,
@@ -63,9 +63,9 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   const SizedBox(width: 8),
                   const Text(
-                    'Rooted',
+                    "Rooted",
                     style: TextStyle(
-                      fontFamily: 'LibreBaskerville',
+                      fontFamily: "LibreBaskerville",
                       color: AppColors.background,
                     ),
                   ),
@@ -100,18 +100,18 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          Text('@${user.username}'),
-          Text(('${user.firstName} ${user.lastName}').trim()),
+          Text("@${user.username}"),
+          Text("${user.firstName} ${user.lastName}".trim()),
           if (user.isSuperAdmin)
-            navTile(index: 0, title: 'Reports', iconData: Icons.report_sharp),
+            navTile(index: 0, title: "Reports", iconData: Icons.report_sharp),
           if (user.isSuperAdmin)
-            navTile(index: 1, title: 'Stats', iconData: Icons.query_stats),
+            navTile(index: 1, title: "Stats", iconData: Icons.query_stats),
           if (user.isSuperAdmin)
-            navTile(index: 2, title: 'Feedback', iconData: Icons.comment),
+            navTile(index: 2, title: "Feedback", iconData: Icons.comment),
           if (user.isSuperAdmin)
-            navTile(index: 3, title: 'Users', iconData: Icons.account_circle),
+            navTile(index: 3, title: "Users", iconData: Icons.account_circle),
           if (user.isSuperAdmin)
-            navTile(index: 4, title: 'Referrals', iconData: Icons.add_reaction_outlined),
+            navTile(index: 4, title: "Referrals", iconData: Icons.add_reaction_outlined),
           const Spacer(),
           logoutTile(),
         ],
@@ -122,8 +122,8 @@ class _HomeViewState extends State<HomeView> {
   AppBar buildAppBar() {
     return AppBar(
       title: const Text(
-        'Rooted',
-        style: TextStyle(fontFamily: 'LibreBaskerville'),
+        "Rooted",
+        style: TextStyle(fontFamily: "LibreBaskerville"),
       ),
     );
   }
@@ -161,7 +161,7 @@ class _HomeViewState extends State<HomeView> {
         color: Theme.of(context).colorScheme.error,
       ),
       title: Text(
-        'Logout',
+        "Logout",
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Theme.of(context).colorScheme.error,
             ),

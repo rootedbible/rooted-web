@@ -1,4 +1,4 @@
-import '../../models/user_model.dart';
+import "../../models/user_model.dart";
 
 class UserResponse {
   final User user;
@@ -11,8 +11,8 @@ class UserResponse {
 
   factory UserResponse.fromJson(Map<String, dynamic> json) {
     return UserResponse(
-      user: User.fromJson(json['user']),
-      accessToken: json['access_token'],
+      user: User.fromJson(json["user"]),
+      accessToken: json["access_token"],
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class LoadingScreen extends StatelessWidget {
   final String? text;
@@ -20,7 +20,7 @@ class LoadingScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                text ?? 'Loading...',
+                text ?? "Loading...",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),

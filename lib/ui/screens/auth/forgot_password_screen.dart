@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../../api/services/auth_service.dart';
-import '../../widgets/error_dialog.dart';
+import "../../../api/services/auth_service.dart";
+import "../../widgets/error_dialog.dart";
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -24,7 +24,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: const Text('Reset Your Password'),
+        title: const Text("Reset Your Password"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -50,7 +50,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              'Enter your email or username to receive a password reset code.',
+              "Enter your email or username to receive a password reset code.",
               textAlign: TextAlign.center,
             ),
           ),
@@ -59,8 +59,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: TextFormField(
               controller: userController,
               decoration: const InputDecoration(
-                labelText: 'Username or Email',
-                hintText: 'Enter your Username or Email',
+                labelText: "Username or Email",
+                hintText: "Enter your Username or Email",
               ),
             ),
           ),
@@ -68,7 +68,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () async => await _handleUserSubmit(),
-              child: const Text('Request Reset Code'),
+              child: const Text("Request Reset Code"),
             ),
           ),
         ],
@@ -87,7 +87,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                'Enter the code sent to your email and set your new password.',
+                "Enter the code sent to your email and set your new password.",
                 textAlign: TextAlign.center,
               ),
             ),
@@ -96,12 +96,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: TextFormField(
                 controller: pinController,
                 decoration: const InputDecoration(
-                  labelText: 'Code',
-                  hintText: 'Enter the Received Code',
+                  labelText: "Code",
+                  hintText: "Enter the Received Code",
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter the code sent to your email';
+                    return "Please enter the code sent to your email";
                   }
                   return null;
                 },
@@ -113,14 +113,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  labelText: 'New Password',
-                  hintText: 'Create a New Password',
+                  labelText: "New Password",
+                  hintText: "Create a New Password",
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please create a password';
+                    return "Please create a password";
                   } else if (value.length < 4 || value.length > 32) {
-                    return 'Password must be 4-32 characters long';
+                    return "Password must be 4-32 characters long";
                   }
                   return null;
                 },
@@ -132,12 +132,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 controller: verifyController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  labelText: 'Confirm Password',
-                  hintText: 'Confirm Your New Password',
+                  labelText: "Confirm Password",
+                  hintText: "Confirm Your New Password",
                 ),
                 validator: (value) {
                   if (value != passwordController.text) {
-                    return 'Passwords do not match';
+                    return "Passwords do not match";
                   }
                   return null;
                 },
@@ -147,7 +147,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () async => await _handleReset(),
-                child: const Text('Change Password'),
+                child: const Text("Change Password"),
               ),
             ),
           ],

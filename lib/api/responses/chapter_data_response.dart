@@ -1,4 +1,4 @@
-import '../../models/admin/chapter_data.dart';
+import "../../models/admin/chapter_data.dart";
 
 class ChapterDataResponse {
   final ChapterData chapterData;

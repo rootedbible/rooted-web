@@ -1,14 +1,14 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:rooted_web/api/services/reports_service.dart';
+import "package:bloc/bloc.dart";
+import "package:meta/meta.dart";
+import "package:rooted_web/api/services/reports_service.dart";
 
-part 'reports_event.dart';
+part "reports_event.dart";
 
-part 'reports_state.dart';
+part "reports_state.dart";
 
 class ReportsBloc extends Bloc<ReportsEvent, ReportsState> {
   int page = 0;
-  String previousType = '';
+  String previousType = "";
   List<dynamic> reports = [];
 
   ReportsBloc() : super(ReportsLoading()) {

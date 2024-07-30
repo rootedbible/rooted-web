@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import "package:flutter/widgets.dart";
 
 abstract class AppColors {
   // generate static const vars of colors from the comment above
