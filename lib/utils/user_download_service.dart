@@ -11,21 +11,27 @@ class UserDownloadService {
     try {
       final users = await AdminService().getAllUserContact();
       users.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-      var excel = Excel.createExcel();
+      final excel = Excel.createExcel();
       final Sheet sheetObject = excel["Sheet1"];
       final List<String> headers = [
-        "Username",
+        "Created",
         "Email",
         "Phone",
-        "Created",
+        "Username",
+        "First Name",
+        "Last Name",
+        "Active Subscription",
       ];
       sheetObject.appendRow(headers);
       for (final user in users) {
         final List<String> row = [
-          user.username,
+          DateFormat("MM/dd/yyyy").format(user.createdAt),
           user.email,
           _formatPhone(phone: user.phone),
-          DateFormat("MM/dd/yyyy").format(user.createdAt),
+          user.username,
+          user.firstName,
+          user.lastName,
+          user.activeSubscription ? "Yes" : "No",
         ];
         sheetObject.appendRow(row);
       }

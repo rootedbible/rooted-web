@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:dio/dio.dart";
 import "package:flutter/cupertino.dart";
 import "package:rooted_web/api/responses/user_stats_response.dart";
@@ -71,10 +73,10 @@ class AdminService {
       final data = {
         "meta": meta,
         "type": "organization",
-        if (startTime != null) "start_date": convertStringToDate(startTime),
-        if (endTime != null) "end_date": convertStringToDate(endTime),
+        if (startTime != null) "start_date": convertStringToDate(startTime).toIso8601String(),
+        if (endTime != null) "end_date": convertStringToDate(endTime).toIso8601String(),
       };
-      await dio.post(url, data: data);
+     await dio.post(url, data: json.encode(data));
     } catch (e) {
       debugPrint("Error creating referral: $e");
       rethrow;

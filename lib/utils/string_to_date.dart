@@ -5,5 +5,5 @@ DateTime convertStringToDate(String date) {
     throw const FormatException("The date format is not correct");
   }
   final String reformattedDate = "${parts[2]}-${parts[0]}-${parts[1]}"; // YYYY-MM-DD
-  return DateTime.parse(reformattedDate);
+  return DateTime.parse(reformattedDate).toUtc();
 }
