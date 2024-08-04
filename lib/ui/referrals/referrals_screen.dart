@@ -19,7 +19,9 @@ class _ReferralScreenState extends State<ReferralScreen> {
 
   void _handleShowDialog() {
     showDialog(
-        context: context, builder: (context) => const CreateReferralDialog(),);
+      context: context,
+      builder: (context) => const CreateReferralDialog(),
+    );
   }
 
   void _handleRefresh() {
@@ -90,9 +92,10 @@ class _ReferralScreenState extends State<ReferralScreen> {
                     child: Text(
                       "All",
                       style: TextStyle(
-                          fontWeight: selectedType == "All"
-                              ? FontWeight.bold
-                              : FontWeight.normal,),
+                        fontWeight: selectedType == "All"
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
                     ),
                   ),
                   TextButton(
@@ -104,9 +107,10 @@ class _ReferralScreenState extends State<ReferralScreen> {
                     child: Text(
                       "Organization",
                       style: TextStyle(
-                          fontWeight: selectedType == referralOrgType
-                              ? FontWeight.bold
-                              : FontWeight.normal,),
+                        fontWeight: selectedType == referralOrgType
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
                     ),
                   ),
                   TextButton(
@@ -118,9 +122,10 @@ class _ReferralScreenState extends State<ReferralScreen> {
                     child: Text(
                       "User",
                       style: TextStyle(
-                          fontWeight: selectedType == referralUserType
-                              ? FontWeight.bold
-                              : FontWeight.normal,),
+                        fontWeight: selectedType == referralUserType
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
                     ),
                   ),
                 ],
