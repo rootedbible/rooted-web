@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:gap/gap.dart";
+import "package:rooted_web/const.dart";
 import "package:rooted_web/models/admin/referral_model.dart";
 import "package:rooted_web/utils/money_format.dart";
 
@@ -25,43 +27,71 @@ class _ReferralTileState extends State<ReferralTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.church),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            referral.name,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-          ),
-          Row(
+    return Padding(
+      padding: const EdgeInsets.all(doublePadding),
+      child: Row(children: [
+        Icon(referral.type == referralUserType ? Icons.person : Icons.church),
+        const Gap(doublePadding),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.1,
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.group_add),
-              Text(": ${referral.totalUsers}"),
+              inforRow(
+                  title: "User Count",
+                  value: referral.totalUsers.toString(),
+                  icon: Icons.add_reaction_outlined,),
+              inforRow(
+                  title: "Revenue",
+                  value: referral.totalRevenue.toMoneyFormat(),
+                  icon: Icons.attach_money,),
             ],
           ),
-          Row(
+        ),
+        const Gap(doublePadding),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.2,
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.attach_money),
-              Text(
-                ": \$${referral.generatedRevenue.toMoneyFormat()}",
-              ),
+              inforRow(
+                  title: "Start Date",
+                  value: referral.startDate != null
+                      ? referral.startDate!.toIso8601String()
+                      : "N/A",
+                  icon: Icons.date_range,),
+              inforRow(
+                  title: "End Date",
+                  value: referral.endDate != null
+                      ? referral.endDate!.toIso8601String()
+                      : "N/A",
+                  icon: Icons.date_range,),
             ],
           ),
-        ],
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+        ),
+        const Spacer(),
+        Text(" ${referral.code}"),
+        IconButton(
+          icon: const Icon(Icons.copy),
+          onPressed: () {
+            Clipboard.setData(ClipboardData(text: referral.code));
+            snackbar(context, "Referral code copied to clipboard");
+          },
+        ),
+      ],),
+    );
+  }
+
+  Widget inforRow(
+      {required String title, required String value, required IconData icon,}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
         children: [
-          IconButton(
-            onPressed: () async => await Clipboard.setData(
-              ClipboardData(text: referral.code),
-            ).then((value) => snackbar(context, "Copied to clipboard!")),
-            icon: const Icon(Icons.copy),
-          ),
-          Text(referral.code),
+          Icon(icon),
+          Text(" $title: ",
+              style: const TextStyle(fontWeight: FontWeight.bold),),
+          Text(value),
         ],
       ),
     );

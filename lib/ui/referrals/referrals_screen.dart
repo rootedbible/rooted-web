@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:rooted_web/models/admin/referral_model.dart";
 import "package:rooted_web/ui/referrals/widgets/create_referral_dialog.dart";
 import "package:rooted_web/ui/referrals/widgets/referral_tile.dart";
 import "package:rooted_web/ui/widgets/loading_screen.dart";
@@ -14,8 +15,11 @@ class ReferralScreen extends StatefulWidget {
 }
 
 class _ReferralScreenState extends State<ReferralScreen> {
+  String selectedType = referralOrgType;
+
   void _handleShowDialog() {
-    showDialog(context: context, builder: (context) => const CreateReferralDialog());
+    showDialog(
+        context: context, builder: (context) => const CreateReferralDialog(),);
   }
 
   void _handleRefresh() {
@@ -36,6 +40,18 @@ class _ReferralScreenState extends State<ReferralScreen> {
         if (state is ReferralsLoading) {
           return const LoadingScreen();
         }
+
+        List<Referral> filteredReferrals = [];
+        if (selectedType == "All") {
+          filteredReferrals = context.read<ReferralBloc>().referrals;
+        } else {
+          filteredReferrals = context
+              .read<ReferralBloc>()
+              .referrals
+              .where((referral) => referral.type == selectedType)
+              .toList();
+        }
+
         return Scaffold(
           body: Column(
             children: [
@@ -62,15 +78,59 @@ class _ReferralScreenState extends State<ReferralScreen> {
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        selectedType = "All";
+                      });
+                    },
+                    child: Text(
+                      "All",
+                      style: TextStyle(
+                          fontWeight: selectedType == "All"
+                              ? FontWeight.bold
+                              : FontWeight.normal,),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        selectedType = referralOrgType;
+                      });
+                    },
+                    child: Text(
+                      "Organization",
+                      style: TextStyle(
+                          fontWeight: selectedType == referralOrgType
+                              ? FontWeight.bold
+                              : FontWeight.normal,),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        selectedType = referralUserType;
+                      });
+                    },
+                    child: Text(
+                      "User",
+                      style: TextStyle(
+                          fontWeight: selectedType == referralUserType
+                              ? FontWeight.bold
+                              : FontWeight.normal,),
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: context.read<ReferralBloc>().referrals.length,
+                  itemCount: filteredReferrals.length,
                   itemBuilder: (context, index) {
                     return ReferralTile(
-                      referral: context
-                          .read<ReferralBloc>()
-                          .referrals
-                          .elementAt(index),
+                      referral: filteredReferrals.elementAt(index),
                     );
                   },
                 ),
