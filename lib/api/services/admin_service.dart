@@ -67,16 +67,19 @@ class AdminService {
     required String meta,
     required String? startTime,
     required String? endTime,
+    required String code,
   }) async {
     try {
       final url = "$baseUrl/$route/referrals";
       final data = {
         "meta": meta,
         "type": "organization",
+        "code": code,
         if (startTime != null) "start_date": convertStringToDate(startTime).toIso8601String(),
         if (endTime != null) "end_date": convertStringToDate(endTime).toIso8601String(),
       };
-     await dio.post(url, data: json.encode(data));
+      print("Sending data: $data");
+     await dio.post(url, data: data);
     } catch (e) {
       debugPrint("Error creating referral: $e");
       rethrow;
