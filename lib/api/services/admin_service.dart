@@ -51,7 +51,6 @@ class AdminService {
       final response = await dio.get(url);
       final data = response.data as List<dynamic>;
       final List<Referral> referrals = [];
-      print(response.data);
       for (final Map<String, dynamic> referral in data) {
         referrals.add(Referral.fromJson(referral));
       }

@@ -29,7 +29,7 @@ class Referral {
       id: json["id"],
       meta: json["meta"],
       code: json["code"],
-      type: json['type'] == 'org' ? referralOrgType: json["type"],
+      type: json["type"] == "org" ? referralOrgType: json["type"],
       endDate:
           json["end_date"] != null ? DateTime.parse(json["end_date"]) : null,
       startDate: json["start_date"] != null
