@@ -33,16 +33,20 @@ class _ReferralTileState extends State<ReferralTile> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(referral.type == referralUserType
+            width: MediaQuery.of(context).size.width * 0.1,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  referral.type == referralUserType
                       ? Icons.person
-                      : Icons.church,),
-                  Text(referral.meta),
-                ],
-              ),),
+                      : Icons.church,
+                ),
+                Gap(8),
+                Text(referral.meta),
+              ],
+            ),
+          ),
           const Gap(doublePadding),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.1,
