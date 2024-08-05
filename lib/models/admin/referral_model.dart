@@ -1,5 +1,5 @@
 const String referralUserType = "user";
-const String referralOrgType = "org";
+const String referralOrgType = "organization";
 
 class Referral {
   final int id;
@@ -29,7 +29,7 @@ class Referral {
       id: json["id"],
       meta: json["meta"],
       code: json["code"],
-      type: json["type"],
+      type: json['type'] == 'org' ? referralOrgType: json["type"],
       endDate:
           json["end_date"] != null ? DateTime.parse(json["end_date"]) : null,
       startDate: json["start_date"] != null
