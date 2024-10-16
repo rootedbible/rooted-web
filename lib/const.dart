@@ -1,5 +1,11 @@
-const bool isProd = true;
-const String baseUrl = isProd ? "https://api.myrooted.org" : "";
+import "package:flutter/foundation.dart";
+
+const bool isProd = false;
+const String baseUrl =
+    // isProd || !kDebugMode
+    // ?
+"https://api.myrooted.org";
+    // : "https://rooted-dev-server-cce6a7b6f279.herokuapp.com";
 const String stripeKey = isProd ? "" : "";
 const String loginAuth = "login";
 const String registerAuth = "register";

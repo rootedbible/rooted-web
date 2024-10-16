@@ -136,6 +136,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                   itemBuilder: (context, index) {
                     return ReferralTile(
                       referral: filteredReferrals.elementAt(index),
+                      key: ValueKey(filteredReferrals.elementAt(index).id),
                     );
                   },
                 ),

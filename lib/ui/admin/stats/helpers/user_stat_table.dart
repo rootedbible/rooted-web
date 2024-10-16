@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
@@ -13,9 +15,7 @@ class UserStatChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stats = context
-        .read<StatsBloc>()
-        .userStats;
+    final stats = context.read<StatsBloc>().userStats;
     final List<StatPoint> points = getStatPoints(stats);
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -32,9 +32,13 @@ class UserStatChart extends StatelessWidget {
           padding: const EdgeInsets.all(defaultPadding),
           child: SizedBox(
             height: 300,
-            width: 300,
+            width: 600,
             child: LineChart(
               LineChartData(
+                maxY: (stats.map((stat) => stat.count).reduce(max).toDouble() *
+                        1.5)
+                    .round()
+                    .toDouble(),
                 lineBarsData: [
                   LineChartBarData(
                     isCurved: true,
@@ -49,9 +53,9 @@ class UserStatChart extends StatelessWidget {
                       getDotPainter: (spot, percent, barData, index) {
                         final bool isLoss = index != 0 &&
                             points
-                                .map((point) => FlSpot(point.x, point.y))
-                                .toList()[index - 1]
-                                .y >
+                                    .map((point) => FlSpot(point.x, point.y))
+                                    .toList()[index - 1]
+                                    .y >
                                 points
                                     .map((point) => FlSpot(point.x, point.y))
                                     .toList()[index]
@@ -59,19 +63,12 @@ class UserStatChart extends StatelessWidget {
                         return FlDotCirclePainter(
                           radius: 4,
                           color: isLoss
-                              ? Theme
-                              .of(context)
-                              .colorScheme
-                              .error
-                              : Theme
-                              .of(context)
-                              .colorScheme
-                              .primary, // Conditional color
+                              ? Theme.of(context).colorScheme.error
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .primary, // Conditional color
                           strokeWidth: 1,
-                          strokeColor: Theme
-                              .of(context)
-                              .colorScheme
-                              .surface,
+                          strokeColor: Theme.of(context).colorScheme.surface,
                         );
                       },
                     ),
@@ -80,9 +77,11 @@ class UserStatChart extends StatelessWidget {
                 titlesData: FlTitlesData(
                   // Disable top and right titles
                   topTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),),
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                   rightTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),),
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                   // Customize bottom titles to show whole numbers only
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
@@ -95,7 +94,9 @@ class UserStatChart extends StatelessWidget {
                               ? "${stats[value.toInt()].month}/${stats[value.toInt()].year}"
                               : "",
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 10,),
+                            color: Colors.black,
+                            fontSize: 10,
+                          ),
                         );
                       },
                     ),
@@ -114,8 +115,8 @@ class UserStatChart extends StatelessWidget {
     return stats
         .mapIndexed(
           (index, element) =>
-          StatPoint(x: index.toDouble(), y: element.count.toDouble()),
-    )
+              StatPoint(x: index.toDouble(), y: element.count.toDouble()),
+        )
         .toList();
   }
 }
